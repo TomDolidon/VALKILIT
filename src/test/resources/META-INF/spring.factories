@@ -1,0 +1,3 @@
+org.springframework.test.context.ContextCustomizerFactory = com.valkylit.config.\
+    SqlTestContainersSpringContextCustomizerFactory,com.valkylit.config.\
+    TestContainersSpringContextCustomizerFactory
