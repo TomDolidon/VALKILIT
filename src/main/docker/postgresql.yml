@@ -1,12 +1,12 @@
 # This configuration is intended for development purpose, it's **your** responsibility to harden it for production
-name: valkilit
+name: valkylit
 services:
   postgresql:
     image: postgres:16.4
     # volumes:
-    #   - ~/volumes/jhipster/valkilit/postgresql/:/var/lib/postgresql/data/
+    #   - ~/volumes/jhipster/valkylit/postgresql/:/var/lib/postgresql/data/
     environment:
-      - POSTGRES_USER=valkilit
+      - POSTGRES_USER=valkylit
       - POSTGRES_PASSWORD=
       - POSTGRES_HOST_AUTH_METHOD=trust
     healthcheck:

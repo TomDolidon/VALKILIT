@@ -1,8 +1,8 @@
 {
-  "name": "valkilit",
+  "name": "valkylit",
   "version": "0.0.1-SNAPSHOT",
   "private": true,
-  "description": "Description for Valkilit",
+  "description": "Description for Valkylit",
   "license": "UNLICENSED",
   "type": "commonjs",
   "scripts": {

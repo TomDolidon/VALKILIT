@@ -2,7 +2,7 @@
   "generator-jhipster": {
     "applicationType": "monolith",
     "authenticationType": "jwt",
-    "baseName": "valkilit",
+    "baseName": "valkylit",
     "buildTool": "maven",
     "cacheProvider": "ehcache",
     "clientFramework": "angular",
@@ -27,6 +27,7 @@
     "microfrontend": null,
     "microfrontends": [],
     "nativeLanguage": "fr",
+    "packageFolder": "com/valkylit",
     "packageName": "com.valkylit",
     "prodDatabaseType": "postgresql",
     "reactive": false,

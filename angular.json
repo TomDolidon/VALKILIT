@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "valkilit": {
+    "valkylit": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
@@ -77,15 +77,15 @@
         "serve": {
           "builder": "@angular-builders/custom-webpack:dev-server",
           "options": {
-            "buildTarget": "valkilit:build:development",
+            "buildTarget": "valkylit:build:development",
             "port": 4200
           },
           "configurations": {
             "production": {
-              "buildTarget": "valkilit:build:production"
+              "buildTarget": "valkylit:build:production"
             },
             "development": {
-              "buildTarget": "valkilit:build:development"
+              "buildTarget": "valkylit:build:development"
             }
           },
           "defaultConfiguration": "development"

@@ -15,8 +15,8 @@ import org.springframework.boot.test.context.SpringBootTest;
  */
 @Target(ElementType.TYPE)
 @Retention(RetentionPolicy.RUNTIME)
-@SpringBootTest(classes = { ValkilitApp.class, JacksonConfiguration.class, AsyncSyncConfiguration.class })
 @EmbeddedElasticsearch
+@SpringBootTest(classes = { ValkylitApp.class, JacksonConfiguration.class, AsyncSyncConfiguration.class })
 @EmbeddedSQL
 public @interface IntegrationTest {
 }

@@ -9,7 +9,7 @@ import com.tngtech.archunit.junit.AnalyzeClasses;
 import com.tngtech.archunit.junit.ArchTest;
 import com.tngtech.archunit.lang.ArchRule;
 
-@AnalyzeClasses(packagesOf = ValkilitApp.class, importOptions = DoNotIncludeTests.class)
+@AnalyzeClasses(packagesOf = ValkylitApp.class, importOptions = DoNotIncludeTests.class)
 class TechnicalStructureTest {
 
     // prettier-ignore
@@ -30,7 +30,7 @@ class TechnicalStructureTest {
         .whereLayer("Persistence").mayOnlyBeAccessedByLayers("Service", "Security", "Web", "Config")
         .whereLayer("Domain").mayOnlyBeAccessedByLayers("Persistence", "Service", "Security", "Web", "Config")
 
-        .ignoreDependency(belongToAnyOf(ValkilitApp.class), alwaysTrue())
+        .ignoreDependency(belongToAnyOf(ValkylitApp.class), alwaysTrue())
         .ignoreDependency(alwaysTrue(), belongToAnyOf(
             com.valkylit.config.Constants.class,
             com.valkylit.config.ApplicationProperties.class

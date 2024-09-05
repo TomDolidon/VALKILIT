@@ -1,4 +1,4 @@
-# valkilit
+# valkylit
 
 This application was generated using JHipster 8.7.0, you can find documentation and help at [https://www.jhipster.tech/documentation-archive/v8.7.0](https://www.jhipster.tech/documentation-archive/v8.7.0).
 
@@ -110,7 +110,7 @@ update src/main/webapp/app/app.config.ts
 
 ### Packaging as jar
 
-To build the final jar and optimize the valkilit application for production, run:
+To build the final jar and optimize the valkylit application for production, run:
 
 ```
 ./mvnw -Pprod clean verify

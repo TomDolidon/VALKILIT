@@ -1,15 +1,15 @@
 # This configuration is intended for development purpose, it's **your** responsibility to harden it for production
-name: valkilit
+name: valkylit
 services:
   app:
-    image: valkilit
+    image: valkylit
     environment:
       - _JAVA_OPTIONS=-Xmx512m -Xms256m
       - SPRING_PROFILES_ACTIVE=prod,api-docs
       - MANAGEMENT_PROMETHEUS_METRICS_EXPORT_ENABLED=true
-      - SPRING_DATASOURCE_URL=jdbc:postgresql://postgresql:5432/valkilit
-      - SPRING_LIQUIBASE_URL=jdbc:postgresql://postgresql:5432/valkilit
       - SPRING_ELASTICSEARCH_URIS=http://elasticsearch:9200
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://postgresql:5432/valkylit
+      - SPRING_LIQUIBASE_URL=jdbc:postgresql://postgresql:5432/valkylit
     ports:
       - 127.0.0.1:8080:8080
     healthcheck:
