@@ -7,7 +7,6 @@ services:
       - _JAVA_OPTIONS=-Xmx512m -Xms256m
       - SPRING_PROFILES_ACTIVE=prod,api-docs
       - MANAGEMENT_PROMETHEUS_METRICS_EXPORT_ENABLED=true
-      - SPRING_ELASTICSEARCH_URIS=http://elasticsearch:9200
       - SPRING_DATASOURCE_URL=jdbc:postgresql://postgresql:5432/valkylit
       - SPRING_LIQUIBASE_URL=jdbc:postgresql://postgresql:5432/valkylit
     ports:
@@ -24,13 +23,7 @@ services:
     depends_on:
       postgresql:
         condition: service_healthy
-      elasticsearch:
-        condition: service_healthy
   postgresql:
     extends:
       file: ./postgresql.yml
       service: postgresql
-  elasticsearch:
-    extends:
-      file: ./elasticsearch.yml
-      service: elasticsearch

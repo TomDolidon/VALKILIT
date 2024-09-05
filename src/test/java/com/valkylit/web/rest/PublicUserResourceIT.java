@@ -7,7 +7,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import com.valkylit.IntegrationTest;
 import com.valkylit.domain.User;
 import com.valkylit.repository.UserRepository;
-import com.valkylit.repository.search.UserSearchRepository;
 import com.valkylit.security.AuthoritiesConstants;
 import com.valkylit.service.UserService;
 import java.util.Objects;
@@ -37,14 +36,6 @@ class PublicUserResourceIT {
 
     @Autowired
     private UserService userService;
-
-    /**
-     * This repository is mocked in the com.valkylit.repository.search test package.
-     *
-     * @see com.valkylit.repository.search.UserSearchRepositoryMockConfiguration
-     */
-    @Autowired
-    private UserSearchRepository mockUserSearchRepository;
 
     @Autowired
     private CacheManager cacheManager;
