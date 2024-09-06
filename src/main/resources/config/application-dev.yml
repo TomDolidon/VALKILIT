@@ -20,11 +20,6 @@ logging:
     org.hibernate.SQL: DEBUG
     com.valkylit: DEBUG
 
-management:
-  health:
-    elasticsearch:
-      enabled: false
-
 spring:
   devtools:
     restart:
@@ -37,14 +32,12 @@ spring:
       indent-output: true
   datasource:
     type: com.zaxxer.hikari.HikariDataSource
-    url: jdbc:postgresql://localhost:5432/valkilit
-    username: valkilit
+    url: jdbc:postgresql://localhost:5432/valkylit
+    username: postgres
     password:
     hikari:
       poolName: Hikari
       auto-commit: false
-  elasticsearch:
-    uris: http://localhost:9200
   liquibase:
     # Remove 'faker' if you do not want the sample data to be loaded automatically
     contexts: dev, faker

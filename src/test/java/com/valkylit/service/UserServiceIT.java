@@ -1,15 +1,11 @@
 package com.valkylit.service;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.mockito.Mockito.never;
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import com.valkylit.IntegrationTest;
 import com.valkylit.domain.User;
 import com.valkylit.repository.UserRepository;
-import com.valkylit.repository.search.UserSearchRepository;
 import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
@@ -22,7 +18,6 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.boot.test.mock.mockito.SpyBean;
 import org.springframework.cache.Cache;
 import org.springframework.cache.CacheManager;
 import org.springframework.data.auditing.AuditingHandler;
@@ -57,14 +52,6 @@ class UserServiceIT {
 
     @Autowired
     private UserService userService;
-
-    /**
-     * This repository is mocked in the com.valkylit.repository.search test package.
-     *
-     * @see com.valkylit.repository.search.UserSearchRepositoryMockConfiguration
-     */
-    @SpyBean
-    private UserSearchRepository spiedUserSearchRepository;
 
     @Autowired
     private AuditingHandler auditingHandler;
@@ -200,9 +187,6 @@ class UserServiceIT {
         userService.removeNotActivatedUsers();
         users = userRepository.findAllByActivatedIsFalseAndActivationKeyIsNotNullAndCreatedDateBefore(threeDaysAgo);
         assertThat(users).isEmpty();
-
-        // Verify Elasticsearch mock
-        verify(spiedUserSearchRepository, times(1)).deleteFromIndex(user);
     }
 
     @Test
@@ -220,8 +204,5 @@ class UserServiceIT {
         userService.removeNotActivatedUsers();
         Optional<User> maybeDbUser = userRepository.findById(dbUser.getId());
         assertThat(maybeDbUser).contains(dbUser);
-
-        // Verify Elasticsearch mock
-        verify(spiedUserSearchRepository, never()).deleteFromIndex(user);
     }
 }

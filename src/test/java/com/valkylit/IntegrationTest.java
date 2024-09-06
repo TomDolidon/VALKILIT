@@ -1,7 +1,6 @@
 package com.valkylit;
 
 import com.valkylit.config.AsyncSyncConfiguration;
-import com.valkylit.config.EmbeddedElasticsearch;
 import com.valkylit.config.EmbeddedSQL;
 import com.valkylit.config.JacksonConfiguration;
 import java.lang.annotation.ElementType;
@@ -15,8 +14,7 @@ import org.springframework.boot.test.context.SpringBootTest;
  */
 @Target(ElementType.TYPE)
 @Retention(RetentionPolicy.RUNTIME)
-@SpringBootTest(classes = { ValkilitApp.class, JacksonConfiguration.class, AsyncSyncConfiguration.class })
-@EmbeddedElasticsearch
+@SpringBootTest(classes = { ValkylitApp.class, JacksonConfiguration.class, AsyncSyncConfiguration.class })
 @EmbeddedSQL
 public @interface IntegrationTest {
 }

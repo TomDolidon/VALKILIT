@@ -21,18 +21,18 @@ import tech.jhipster.config.JHipsterConstants;
 
 @SpringBootApplication
 @EnableConfigurationProperties({ LiquibaseProperties.class, ApplicationProperties.class })
-public class ValkilitApp {
+public class ValkylitApp {
 
-    private static final Logger LOG = LoggerFactory.getLogger(ValkilitApp.class);
+    private static final Logger LOG = LoggerFactory.getLogger(ValkylitApp.class);
 
     private final Environment env;
 
-    public ValkilitApp(Environment env) {
+    public ValkylitApp(Environment env) {
         this.env = env;
     }
 
     /**
-     * Initializes valkilit.
+     * Initializes valkylit.
      * <p>
      * Spring profiles can be configured with a program argument --spring.profiles.active=your-active-profile
      * <p>
@@ -65,7 +65,7 @@ public class ValkilitApp {
      * @param args the command line arguments.
      */
     public static void main(String[] args) {
-        SpringApplication app = new SpringApplication(ValkilitApp.class);
+        SpringApplication app = new SpringApplication(ValkylitApp.class);
         DefaultProfileUtil.addDefaultProfile(app);
         Environment env = app.run(args).getEnvironment();
         logApplicationStartup(env);

@@ -27,7 +27,7 @@ module.exports = async (config, options, targetOptions) => {
         extensions: ['ts', 'js', 'html'],
       }),
       new WebpackNotifierPlugin({
-        title: 'Valkilit',
+        title: 'Valkylit',
         contentImage: path.join(__dirname, 'logo-jhipster.png'),
         skipFirstNotification: true, // do not notify for the first build
         alwaysNotify: false, // disable notifications

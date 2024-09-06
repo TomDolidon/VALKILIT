@@ -1,11 +1,11 @@
 <div>
   <h2 id="page-heading" data-cy="AuthorityHeading">
-    <span jhiTranslate="valkilitApp.adminAuthority.home.title">Authorities</span>
+    <span jhiTranslate="valkylitApp.adminAuthority.home.title">Authorities</span>
 
     <div class="d-flex justify-content-end">
       <button class="btn btn-info me-2" (click)="load()" [disabled]="isLoading">
         <fa-icon icon="sync" [animation]="isLoading ? 'spin' : undefined"></fa-icon>
-        <span jhiTranslate="valkilitApp.adminAuthority.home.refreshListLabel">Actualiser la liste</span>
+        <span jhiTranslate="valkylitApp.adminAuthority.home.refreshListLabel">Actualiser la liste</span>
       </button>
 
       <button
@@ -15,7 +15,7 @@
         [routerLink]="['/authority/new']"
       >
         <fa-icon icon="plus"></fa-icon>
-        <span jhiTranslate="valkilitApp.adminAuthority.home.createLabel">Créer un nouveau Authority</span>
+        <span jhiTranslate="valkylitApp.adminAuthority.home.createLabel">Créer un nouveau Authority</span>
       </button>
     </div>
   </h2>
@@ -26,7 +26,7 @@
 
   @if (authorities?.length === 0) {
     <div class="alert alert-warning" id="no-result">
-      <span jhiTranslate="valkilitApp.adminAuthority.home.notFound">Aucun Authority trouvé</span>
+      <span jhiTranslate="valkylitApp.adminAuthority.home.notFound">Aucun Authority trouvé</span>
     </div>
   }
 
@@ -37,7 +37,7 @@
           <tr jhiSort [sortState]="sortState" (sortChange)="navigateToWithComponentValues($event)">
             <th scope="col" jhiSortBy="name">
               <div class="d-flex">
-                <span jhiTranslate="valkilitApp.adminAuthority.name">Name</span>
+                <span jhiTranslate="valkylitApp.adminAuthority.name">Name</span>
 
                 <fa-icon class="p-1" icon="sort"></fa-icon>
               </div>
