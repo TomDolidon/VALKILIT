@@ -1,0 +1,26 @@
+{
+  "valkylitApp": {
+    "award": {
+      "home": {
+        "title": "Awards",
+        "refreshListLabel": "Actualiser la liste",
+        "createLabel": "Créer un nouveau Award",
+        "createOrEditLabel": "Créer ou éditer un Award",
+        "notFound": "Aucun Award trouvé"
+      },
+      "created": "Un nouveau Award a été créé avec l'identifiant {{ param }}",
+      "updated": "Le Award avec l'identifiant {{ param }} a été mis à jour",
+      "deleted": "Le Award avec l'identifiant {{ param }} a été supprimé",
+      "delete": {
+        "question": "Êtes-vous certain de vouloir supprimer le Award {{ id }} ?"
+      },
+      "detail": {
+        "title": "Award"
+      },
+      "id": "Id",
+      "name": "Name",
+      "description": "Description",
+      "awardBook": "Award Book"
+    }
+  }
+}

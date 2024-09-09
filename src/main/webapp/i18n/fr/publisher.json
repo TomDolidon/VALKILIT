@@ -1,0 +1,26 @@
+{
+  "valkylitApp": {
+    "publisher": {
+      "home": {
+        "title": "Publishers",
+        "refreshListLabel": "Actualiser la liste",
+        "createLabel": "Créer un nouveau Publisher",
+        "createOrEditLabel": "Créer ou éditer un Publisher",
+        "notFound": "Aucun Publisher trouvé"
+      },
+      "created": "Un nouveau Publisher a été créé avec l'identifiant {{ param }}",
+      "updated": "Le Publisher avec l'identifiant {{ param }} a été mis à jour",
+      "deleted": "Le Publisher avec l'identifiant {{ param }} a été supprimé",
+      "delete": {
+        "question": "Êtes-vous certain de vouloir supprimer le Publisher {{ id }} ?"
+      },
+      "detail": {
+        "title": "Publisher"
+      },
+      "id": "Id",
+      "name": "Name",
+      "description": "Description",
+      "book": "Book"
+    }
+  }
+}

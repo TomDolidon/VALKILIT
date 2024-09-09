@@ -1,0 +1,160 @@
+application {
+  config {
+    applicationType monolith
+    authenticationType jwt
+    baseName valkylit
+    buildTool maven
+    cacheProvider ehcache
+    clientFramework angular
+    clientTheme zephyr
+    clientThemeVariant light
+    creationTimestamp 1725535680432
+    databaseType sql
+    devDatabaseType postgresql
+    enableHibernateCache true
+    enableSwaggerCodegen false
+    enableTranslation true
+    jhipsterVersion "8.7.0"
+    jwtSecretKey "NjQ1NmY0MjAzNjM1OTgzNTQwNjQ2ZWJiNWUzM2MwNTU3N2UwNWJjY2M4NmFjYTM0NTc3NmQ1NjA5NTg1MjgyMGYwMzlkMWMzMTZhNzY5OGUyODRjMTY5Yzc0N2FmY2MxNGIyZmJmYmQzYWRjZGRhOGQzN2YxM2NjZTU1MzFiYzg="
+    languages [fr, en]
+    messageBroker false
+    microfrontends []
+    nativeLanguage fr
+    packageName com.valkylit
+    prodDatabaseType postgresql
+    reactive false
+    serviceDiscoveryType false
+    testFrameworks [gatling, cypress]
+    websocket false
+    withAdminUi true
+  }
+
+  entities *
+}
+
+entity Client {
+  id UUID
+  birthdate LocalDate
+}
+
+entity PurchaseCommand {
+  id UUID
+  expeditionDate LocalDate
+  status PurchaseCommandStatus required
+}
+
+entity PurchaseCommandLine {
+  id UUID
+  quantity Integer required
+  unitPrice Float required
+}
+
+entity Book {
+  id UUID
+  title String required
+  subtitle String
+  imageUri String
+  price Float required
+  isbn String
+  format BookFormat required
+  stock Integer required
+  description TextBlob
+  pageCount Integer
+  language Language required
+  publishDate LocalDate required
+
+}
+
+entity Address {
+  id UUID
+  street String required
+  postalCode Integer required
+  city String required
+  country String required
+}
+
+entity Author {
+  id UUID
+  name String required
+  description TextBlob
+}
+
+entity Publisher {
+  id UUID
+  name String required
+  description TextBlob
+}
+
+entity Award {
+  id UUID
+  name String required
+  description TextBlob
+}
+
+entity AwardBook {
+  year LocalDate required
+}
+
+entity BookCategory {
+  id UUID
+  name String required
+  description TextBlob
+}
+
+entity Review {
+  id UUID
+  rating Integer required
+  comment TextBlob
+}
+
+
+enum PurchaseCommandStatus{
+    DRAFT,        // Brouillon
+    ORDERED,                // Commandé
+    PREPARING,              // Préparation de la commande
+    SHIPPED,                // En cours de livraison
+    DELIVERED,              // Livré
+    CANCELLED,              // Commande annulée
+    RETURN_REQUESTED,       // Demande de retour
+    RETURNED,               // Produit retourné
+    REFUNDED,               // Remboursement effectué
+    FAILED_PAYMENT          // Échec du paiement
+}
+
+enum BookFormat {
+  POCKET,  // Poche
+  PAPERBACK, // Broché 
+  HARDCOVER // Relié 
+}
+
+enum Language {
+  FR,
+  EN
+}
+
+relationship ManyToOne {
+  Client{address(street)} to Address,
+  PurchaseCommandLine{book(title)} to Book,
+  Book{publisher(name)} to Publisher{book(title)}
+  PurchaseCommand{deliveryAddress(street)} to Address
+}
+
+relationship OneToMany {
+  PurchaseCommand{purchaseCommandLine} to PurchaseCommandLine,
+  Book{awardBook} to AwardBook{book(title)},
+  Award{awardBook} to AwardBook{award(name)},
+  Client{review(comment)} to Review,
+  Book{reviews} to Review,
+  Client{purchaseCommand} to PurchaseCommand
+}
+
+relationship ManyToMany {
+  Book{category(name)} to BookCategory{book},
+  Book{author(name)} to Author{book(title)},
+}
+
+relationship OneToOne {
+  Client{internalUser(login)} to User with builtInEntity,
+}
+
+paginate Book with pagination

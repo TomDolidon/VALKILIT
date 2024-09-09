@@ -1,0 +1,104 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    @if (book(); as bookRef) {
+      <div>
+        <h2 data-cy="bookDetailsHeading"><span jhiTranslate="valkylitApp.book.detail.title">Book</span></h2>
+
+        <hr />
+
+        <jhi-alert-error></jhi-alert-error>
+
+        <jhi-alert></jhi-alert>
+
+        <dl class="row-md jh-entity-details">
+          <dt><span jhiTranslate="valkylitApp.book.id">Id</span></dt>
+          <dd>
+            <span>{{ bookRef.id }}</span>
+          </dd>
+          <dt><span jhiTranslate="valkylitApp.book.title">Title</span></dt>
+          <dd>
+            <span>{{ bookRef.title }}</span>
+          </dd>
+          <dt><span jhiTranslate="valkylitApp.book.subtitle">Subtitle</span></dt>
+          <dd>
+            <span>{{ bookRef.subtitle }}</span>
+          </dd>
+          <dt><span jhiTranslate="valkylitApp.book.imageUri">Image Uri</span></dt>
+          <dd>
+            <span>{{ bookRef.imageUri }}</span>
+          </dd>
+          <dt><span jhiTranslate="valkylitApp.book.price">Price</span></dt>
+          <dd>
+            <span>{{ bookRef.price }}</span>
+          </dd>
+          <dt><span jhiTranslate="valkylitApp.book.isbn">Isbn</span></dt>
+          <dd>
+            <span>{{ bookRef.isbn }}</span>
+          </dd>
+          <dt><span jhiTranslate="valkylitApp.book.format">Format</span></dt>
+          <dd>
+            <span [jhiTranslate]="'valkylitApp.BookFormat.' + (bookRef.format ?? 'null')">{{
+              { null: '', POCKET: 'POCKET', PAPERBACK: 'PAPERBACK', HARDCOVER: 'HARDCOVER' }[bookRef.format ?? 'null']
+            }}</span>
+          </dd>
+          <dt><span jhiTranslate="valkylitApp.book.stock">Stock</span></dt>
+          <dd>
+            <span>{{ bookRef.stock }}</span>
+          </dd>
+          <dt><span jhiTranslate="valkylitApp.book.description">Description</span></dt>
+          <dd>
+            <span>{{ bookRef.description }}</span>
+          </dd>
+          <dt><span jhiTranslate="valkylitApp.book.pageCount">Page Count</span></dt>
+          <dd>
+            <span>{{ bookRef.pageCount }}</span>
+          </dd>
+          <dt><span jhiTranslate="valkylitApp.book.language">Language</span></dt>
+          <dd>
+            <span [jhiTranslate]="'valkylitApp.Language.' + (bookRef.language ?? 'null')">{{
+              { null: '', FR: 'FR', EN: 'EN' }[bookRef.language ?? 'null']
+            }}</span>
+          </dd>
+          <dt><span jhiTranslate="valkylitApp.book.publishDate">Publish Date</span></dt>
+          <dd>
+            <span>{{ bookRef.publishDate | formatMediumDate }}</span>
+          </dd>
+          <dt><span jhiTranslate="valkylitApp.book.publisher">Publisher</span></dt>
+          <dd>
+            @if (book()!.publisher) {
+              <div>
+                <a [routerLink]="['/publisher', book()!.publisher?.id, 'view']">{{ bookRef.publisher?.name }}</a>
+              </div>
+            }
+          </dd>
+          <dt><span jhiTranslate="valkylitApp.book.category">Category</span></dt>
+          <dd>
+            @for (category of bookRef.categories; track $index; let last = $last) {
+              <span>
+                <a [routerLink]="['/book-category', category.id, 'view']">{{ category?.name }}</a
+                >{{ last ? '' : ', ' }}
+              </span>
+            }
+          </dd>
+          <dt><span jhiTranslate="valkylitApp.book.author">Author</span></dt>
+          <dd>
+            @for (author of bookRef.authors; track $index; let last = $last) {
+              <span>
+                <a [routerLink]="['/author', author.id, 'view']">{{ author?.name }}</a
+                >{{ last ? '' : ', ' }}
+              </span>
+            }
+          </dd>
+        </dl>
+
+        <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+          <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Retour</span>
+        </button>
+
+        <button type="button" [routerLink]="['/book', bookRef.id, 'edit']" class="btn btn-primary">
+          <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Editer</span>
+        </button>
+      </div>
+    }
+  </div>
+</div>

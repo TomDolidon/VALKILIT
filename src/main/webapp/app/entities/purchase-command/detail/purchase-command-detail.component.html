@@ -1,0 +1,72 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    @if (purchaseCommand(); as purchaseCommandRef) {
+      <div>
+        <h2 data-cy="purchaseCommandDetailsHeading">
+          <span jhiTranslate="valkylitApp.purchaseCommand.detail.title">Purchase Command</span>
+        </h2>
+
+        <hr />
+
+        <jhi-alert-error></jhi-alert-error>
+
+        <jhi-alert></jhi-alert>
+
+        <dl class="row-md jh-entity-details">
+          <dt><span jhiTranslate="valkylitApp.purchaseCommand.id">Id</span></dt>
+          <dd>
+            <span>{{ purchaseCommandRef.id }}</span>
+          </dd>
+          <dt><span jhiTranslate="valkylitApp.purchaseCommand.expeditionDate">Expedition Date</span></dt>
+          <dd>
+            <span>{{ purchaseCommandRef.expeditionDate | formatMediumDate }}</span>
+          </dd>
+          <dt><span jhiTranslate="valkylitApp.purchaseCommand.status">Status</span></dt>
+          <dd>
+            <span [jhiTranslate]="'valkylitApp.PurchaseCommandStatus.' + (purchaseCommandRef.status ?? 'null')">{{
+              {
+                null: '',
+                DRAFT: 'DRAFT',
+                ORDERED: 'ORDERED',
+                PREPARING: 'PREPARING',
+                SHIPPED: 'SHIPPED',
+                DELIVERED: 'DELIVERED',
+                CANCELLED: 'CANCELLED',
+                RETURN_REQUESTED: 'RETURN_REQUESTED',
+                RETURNED: 'RETURNED',
+                REFUNDED: 'REFUNDED',
+                FAILED_PAYMENT: 'FAILED_PAYMENT',
+              }[purchaseCommandRef.status ?? 'null']
+            }}</span>
+          </dd>
+          <dt><span jhiTranslate="valkylitApp.purchaseCommand.deliveryAddress">Delivery Address</span></dt>
+          <dd>
+            @if (purchaseCommand()!.deliveryAddress) {
+              <div>
+                <a [routerLink]="['/address', purchaseCommand()!.deliveryAddress?.id, 'view']">{{
+                  purchaseCommandRef.deliveryAddress?.street
+                }}</a>
+              </div>
+            }
+          </dd>
+          <dt><span jhiTranslate="valkylitApp.purchaseCommand.client">Client</span></dt>
+          <dd>
+            @if (purchaseCommand()!.client) {
+              <div>
+                <a [routerLink]="['/client', purchaseCommand()!.client?.id, 'view']">{{ purchaseCommandRef.client?.id }}</a>
+              </div>
+            }
+          </dd>
+        </dl>
+
+        <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+          <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Retour</span>
+        </button>
+
+        <button type="button" [routerLink]="['/purchase-command', purchaseCommandRef.id, 'edit']" class="btn btn-primary">
+          <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Editer</span>
+        </button>
+      </div>
+    }
+  </div>
+</div>

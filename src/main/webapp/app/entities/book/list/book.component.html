@@ -1,0 +1,202 @@
+<div>
+  <h2 id="page-heading" data-cy="BookHeading">
+    <span jhiTranslate="valkylitApp.book.home.title">Books</span>
+
+    <div class="d-flex justify-content-end">
+      <button class="btn btn-info me-2" (click)="load()" [disabled]="isLoading">
+        <fa-icon icon="sync" [animation]="isLoading ? 'spin' : undefined"></fa-icon>
+        <span jhiTranslate="valkylitApp.book.home.refreshListLabel">Actualiser la liste</span>
+      </button>
+
+      <button
+        id="jh-create-entity"
+        data-cy="entityCreateButton"
+        class="btn btn-primary jh-create-entity create-book"
+        [routerLink]="['/book/new']"
+      >
+        <fa-icon icon="plus"></fa-icon>
+        <span jhiTranslate="valkylitApp.book.home.createLabel">Créer un nouveau Book</span>
+      </button>
+    </div>
+  </h2>
+
+  <jhi-alert-error></jhi-alert-error>
+
+  <jhi-alert></jhi-alert>
+
+  @if (books?.length === 0) {
+    <div class="alert alert-warning" id="no-result">
+      <span jhiTranslate="valkylitApp.book.home.notFound">Aucun Book trouvé</span>
+    </div>
+  }
+
+  @if (books && books.length > 0) {
+    <div class="table-responsive table-entities" id="entities">
+      <table class="table table-striped" aria-describedby="page-heading">
+        <thead>
+          <tr jhiSort [sortState]="sortState" (sortChange)="navigateToWithComponentValues($event)">
+            <th scope="col" jhiSortBy="id">
+              <div class="d-flex">
+                <span jhiTranslate="valkylitApp.book.id">Id</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="title">
+              <div class="d-flex">
+                <span jhiTranslate="valkylitApp.book.title">Title</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="subtitle">
+              <div class="d-flex">
+                <span jhiTranslate="valkylitApp.book.subtitle">Subtitle</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="imageUri">
+              <div class="d-flex">
+                <span jhiTranslate="valkylitApp.book.imageUri">Image Uri</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="price">
+              <div class="d-flex">
+                <span jhiTranslate="valkylitApp.book.price">Price</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="isbn">
+              <div class="d-flex">
+                <span jhiTranslate="valkylitApp.book.isbn">Isbn</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="format">
+              <div class="d-flex">
+                <span jhiTranslate="valkylitApp.book.format">Format</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="stock">
+              <div class="d-flex">
+                <span jhiTranslate="valkylitApp.book.stock">Stock</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="description">
+              <div class="d-flex">
+                <span jhiTranslate="valkylitApp.book.description">Description</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="pageCount">
+              <div class="d-flex">
+                <span jhiTranslate="valkylitApp.book.pageCount">Page Count</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="language">
+              <div class="d-flex">
+                <span jhiTranslate="valkylitApp.book.language">Language</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="publishDate">
+              <div class="d-flex">
+                <span jhiTranslate="valkylitApp.book.publishDate">Publish Date</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="publisher.name">
+              <div class="d-flex">
+                <span jhiTranslate="valkylitApp.book.publisher">Publisher</span>
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col"></th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (book of books; track trackId) {
+            <tr data-cy="entityTable">
+              <td>
+                <a [routerLink]="['/book', book.id, 'view']">{{ book.id }}</a>
+              </td>
+              <td>{{ book.title }}</td>
+              <td>{{ book.subtitle }}</td>
+              <td>{{ book.imageUri }}</td>
+              <td>{{ book.price }}</td>
+              <td>{{ book.isbn }}</td>
+              <td [jhiTranslate]="'valkylitApp.BookFormat.' + (book.format ?? 'null')">
+                {{ { null: '', POCKET: 'POCKET', PAPERBACK: 'PAPERBACK', HARDCOVER: 'HARDCOVER' }[book.format ?? 'null'] }}
+              </td>
+              <td>{{ book.stock }}</td>
+              <td>{{ book.description }}</td>
+              <td>{{ book.pageCount }}</td>
+              <td [jhiTranslate]="'valkylitApp.Language.' + (book.language ?? 'null')">
+                {{ { null: '', FR: 'FR', EN: 'EN' }[book.language ?? 'null'] }}
+              </td>
+              <td>{{ book.publishDate | formatMediumDate }}</td>
+              <td>
+                @if (book.publisher) {
+                  <div>
+                    <a [routerLink]="['/publisher', book.publisher.id, 'view']">{{ book.publisher.name }}</a>
+                  </div>
+                }
+              </td>
+              <td class="text-end">
+                <div class="btn-group">
+                  <a [routerLink]="['/book', book.id, 'view']" class="btn btn-info btn-sm" data-cy="entityDetailsButton">
+                    <fa-icon icon="eye"></fa-icon>
+                    <span class="d-none d-md-inline" jhiTranslate="entity.action.view">Voir</span>
+                  </a>
+
+                  <a [routerLink]="['/book', book.id, 'edit']" class="btn btn-primary btn-sm" data-cy="entityEditButton">
+                    <fa-icon icon="pencil-alt"></fa-icon>
+                    <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Editer</span>
+                  </a>
+
+                  <button type="submit" (click)="delete(book)" class="btn btn-danger btn-sm" data-cy="entityDeleteButton">
+                    <fa-icon icon="times"></fa-icon>
+                    <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Supprimer</span>
+                  </button>
+                </div>
+              </td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+  }
+  @if (books && books.length > 0) {
+    <div>
+      <div class="d-flex justify-content-center">
+        <jhi-item-count [params]="{ page: page, totalItems: totalItems, itemsPerPage: itemsPerPage }"></jhi-item-count>
+      </div>
+
+      <div class="d-flex justify-content-center">
+        <ngb-pagination
+          [collectionSize]="totalItems"
+          [page]="page"
+          [pageSize]="itemsPerPage"
+          [maxSize]="5"
+          [rotate]="true"
+          [boundaryLinks]="true"
+          (pageChange)="navigateToPage($event)"
+        ></ngb-pagination>
+      </div>
+    </div>
+  }
+</div>

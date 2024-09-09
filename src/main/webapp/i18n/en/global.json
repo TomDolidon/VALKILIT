@@ -8,7 +8,18 @@
       "entities": {
         "main": "Entities",
         "jhipster-needle-menu-add-entry": "JHipster will add additional entities here (do not translate!)",
-        "adminAuthority": "Authority"
+        "adminAuthority": "Authority",
+        "client": "Client",
+        "purchaseCommand": "Purchase Command",
+        "purchaseCommandLine": "Purchase Command Line",
+        "book": "Book",
+        "address": "Address",
+        "author": "Author",
+        "publisher": "Publisher",
+        "award": "Award",
+        "awardBook": "Award Book",
+        "bookCategory": "Book Category",
+        "review": "Review"
       },
       "account": {
         "main": "Account",

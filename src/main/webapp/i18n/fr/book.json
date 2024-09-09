@@ -1,0 +1,39 @@
+{
+  "valkylitApp": {
+    "book": {
+      "home": {
+        "title": "Books",
+        "refreshListLabel": "Actualiser la liste",
+        "createLabel": "Créer un nouveau Book",
+        "createOrEditLabel": "Créer ou éditer un Book",
+        "notFound": "Aucun Book trouvé"
+      },
+      "created": "Un nouveau Book a été créé avec l'identifiant {{ param }}",
+      "updated": "Le Book avec l'identifiant {{ param }} a été mis à jour",
+      "deleted": "Le Book avec l'identifiant {{ param }} a été supprimé",
+      "delete": {
+        "question": "Êtes-vous certain de vouloir supprimer le Book {{ id }} ?"
+      },
+      "detail": {
+        "title": "Book"
+      },
+      "id": "Id",
+      "title": "Title",
+      "subtitle": "Subtitle",
+      "imageUri": "Image Uri",
+      "price": "Price",
+      "isbn": "Isbn",
+      "format": "Format",
+      "stock": "Stock",
+      "description": "Description",
+      "pageCount": "Page Count",
+      "language": "Language",
+      "publishDate": "Publish Date",
+      "awardBook": "Award Book",
+      "reviews": "Reviews",
+      "publisher": "Publisher",
+      "category": "Category",
+      "author": "Author"
+    }
+  }
+}

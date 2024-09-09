@@ -1,0 +1,39 @@
+{
+  "annotations": {
+    "changelogDate": "20240909105757"
+  },
+  "applications": ["valkylit"],
+  "fields": [
+    {
+      "fieldName": "id",
+      "fieldType": "UUID"
+    },
+    {
+      "fieldName": "expeditionDate",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "status",
+      "fieldType": "PurchaseCommandStatus",
+      "fieldValidateRules": ["required"],
+      "fieldValues": "DRAFT,ORDERED,PREPARING,SHIPPED,DELIVERED,CANCELLED,RETURN_REQUESTED,RETURNED,REFUNDED,FAILED_PAYMENT"
+    }
+  ],
+  "name": "PurchaseCommand",
+  "relationships": [
+    {
+      "otherEntityName": "purchaseCommandLine",
+      "relationshipName": "purchaseCommandLine",
+      "relationshipSide": "left",
+      "relationshipType": "one-to-many"
+    },
+    {
+      "otherEntityField": "street",
+      "otherEntityName": "address",
+      "relationshipName": "deliveryAddress",
+      "relationshipSide": "left",
+      "relationshipType": "many-to-one"
+    }
+  ],
+  "searchEngine": "no"
+}

@@ -1,0 +1,54 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    @if (review(); as reviewRef) {
+      <div>
+        <h2 data-cy="reviewDetailsHeading"><span jhiTranslate="valkylitApp.review.detail.title">Review</span></h2>
+
+        <hr />
+
+        <jhi-alert-error></jhi-alert-error>
+
+        <jhi-alert></jhi-alert>
+
+        <dl class="row-md jh-entity-details">
+          <dt><span jhiTranslate="valkylitApp.review.id">Id</span></dt>
+          <dd>
+            <span>{{ reviewRef.id }}</span>
+          </dd>
+          <dt><span jhiTranslate="valkylitApp.review.rating">Rating</span></dt>
+          <dd>
+            <span>{{ reviewRef.rating }}</span>
+          </dd>
+          <dt><span jhiTranslate="valkylitApp.review.comment">Comment</span></dt>
+          <dd>
+            <span>{{ reviewRef.comment }}</span>
+          </dd>
+          <dt><span jhiTranslate="valkylitApp.review.client">Client</span></dt>
+          <dd>
+            @if (review()!.client) {
+              <div>
+                <a [routerLink]="['/client', review()!.client?.id, 'view']">{{ reviewRef.client?.id }}</a>
+              </div>
+            }
+          </dd>
+          <dt><span jhiTranslate="valkylitApp.review.book">Book</span></dt>
+          <dd>
+            @if (review()!.book) {
+              <div>
+                <a [routerLink]="['/book', review()!.book?.id, 'view']">{{ reviewRef.book?.id }}</a>
+              </div>
+            }
+          </dd>
+        </dl>
+
+        <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+          <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Retour</span>
+        </button>
+
+        <button type="button" [routerLink]="['/review', reviewRef.id, 'edit']" class="btn btn-primary">
+          <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Editer</span>
+        </button>
+      </div>
+    }
+  </div>
+</div>
