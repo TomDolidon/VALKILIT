@@ -1,0 +1,130 @@
+<div>
+  <h2 id="page-heading" data-cy="PurchaseCommandLineHeading">
+    <span jhiTranslate="valkylitApp.purchaseCommandLine.home.title">PurchaseCommandLines</span>
+
+    <div class="d-flex justify-content-end">
+      <button class="btn btn-info me-2" (click)="load()" [disabled]="isLoading">
+        <fa-icon icon="sync" [animation]="isLoading ? 'spin' : undefined"></fa-icon>
+        <span jhiTranslate="valkylitApp.purchaseCommandLine.home.refreshListLabel">Actualiser la liste</span>
+      </button>
+
+      <button
+        id="jh-create-entity"
+        data-cy="entityCreateButton"
+        class="btn btn-primary jh-create-entity create-purchase-command-line"
+        [routerLink]="['/purchase-command-line/new']"
+      >
+        <fa-icon icon="plus"></fa-icon>
+        <span jhiTranslate="valkylitApp.purchaseCommandLine.home.createLabel">Créer un nouveau Purchase Command Line</span>
+      </button>
+    </div>
+  </h2>
+
+  <jhi-alert-error></jhi-alert-error>
+
+  <jhi-alert></jhi-alert>
+
+  @if (purchaseCommandLines?.length === 0) {
+    <div class="alert alert-warning" id="no-result">
+      <span jhiTranslate="valkylitApp.purchaseCommandLine.home.notFound">Aucun Purchase Command Line trouvé</span>
+    </div>
+  }
+
+  @if (purchaseCommandLines && purchaseCommandLines.length > 0) {
+    <div class="table-responsive table-entities" id="entities">
+      <table class="table table-striped" aria-describedby="page-heading">
+        <thead>
+          <tr jhiSort [sortState]="sortState" (sortChange)="navigateToWithComponentValues($event)">
+            <th scope="col" jhiSortBy="id">
+              <div class="d-flex">
+                <span jhiTranslate="valkylitApp.purchaseCommandLine.id">Id</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="quantity">
+              <div class="d-flex">
+                <span jhiTranslate="valkylitApp.purchaseCommandLine.quantity">Quantity</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="unitPrice">
+              <div class="d-flex">
+                <span jhiTranslate="valkylitApp.purchaseCommandLine.unitPrice">Unit Price</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="book.title">
+              <div class="d-flex">
+                <span jhiTranslate="valkylitApp.purchaseCommandLine.book">Book</span>
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="purchaseCommand.id">
+              <div class="d-flex">
+                <span jhiTranslate="valkylitApp.purchaseCommandLine.purchaseCommand">Purchase Command</span>
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col"></th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (purchaseCommandLine of purchaseCommandLines; track trackId) {
+            <tr data-cy="entityTable">
+              <td>
+                <a [routerLink]="['/purchase-command-line', purchaseCommandLine.id, 'view']">{{ purchaseCommandLine.id }}</a>
+              </td>
+              <td>{{ purchaseCommandLine.quantity }}</td>
+              <td>{{ purchaseCommandLine.unitPrice }}</td>
+              <td>
+                @if (purchaseCommandLine.book) {
+                  <div>
+                    <a [routerLink]="['/book', purchaseCommandLine.book.id, 'view']">{{ purchaseCommandLine.book.title }}</a>
+                  </div>
+                }
+              </td>
+              <td>
+                @if (purchaseCommandLine.purchaseCommand) {
+                  <div>
+                    <a [routerLink]="['/purchase-command', purchaseCommandLine.purchaseCommand.id, 'view']">{{
+                      purchaseCommandLine.purchaseCommand.id
+                    }}</a>
+                  </div>
+                }
+              </td>
+              <td class="text-end">
+                <div class="btn-group">
+                  <a
+                    [routerLink]="['/purchase-command-line', purchaseCommandLine.id, 'view']"
+                    class="btn btn-info btn-sm"
+                    data-cy="entityDetailsButton"
+                  >
+                    <fa-icon icon="eye"></fa-icon>
+                    <span class="d-none d-md-inline" jhiTranslate="entity.action.view">Voir</span>
+                  </a>
+
+                  <a
+                    [routerLink]="['/purchase-command-line', purchaseCommandLine.id, 'edit']"
+                    class="btn btn-primary btn-sm"
+                    data-cy="entityEditButton"
+                  >
+                    <fa-icon icon="pencil-alt"></fa-icon>
+                    <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Editer</span>
+                  </a>
+
+                  <button type="submit" (click)="delete(purchaseCommandLine)" class="btn btn-danger btn-sm" data-cy="entityDeleteButton">
+                    <fa-icon icon="times"></fa-icon>
+                    <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Supprimer</span>
+                  </button>
+                </div>
+              </td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+  }
+</div>

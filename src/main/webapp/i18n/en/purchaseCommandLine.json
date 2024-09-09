@@ -1,0 +1,27 @@
+{
+  "valkylitApp": {
+    "purchaseCommandLine": {
+      "home": {
+        "title": "Purchase Command Lines",
+        "refreshListLabel": "Refresh list",
+        "createLabel": "Create a new Purchase Command Line",
+        "createOrEditLabel": "Create or edit a Purchase Command Line",
+        "notFound": "No Purchase Command Lines found"
+      },
+      "created": "A new Purchase Command Line is created with identifier {{ param }}",
+      "updated": "A Purchase Command Line is updated with identifier {{ param }}",
+      "deleted": "A Purchase Command Line is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Are you sure you want to delete Purchase Command Line {{ id }}?"
+      },
+      "detail": {
+        "title": "Purchase Command Line"
+      },
+      "id": "Id",
+      "quantity": "Quantity",
+      "unitPrice": "Unit Price",
+      "book": "Book",
+      "purchaseCommand": "Purchase Command"
+    }
+  }
+}

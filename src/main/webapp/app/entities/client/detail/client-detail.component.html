@@ -1,0 +1,46 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    @if (client(); as clientRef) {
+      <div>
+        <h2 data-cy="clientDetailsHeading"><span jhiTranslate="valkylitApp.client.detail.title">Client</span></h2>
+
+        <hr />
+
+        <jhi-alert-error></jhi-alert-error>
+
+        <jhi-alert></jhi-alert>
+
+        <dl class="row-md jh-entity-details">
+          <dt><span jhiTranslate="valkylitApp.client.id">Id</span></dt>
+          <dd>
+            <span>{{ clientRef.id }}</span>
+          </dd>
+          <dt><span jhiTranslate="valkylitApp.client.birthdate">Birthdate</span></dt>
+          <dd>
+            <span>{{ clientRef.birthdate | formatMediumDate }}</span>
+          </dd>
+          <dt><span jhiTranslate="valkylitApp.client.internalUser">Internal User</span></dt>
+          <dd>
+            <span>{{ clientRef.internalUser?.login }}</span>
+          </dd>
+          <dt><span jhiTranslate="valkylitApp.client.address">Address</span></dt>
+          <dd>
+            @if (client()!.address) {
+              <div>
+                <a [routerLink]="['/address', client()!.address?.id, 'view']">{{ clientRef.address?.street }}</a>
+              </div>
+            }
+          </dd>
+        </dl>
+
+        <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+          <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Retour</span>
+        </button>
+
+        <button type="button" [routerLink]="['/client', clientRef.id, 'edit']" class="btn btn-primary">
+          <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Editer</span>
+        </button>
+      </div>
+    }
+  </div>
+</div>

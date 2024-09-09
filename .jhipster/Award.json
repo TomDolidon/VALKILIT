@@ -1,0 +1,33 @@
+{
+  "annotations": {
+    "changelogDate": "20240909105803"
+  },
+  "applications": ["valkylit"],
+  "fields": [
+    {
+      "fieldName": "id",
+      "fieldType": "UUID"
+    },
+    {
+      "fieldName": "name",
+      "fieldType": "String",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "description",
+      "fieldType": "byte[]",
+      "fieldTypeBlobContent": "text"
+    }
+  ],
+  "name": "Award",
+  "relationships": [
+    {
+      "otherEntityName": "awardBook",
+      "otherEntityRelationshipName": "award",
+      "relationshipName": "awardBook",
+      "relationshipSide": "left",
+      "relationshipType": "one-to-many"
+    }
+  ],
+  "searchEngine": "no"
+}

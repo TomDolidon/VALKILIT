@@ -50,6 +50,28 @@ public class CacheConfiguration {
             createCache(cm, com.valkylit.domain.User.class.getName());
             createCache(cm, com.valkylit.domain.Authority.class.getName());
             createCache(cm, com.valkylit.domain.User.class.getName() + ".authorities");
+            createCache(cm, com.valkylit.domain.Client.class.getName());
+            createCache(cm, com.valkylit.domain.Client.class.getName() + ".reviews");
+            createCache(cm, com.valkylit.domain.Client.class.getName() + ".purchaseCommands");
+            createCache(cm, com.valkylit.domain.PurchaseCommand.class.getName());
+            createCache(cm, com.valkylit.domain.PurchaseCommand.class.getName() + ".purchaseCommandLines");
+            createCache(cm, com.valkylit.domain.PurchaseCommandLine.class.getName());
+            createCache(cm, com.valkylit.domain.Book.class.getName());
+            createCache(cm, com.valkylit.domain.Book.class.getName() + ".awardBooks");
+            createCache(cm, com.valkylit.domain.Book.class.getName() + ".reviews");
+            createCache(cm, com.valkylit.domain.Book.class.getName() + ".categories");
+            createCache(cm, com.valkylit.domain.Book.class.getName() + ".authors");
+            createCache(cm, com.valkylit.domain.Address.class.getName());
+            createCache(cm, com.valkylit.domain.Author.class.getName());
+            createCache(cm, com.valkylit.domain.Author.class.getName() + ".books");
+            createCache(cm, com.valkylit.domain.Publisher.class.getName());
+            createCache(cm, com.valkylit.domain.Publisher.class.getName() + ".books");
+            createCache(cm, com.valkylit.domain.Award.class.getName());
+            createCache(cm, com.valkylit.domain.Award.class.getName() + ".awardBooks");
+            createCache(cm, com.valkylit.domain.AwardBook.class.getName());
+            createCache(cm, com.valkylit.domain.BookCategory.class.getName());
+            createCache(cm, com.valkylit.domain.BookCategory.class.getName() + ".books");
+            createCache(cm, com.valkylit.domain.Review.class.getName());
             // jhipster-needle-ehcache-add-entry
         };
     }

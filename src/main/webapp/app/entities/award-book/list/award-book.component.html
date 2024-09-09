@@ -1,0 +1,112 @@
+<div>
+  <h2 id="page-heading" data-cy="AwardBookHeading">
+    <span jhiTranslate="valkylitApp.awardBook.home.title">AwardBooks</span>
+
+    <div class="d-flex justify-content-end">
+      <button class="btn btn-info me-2" (click)="load()" [disabled]="isLoading">
+        <fa-icon icon="sync" [animation]="isLoading ? 'spin' : undefined"></fa-icon>
+        <span jhiTranslate="valkylitApp.awardBook.home.refreshListLabel">Actualiser la liste</span>
+      </button>
+
+      <button
+        id="jh-create-entity"
+        data-cy="entityCreateButton"
+        class="btn btn-primary jh-create-entity create-award-book"
+        [routerLink]="['/award-book/new']"
+      >
+        <fa-icon icon="plus"></fa-icon>
+        <span jhiTranslate="valkylitApp.awardBook.home.createLabel">Créer un nouveau Award Book</span>
+      </button>
+    </div>
+  </h2>
+
+  <jhi-alert-error></jhi-alert-error>
+
+  <jhi-alert></jhi-alert>
+
+  @if (awardBooks?.length === 0) {
+    <div class="alert alert-warning" id="no-result">
+      <span jhiTranslate="valkylitApp.awardBook.home.notFound">Aucun Award Book trouvé</span>
+    </div>
+  }
+
+  @if (awardBooks && awardBooks.length > 0) {
+    <div class="table-responsive table-entities" id="entities">
+      <table class="table table-striped" aria-describedby="page-heading">
+        <thead>
+          <tr jhiSort [sortState]="sortState" (sortChange)="navigateToWithComponentValues($event)">
+            <th scope="col" jhiSortBy="id">
+              <div class="d-flex">
+                <span jhiTranslate="global.field.id">ID</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="year">
+              <div class="d-flex">
+                <span jhiTranslate="valkylitApp.awardBook.year">Year</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="book.title">
+              <div class="d-flex">
+                <span jhiTranslate="valkylitApp.awardBook.book">Book</span>
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="award.name">
+              <div class="d-flex">
+                <span jhiTranslate="valkylitApp.awardBook.award">Award</span>
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col"></th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (awardBook of awardBooks; track trackId) {
+            <tr data-cy="entityTable">
+              <td>
+                <a [routerLink]="['/award-book', awardBook.id, 'view']">{{ awardBook.id }}</a>
+              </td>
+              <td>{{ awardBook.year | formatMediumDate }}</td>
+              <td>
+                @if (awardBook.book) {
+                  <div>
+                    <a [routerLink]="['/book', awardBook.book.id, 'view']">{{ awardBook.book.title }}</a>
+                  </div>
+                }
+              </td>
+              <td>
+                @if (awardBook.award) {
+                  <div>
+                    <a [routerLink]="['/award', awardBook.award.id, 'view']">{{ awardBook.award.name }}</a>
+                  </div>
+                }
+              </td>
+              <td class="text-end">
+                <div class="btn-group">
+                  <a [routerLink]="['/award-book', awardBook.id, 'view']" class="btn btn-info btn-sm" data-cy="entityDetailsButton">
+                    <fa-icon icon="eye"></fa-icon>
+                    <span class="d-none d-md-inline" jhiTranslate="entity.action.view">Voir</span>
+                  </a>
+
+                  <a [routerLink]="['/award-book', awardBook.id, 'edit']" class="btn btn-primary btn-sm" data-cy="entityEditButton">
+                    <fa-icon icon="pencil-alt"></fa-icon>
+                    <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Editer</span>
+                  </a>
+
+                  <button type="submit" (click)="delete(awardBook)" class="btn btn-danger btn-sm" data-cy="entityDeleteButton">
+                    <fa-icon icon="times"></fa-icon>
+                    <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Supprimer</span>
+                  </button>
+                </div>
+              </td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+  }
+</div>

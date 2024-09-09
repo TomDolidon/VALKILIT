@@ -1,0 +1,28 @@
+{
+  "valkylitApp": {
+    "purchaseCommand": {
+      "home": {
+        "title": "Purchase Commands",
+        "refreshListLabel": "Refresh list",
+        "createLabel": "Create a new Purchase Command",
+        "createOrEditLabel": "Create or edit a Purchase Command",
+        "notFound": "No Purchase Commands found"
+      },
+      "created": "A new Purchase Command is created with identifier {{ param }}",
+      "updated": "A Purchase Command is updated with identifier {{ param }}",
+      "deleted": "A Purchase Command is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Are you sure you want to delete Purchase Command {{ id }}?"
+      },
+      "detail": {
+        "title": "Purchase Command"
+      },
+      "id": "Id",
+      "expeditionDate": "Expedition Date",
+      "status": "Status",
+      "purchaseCommandLine": "Purchase Command Line",
+      "deliveryAddress": "Delivery Address",
+      "client": "Client"
+    }
+  }
+}

@@ -1,0 +1,17 @@
+{
+  "valkylitApp": {
+    "PurchaseCommandStatus": {
+      "null": "",
+      "DRAFT": "DRAFT",
+      "ORDERED": "ORDERED",
+      "PREPARING": "PREPARING",
+      "SHIPPED": "SHIPPED",
+      "DELIVERED": "DELIVERED",
+      "CANCELLED": "CANCELLED",
+      "RETURN_REQUESTED": "RETURN_REQUESTED",
+      "RETURNED": "RETURNED",
+      "REFUNDED": "REFUNDED",
+      "FAILED_PAYMENT": "FAILED_PAYMENT"
+    }
+  }
+}

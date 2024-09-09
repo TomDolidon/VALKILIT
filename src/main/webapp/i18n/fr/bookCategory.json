@@ -1,0 +1,26 @@
+{
+  "valkylitApp": {
+    "bookCategory": {
+      "home": {
+        "title": "BookCategories",
+        "refreshListLabel": "Actualiser la liste",
+        "createLabel": "Créer un nouveau Book Category",
+        "createOrEditLabel": "Créer ou éditer un Book Category",
+        "notFound": "Aucun Book Category trouvé"
+      },
+      "created": "Un nouveau Book Category a été créé avec l'identifiant {{ param }}",
+      "updated": "Le Book Category avec l'identifiant {{ param }} a été mis à jour",
+      "deleted": "Le Book Category avec l'identifiant {{ param }} a été supprimé",
+      "delete": {
+        "question": "Êtes-vous certain de vouloir supprimer le Book Category {{ id }} ?"
+      },
+      "detail": {
+        "title": "Book Category"
+      },
+      "id": "Id",
+      "name": "Name",
+      "description": "Description",
+      "book": "Book"
+    }
+  }
+}

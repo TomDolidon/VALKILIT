@@ -1,0 +1,117 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <form name="editForm" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+      <h2
+        id="jhi-purchase-command-heading"
+        data-cy="PurchaseCommandCreateUpdateHeading"
+        jhiTranslate="valkylitApp.purchaseCommand.home.createOrEditLabel"
+      >
+        Créer ou éditer un Purchase Command
+      </h2>
+
+      <div>
+        <jhi-alert-error></jhi-alert-error>
+
+        @if (editForm.controls.id.value !== null) {
+          <div class="mb-3">
+            <label class="form-label" for="field_id" jhiTranslate="valkylitApp.purchaseCommand.id">Id</label>
+            <input type="text" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />
+          </div>
+        }
+
+        <div class="mb-3">
+          <label class="form-label" for="field_expeditionDate" jhiTranslate="valkylitApp.purchaseCommand.expeditionDate"
+            >Expedition Date</label
+          >
+          <div class="input-group">
+            <input
+              id="field_expeditionDate"
+              data-cy="expeditionDate"
+              type="text"
+              class="form-control"
+              name="expeditionDate"
+              ngbDatepicker
+              #expeditionDateDp="ngbDatepicker"
+              formControlName="expeditionDate"
+            />
+            <button type="button" class="btn btn-secondary" (click)="expeditionDateDp.toggle()">
+              <fa-icon icon="calendar-alt"></fa-icon>
+            </button>
+          </div>
+        </div>
+
+        @let statusRef = editForm.get('status')!;
+        <div class="mb-3">
+          <label class="form-label" for="field_status" jhiTranslate="valkylitApp.purchaseCommand.status">Status</label>
+          <select class="form-control" name="status" formControlName="status" id="field_status" data-cy="status">
+            <option [ngValue]="null">{{ 'valkylitApp.PurchaseCommandStatus.null' | translate }}</option>
+            @for (purchaseCommandStatus of purchaseCommandStatusValues; track $index) {
+              <option [value]="purchaseCommandStatus">
+                {{ 'valkylitApp.PurchaseCommandStatus.' + purchaseCommandStatus | translate }}
+              </option>
+            }
+          </select>
+          @if (statusRef.invalid && (statusRef.dirty || statusRef.touched)) {
+            <div>
+              @if (editForm.get('status')?.errors?.required) {
+                <small class="form-text text-danger" jhiTranslate="entity.validation.required">Ce champ est obligatoire.</small>
+              }
+            </div>
+          }
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_deliveryAddress" jhiTranslate="valkylitApp.purchaseCommand.deliveryAddress"
+            >Delivery Address</label
+          >
+          <select
+            class="form-control"
+            id="field_deliveryAddress"
+            data-cy="deliveryAddress"
+            name="deliveryAddress"
+            formControlName="deliveryAddress"
+            [compareWith]="compareAddress"
+          >
+            <option [ngValue]="null"></option>
+            @for (addressOption of addressesSharedCollection; track $index) {
+              <option [ngValue]="addressOption">{{ addressOption.street }}</option>
+            }
+          </select>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_client" jhiTranslate="valkylitApp.purchaseCommand.client">Client</label>
+          <select
+            class="form-control"
+            id="field_client"
+            data-cy="client"
+            name="client"
+            formControlName="client"
+            [compareWith]="compareClient"
+          >
+            <option [ngValue]="null"></option>
+            @for (clientOption of clientsSharedCollection; track $index) {
+              <option [ngValue]="clientOption">{{ clientOption.id }}</option>
+            }
+          </select>
+        </div>
+      </div>
+
+      <div>
+        <button type="button" id="cancel-save" data-cy="entityCreateCancelButton" class="btn btn-secondary" (click)="previousState()">
+          <fa-icon icon="ban"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Annuler</span>
+        </button>
+
+        <button
+          type="submit"
+          id="save-entity"
+          data-cy="entityCreateSaveButton"
+          [disabled]="editForm.invalid || isSaving"
+          class="btn btn-primary"
+        >
+          <fa-icon icon="save"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Sauvegarder</span>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

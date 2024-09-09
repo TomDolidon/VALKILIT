@@ -1,0 +1,10 @@
+{
+  "valkylitApp": {
+    "BookFormat": {
+      "null": "",
+      "POCKET": "POCKET",
+      "PAPERBACK": "PAPERBACK",
+      "HARDCOVER": "HARDCOVER"
+    }
+  }
+}

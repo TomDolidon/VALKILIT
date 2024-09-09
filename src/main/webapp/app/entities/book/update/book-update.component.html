@@ -1,0 +1,226 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <form name="editForm" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+      <h2 id="jhi-book-heading" data-cy="BookCreateUpdateHeading" jhiTranslate="valkylitApp.book.home.createOrEditLabel">
+        Créer ou éditer un Book
+      </h2>
+
+      <div>
+        <jhi-alert-error></jhi-alert-error>
+
+        @if (editForm.controls.id.value !== null) {
+          <div class="mb-3">
+            <label class="form-label" for="field_id" jhiTranslate="valkylitApp.book.id">Id</label>
+            <input type="text" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />
+          </div>
+        }
+
+        @let titleRef = editForm.get('title')!;
+        <div class="mb-3">
+          <label class="form-label" for="field_title" jhiTranslate="valkylitApp.book.title">Title</label>
+          <input type="text" class="form-control" name="title" id="field_title" data-cy="title" formControlName="title" />
+          @if (titleRef.invalid && (titleRef.dirty || titleRef.touched)) {
+            <div>
+              @if (editForm.get('title')?.errors?.required) {
+                <small class="form-text text-danger" jhiTranslate="entity.validation.required">Ce champ est obligatoire.</small>
+              }
+            </div>
+          }
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_subtitle" jhiTranslate="valkylitApp.book.subtitle">Subtitle</label>
+          <input type="text" class="form-control" name="subtitle" id="field_subtitle" data-cy="subtitle" formControlName="subtitle" />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_imageUri" jhiTranslate="valkylitApp.book.imageUri">Image Uri</label>
+          <input type="text" class="form-control" name="imageUri" id="field_imageUri" data-cy="imageUri" formControlName="imageUri" />
+        </div>
+
+        @let priceRef = editForm.get('price')!;
+        <div class="mb-3">
+          <label class="form-label" for="field_price" jhiTranslate="valkylitApp.book.price">Price</label>
+          <input type="number" class="form-control" name="price" id="field_price" data-cy="price" formControlName="price" />
+          @if (priceRef.invalid && (priceRef.dirty || priceRef.touched)) {
+            <div>
+              @if (editForm.get('price')?.errors?.required) {
+                <small class="form-text text-danger" jhiTranslate="entity.validation.required">Ce champ est obligatoire.</small>
+              }
+              <small class="form-text text-danger" [hidden]="!editForm.get('price')?.errors?.number" jhiTranslate="entity.validation.number"
+                >Ce champ doit être un nombre.</small
+              >
+            </div>
+          }
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_isbn" jhiTranslate="valkylitApp.book.isbn">Isbn</label>
+          <input type="text" class="form-control" name="isbn" id="field_isbn" data-cy="isbn" formControlName="isbn" />
+        </div>
+
+        @let formatRef = editForm.get('format')!;
+        <div class="mb-3">
+          <label class="form-label" for="field_format" jhiTranslate="valkylitApp.book.format">Format</label>
+          <select class="form-control" name="format" formControlName="format" id="field_format" data-cy="format">
+            <option [ngValue]="null">{{ 'valkylitApp.BookFormat.null' | translate }}</option>
+            @for (bookFormat of bookFormatValues; track $index) {
+              <option [value]="bookFormat">{{ 'valkylitApp.BookFormat.' + bookFormat | translate }}</option>
+            }
+          </select>
+          @if (formatRef.invalid && (formatRef.dirty || formatRef.touched)) {
+            <div>
+              @if (editForm.get('format')?.errors?.required) {
+                <small class="form-text text-danger" jhiTranslate="entity.validation.required">Ce champ est obligatoire.</small>
+              }
+            </div>
+          }
+        </div>
+
+        @let stockRef = editForm.get('stock')!;
+        <div class="mb-3">
+          <label class="form-label" for="field_stock" jhiTranslate="valkylitApp.book.stock">Stock</label>
+          <input type="number" class="form-control" name="stock" id="field_stock" data-cy="stock" formControlName="stock" />
+          @if (stockRef.invalid && (stockRef.dirty || stockRef.touched)) {
+            <div>
+              @if (editForm.get('stock')?.errors?.required) {
+                <small class="form-text text-danger" jhiTranslate="entity.validation.required">Ce champ est obligatoire.</small>
+              }
+              <small class="form-text text-danger" [hidden]="!editForm.get('stock')?.errors?.number" jhiTranslate="entity.validation.number"
+                >Ce champ doit être un nombre.</small
+              >
+            </div>
+          }
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_description" jhiTranslate="valkylitApp.book.description">Description</label>
+          <textarea
+            class="form-control"
+            name="description"
+            id="field_description"
+            data-cy="description"
+            formControlName="description"
+          ></textarea>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_pageCount" jhiTranslate="valkylitApp.book.pageCount">Page Count</label>
+          <input type="number" class="form-control" name="pageCount" id="field_pageCount" data-cy="pageCount" formControlName="pageCount" />
+        </div>
+
+        @let languageRef = editForm.get('language')!;
+        <div class="mb-3">
+          <label class="form-label" for="field_language" jhiTranslate="valkylitApp.book.language">Language</label>
+          <select class="form-control" name="language" formControlName="language" id="field_language" data-cy="language">
+            <option [ngValue]="null">{{ 'valkylitApp.Language.null' | translate }}</option>
+            @for (language of languageValues; track $index) {
+              <option [value]="language">{{ 'valkylitApp.Language.' + language | translate }}</option>
+            }
+          </select>
+          @if (languageRef.invalid && (languageRef.dirty || languageRef.touched)) {
+            <div>
+              @if (editForm.get('language')?.errors?.required) {
+                <small class="form-text text-danger" jhiTranslate="entity.validation.required">Ce champ est obligatoire.</small>
+              }
+            </div>
+          }
+        </div>
+
+        @let publishDateRef = editForm.get('publishDate')!;
+        <div class="mb-3">
+          <label class="form-label" for="field_publishDate" jhiTranslate="valkylitApp.book.publishDate">Publish Date</label>
+          <div class="input-group">
+            <input
+              id="field_publishDate"
+              data-cy="publishDate"
+              type="text"
+              class="form-control"
+              name="publishDate"
+              ngbDatepicker
+              #publishDateDp="ngbDatepicker"
+              formControlName="publishDate"
+            />
+            <button type="button" class="btn btn-secondary" (click)="publishDateDp.toggle()">
+              <fa-icon icon="calendar-alt"></fa-icon>
+            </button>
+          </div>
+          @if (publishDateRef.invalid && (publishDateRef.dirty || publishDateRef.touched)) {
+            <div>
+              @if (editForm.get('publishDate')?.errors?.required) {
+                <small class="form-text text-danger" jhiTranslate="entity.validation.required">Ce champ est obligatoire.</small>
+              }
+            </div>
+          }
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_publisher" jhiTranslate="valkylitApp.book.publisher">Publisher</label>
+          <select
+            class="form-control"
+            id="field_publisher"
+            data-cy="publisher"
+            name="publisher"
+            formControlName="publisher"
+            [compareWith]="comparePublisher"
+          >
+            <option [ngValue]="null"></option>
+            @for (publisherOption of publishersSharedCollection; track $index) {
+              <option [ngValue]="publisherOption">{{ publisherOption.name }}</option>
+            }
+          </select>
+        </div>
+
+        <div class="mb-3">
+          <label for="field_categories" jhiTranslate="valkylitApp.book.category">Category</label>
+          <select
+            class="form-control"
+            id="field_categories"
+            data-cy="category"
+            multiple
+            name="categories"
+            formControlName="categories"
+            [compareWith]="compareBookCategory"
+          >
+            @for (bookCategoryOption of bookCategoriesSharedCollection; track $index) {
+              <option [ngValue]="bookCategoryOption">{{ bookCategoryOption.name }}</option>
+            }
+          </select>
+        </div>
+
+        <div class="mb-3">
+          <label for="field_authors" jhiTranslate="valkylitApp.book.author">Author</label>
+          <select
+            class="form-control"
+            id="field_authors"
+            data-cy="author"
+            multiple
+            name="authors"
+            formControlName="authors"
+            [compareWith]="compareAuthor"
+          >
+            @for (authorOption of authorsSharedCollection; track $index) {
+              <option [ngValue]="authorOption">{{ authorOption.name }}</option>
+            }
+          </select>
+        </div>
+      </div>
+
+      <div>
+        <button type="button" id="cancel-save" data-cy="entityCreateCancelButton" class="btn btn-secondary" (click)="previousState()">
+          <fa-icon icon="ban"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Annuler</span>
+        </button>
+
+        <button
+          type="submit"
+          id="save-entity"
+          data-cy="entityCreateSaveButton"
+          [disabled]="editForm.invalid || isSaving"
+          class="btn btn-primary"
+        >
+          <fa-icon icon="save"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Sauvegarder</span>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
