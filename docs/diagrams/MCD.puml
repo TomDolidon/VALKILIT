@@ -1,0 +1,173 @@
+@startuml
+
+entity "User" as User {
+ id: int required
+ login: String required
+ password_hash: String required
+ first_name: String 
+ last_name: String required
+ email: String
+ image_url: String
+ activated: boolean
+ lang_key: String
+ activation_key: String
+ reset_key: String
+ created_by: String required
+ created_date: Date
+ last_modified_by: String
+ last_modified_date: Date
+ reset_date: Date
+}
+
+entity "Authority" as Authority {
+ name: String required
+}
+
+entity "Client" as Client {
+ id: int required
+ birthdate: Date
+ created_by: String
+ created_date: Date
+ last_modified_by: String
+ last_modified_date: Date
+}
+
+entity "PurchaseCommand" as PurchaseCommand {
+ id: int
+ expeditionDate: Date
+ status: PurchaseCommandStatus
+ created_by: String
+ created_date: Date
+ last_modified_by: String
+ last_modified_date: Date
+}
+
+entity "PurchaseCommandLine" as PurchaseCommandLine {
+ id: int required
+ quantity: int required
+ unitPrice : float required
+ created_by: string
+ created_date: Date required
+ last_modified_by: string
+ last_modified_date: Date
+}
+
+entity "Book" as Book {
+  id: int required
+  title: String required
+  subtitle: String
+  image_uri: String
+  price: float required
+  isbn: String
+  format: BookFormat required
+  stock: int required
+  description: text
+  pageCount: int
+  language: Language required
+  publishDate: Date required
+  created_by: string
+  created_date: Date
+  last_modified_by: string
+  last_modified_date: Date
+}
+
+entity "Address" as Address {
+ id: int required
+ street: String required
+ postalcode: int required
+ city: String required
+ country: String required
+}
+
+entity "Author" as Author {
+  id: int required
+  name: String required
+  description: text
+  created_by: String
+  created_date: Date
+  last_modified_by: String
+  last_modified_date: Date
+}
+
+
+entity "Publisher" as Publisher {
+  id: int required
+  name: String required
+  description: text
+  created_by: String
+  created_date: Date
+  last_modified_by: String
+  last_modified_date: Date
+}
+
+entity "Award" as Award {
+ id: int required
+ name: String required
+ description: text
+}
+
+entity "Award_Book" as Award_Book {
+ book_id: int required
+ award_id: String required
+ year: Date required
+}
+
+entity "BookCategory" as BookCategory{
+  id: int required
+  name: String required
+  description: text
+}
+
+entity "Review" as Review{
+  id: int required
+  rating: int required
+  comment: text
+  created_date: Date required
+}
+
+package Enum {
+
+enum PurchaseCommandStatus{
+    DRAFT        // Brouillon
+    ORDERED                // Commandé
+    PREPARING              // Préparation de la commande
+    SHIPPED                // En cours de livraison
+    DELIVERED              // Livré
+    CANCELLED              // Commande annulée
+    RETURN_REQUESTED       // Demande de retour
+    RETURNED               // Produit retourné
+    REFUNDED               // Remboursement effectué
+    FAILED_PAYMENT          // Échec du paiement
+}
+
+enum BookFormat{
+  POCKET  // Poche
+  PAPERBACK // Broché 
+  HARDCOVER // Relié 
+}
+
+enum Language{
+  FR
+  EN
+}
+
+}
+
+PurchaseCommand "*" --> "1 (deliveryAddress)" Address
+Client "*" --> "1" Address
+
+Client "1" <--> "*" Review
+Review "*" <--> "1" Book
+
+User "*" --> "*" Authority
+User "1" <-- "1" Client
+Client "1" --> "*" PurchaseCommand
+PurchaseCommand "1" --> "*" PurchaseCommandLine
+PurchaseCommandLine "*" --> "1" Book
+Book "*" <--> "1" Author
+Book "*" <--> "1" Publisher
+Book "*" <--> "*" BookCategory
+Book "1" <--> "*" Award_Book
+Award_Book "*" <--> "1" Award
+
+@enduml
