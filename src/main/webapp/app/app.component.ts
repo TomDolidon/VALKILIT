@@ -1,7 +1,8 @@
 import { Component, inject } from '@angular/core';
 import { registerLocaleData } from '@angular/common';
 import dayjs from 'dayjs/esm';
-import { FaIconLibrary } from '@fortawesome/angular-fontawesome';
+import { FontAwesomeModule, FaIconLibrary } from '@fortawesome/angular-fontawesome';
+import { faShoppingCart } from '@fortawesome/free-solid-svg-icons';
 import { NgbDatepickerConfig } from '@ng-bootstrap/ng-bootstrap';
 import locale from '@angular/common/locales/fr';
 // jhipster-needle-angular-add-module-import JHipster will add new module here
@@ -27,7 +28,7 @@ export default class AppComponent {
   constructor() {
     this.applicationConfigService.setEndpointPrefix(SERVER_API_URL);
     registerLocaleData(locale);
-    this.iconLibrary.addIcons(...fontAwesomeIcons);
+    this.iconLibrary.addIcons(...fontAwesomeIcons, faShoppingCart);
     this.dpConfig.minDate = { year: dayjs().subtract(100, 'year').year(), month: 1, day: 1 };
   }
 }
