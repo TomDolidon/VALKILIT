@@ -34,6 +34,11 @@ const routes: Routes = [
     title: 'login.title',
   },
   {
+    path: 'books',
+    loadComponent: () => import('./catalog/book-list/book-list.component'),
+    title: 'books',
+  },
+  {
     path: '',
     loadChildren: () => import(`./entities/entity.routes`),
   },

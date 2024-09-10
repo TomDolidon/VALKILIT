@@ -1,0 +1,25 @@
+<div class="book-card">
+  <div class="book-img" [ngStyle]="{ 'background-image': 'url(https://picsum.photos/id/' + book!.stock + '/200/300)' }"></div>
+
+  <div class="m-2">
+    <!-- <img [src]="book.imageUri" class="book-img" alt="Couverture du livre" /> -->
+    <p>
+      <strong> {{ book!.title }} </strong>
+    </p>
+
+    <div>
+      <span *ngFor="let author of book!.authors">{{ author.name }}</span>
+    </div>
+
+    <div>
+      <span *ngFor="let category of book!.categories">{{ category.name }}</span>
+    </div>
+
+    <!-- <p>{{ book.author.name }}</p> -->
+    <div class="d-flex justify-content-end m-2">
+      <button class="buy-btn mr-2">Acheter {{ book!.price }} €</button>
+      <button class="detail-btn ml-2">Voir Détails</button>
+    </div>
+  </div>
+  <!-- </p-card> -->
+</div>
