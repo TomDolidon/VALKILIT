@@ -1,0 +1,37 @@
+id;name;description
+F769C160-FD23-4D7C-8638-D7C9BA921B28;Prix Goncourt;Récompense littéraire française décernée chaque année.
+C3B1A740-33E2-4A65-9B8F-5C4E1B47B3CE;Prix Renaudot;Récompense littéraire française attribuée chaque année.
+D5B1A6D0-2F36-4B12-AD5B-3D1C6C2B6F6B;Prix Médicis;Récompense littéraire décernée chaque année à un roman.
+E7F4C98B-5B4E-4D95-B7C0-5F7F8A4C8C1F;Prix Femina;Récompense littéraire attribuée chaque année par un jury de femmes.
+A4D7C21D-7F5B-45AA-BC54-6A1E5E60D2A4;Prix de l'Académie française;Récompense décernée par l'Académie française pour des œuvres littéraires.
+B9E6D43C-2E14-4F30-BF9D-9B5E0D4F9D5C;Prix des Libraires;Récompense littéraire attribuée par les libraires français.
+C6F5E2A2-1E44-4D4F-AB8F-7B9A2F0D8D8C;Prix du Livre Inter;Récompense décernée chaque année par les lecteurs de France Inter.
+D4A8B4E4-5C4A-4D3E-BB9D-9B6A2E7D4B4D;Prix du roman des étudiants;Récompense attribuée par un jury d'étudiants.
+F3E2C4F7-7D0F-4A48-B8E1-5D4B2E5C9F9E;Prix du roman de l'année;Récompense attribuée pour le meilleur roman de l'année.
+A7F4D6C8-9B1E-4D2E-A1D8-6E5C7A8B9C0F;Prix du Livre de poche;Récompense attribuée pour un livre au format poche.
+B8D4C3E1-4F5B-4A9E-BF7F-8E6C2D9F0A0E;Prix du meilleur roman étranger;Récompense attribuée au meilleur roman étranger traduit en français.
+C9E7F4A1-2D3E-4B6F-9B7F-9D6C8A2B4F0D;Prix de la langue française;Récompense attribuée pour une œuvre en langue française.
+D2F4E7A9-5B6D-4E8F-BF9E-8D1B6C3F7A9C;Prix du roman historique;Récompense attribuée pour le meilleur roman historique.
+E3A5D8F7-6C1E-4D2F-A9E3-7C2F6D9B5C0F;Prix du roman policier;Récompense décernée pour le meilleur roman policier.
+A8B4E6F1-3D5E-4C8E-B9D6-6E1F7A9C0B2F;Prix de la science-fiction;Récompense attribuée pour le meilleur roman de science-fiction.
+B7C9D4E3-5F8A-4D1E-B6F7-9E2C3A8B4F0E;Prix du roman de fantasy;Récompense attribuée pour le meilleur roman de fantasy.
+C8E1F7A9-4D6B-3E2F-9C7F-6A8B5D4F0C1E;Prix du roman d'aventure;Récompense attribuée pour le meilleur roman d'aventure.
+D9F2A4B8-5E1C-3D9F-B7C6-8D2B7C3E0F9E;Prix de la littérature jeunesse;Récompense attribuée pour le meilleur livre jeunesse.
+E6A1D4B9-8F3C-2E6F-B7C0-9D5C8A2F4E1E;Prix du roman graphique;Récompense attribuée pour le meilleur roman graphique.
+F5B8D6C7-9A1E-4D3F-BE6F-7C2E8A9F0D2F;Prix de la bande dessinée;Récompense attribuée pour la meilleure bande dessinée.
+A9E4C7F2-5D6E-3B8F-9C7D-6F1B2D4E8A3C;Prix du roman humoristique;Récompense décernée pour le meilleur roman humoristique.
+B8F7E4A1-3D2C-5E9F-8B6D-7C0A4B9E2F8E;Prix du meilleur thriller;Récompense attribuée pour le meilleur thriller.
+C7D1E8F4-6B9E-4C3F-B8A7-9E2C5D8B0F1E;Prix du meilleur roman dramatique;Récompense attribuée pour le meilleur roman dramatique.
+D6E4A9F7-5C1D-3B8F-B7E9-8C2B0D4E1F7E;Prix du meilleur roman d'amour;Récompense attribuée pour le meilleur roman d'amour.
+E5F1A2B8-6D9E-4C3F-8B7E-9C2D4E0F5A1E;Prix du meilleur roman de fantasy;Récompense attribuée pour le meilleur roman de fantasy.
+A8C2E5D9-3F7A-4B9E-B6C0-7D8E1F2C0F9E;Prix du meilleur roman policier étranger;Récompense attribuée pour le meilleur roman policier étranger.
+B9E1D6F7-5C3A-4E8F-B7D9-9A2B0C4F1E7E;Prix du meilleur roman de science-fiction étranger;Récompense attribuée pour le meilleur roman de science-fiction étranger.
+C4D7E2F8-9B1E-4C6F-A7D8-5E1F9C2B0F7E;Prix du meilleur roman historique étranger;Récompense attribuée pour le meilleur roman historique étranger.
+D5C8E4F1-3A9B-4D6E-B7F9-8E2C0D4F1E6E;Prix du meilleur roman d'aventure étranger;Récompense attribuée pour le meilleur roman d'aventure étranger.
+E6F1A2B9-4D7C-5E8F-8B9D-7C2B0F4E1E9;Prix du meilleur roman jeunesse étranger;Récompense attribuée pour le meilleur roman jeunesse étranger.
+F7B8C1D4-9E3A-4C6F-8B9D-5E1F2C4A0E7;Prix du meilleur roman graphique étranger;Récompense attribuée pour le meilleur roman graphique étranger.
+A8D9E1F2-5C4A-4B9E-B7D8-8E2F6C0F1E8E;Prix du meilleur roman humoristique étranger;Récompense attribuée pour le meilleur roman humoristique étranger.
+B9E1F2D3-4C5A-6B9E-B7D8-9C2E1F4A0F7;Prix du meilleur thriller étranger;Récompense attribuée pour le meilleur thriller étranger.
+C8F1D2E4-5C3A-6B9E-B7D8-9E2C4F0A1E8E;Prix du meilleur roman dramatique étranger;Récompense attribuée pour le meilleur roman dramatique étranger.
+D7E9F1A2-4C5B-6D8E-9B7D-5C0F2E1A8F7;Prix du meilleur roman d'amour étranger;Récompense attribuée pour le meilleur roman d'amour étranger.
+E6C8F1D2-5A4B-6C9E-B7D8-8E2F0C4A9E7;Prix du meilleur roman de fantasy étranger;Récompense attribuée pour le meilleur roman de fantasy étranger.
