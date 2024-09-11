@@ -28,7 +28,6 @@ export default class CartComponent implements OnInit, OnDestroy {
   private router = inject(Router);
   private localCartStorage = inject(LocalCartService);
   private storageKey = 'valkylit-cart';
-
   // Debounced version of saveCart()
   private debouncedSaveCart = debounce(() => {
     this.localCartStorage.saveCart(this.storageKey, JSON.stringify(this.purchaseLines));
