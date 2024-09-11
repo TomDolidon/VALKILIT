@@ -1,7 +1,7 @@
-<div class="book-card">
+<div class="book-card d-flex">
   <div class="book-img" [ngStyle]="{ 'background-image': 'url(https://picsum.photos/id/' + book!.stock + '/200/300)' }"></div>
 
-  <div class="m-2">
+  <div class="d-flex flex-column">
     <!-- <img [src]="book.imageUri" class="book-img" alt="Couverture du livre" /> -->
     <p>
       <strong> {{ book!.title }} </strong>
@@ -17,8 +17,8 @@
 
     <!-- <p>{{ book.author.name }}</p> -->
     <div class="d-flex justify-content-end m-2">
-      <button class="buy-btn mr-2">Acheter {{ book!.price }} €</button>
-      <button class="detail-btn ml-2">Voir Détails</button>
+      <p-button>Acheter {{ book!.price }} €</p-button>
+      <p-button severity="secondary">Voir Détails</p-button>
     </div>
   </div>
   <!-- </p-card> -->

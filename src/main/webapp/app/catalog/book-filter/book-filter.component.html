@@ -1,0 +1,43 @@
+<div class="book-filter h-100">
+  <h3>Filtrer les résultats</h3>
+
+  <!-- <div>
+    <label for="author">Author</label>
+    <input id="author" type="text" [(ngModel)]="filter.authors" placeholder="Enter author" />
+  </div> -->
+
+  <div class="card flex justify-content-center">
+    <label for="author">Auteurs</label>
+    <p-autoComplete
+      id="author"
+      [dropdown]="true"
+      [multiple]="true"
+      [(ngModel)]="filter.authors"
+      placeholder="Entrez un auteur"
+      field="name"
+      [suggestions]="filteredAuthors"
+      (completeMethod)="filterAuthors($event)"
+    ></p-autoComplete>
+  </div>
+
+  <p *ngFor="let enum of BookFormat | keyvalue">{{ enum.key }} - {{ enum.value }}</p>
+
+  <!-- <p *ngFor="let enum of BookFormat | keyvalue">{{ enum.key }} - {{ enum.value }}</p> -->
+
+  <!-- <div>
+    <label for="format">Format</label>
+    <select id="format" [(ngModel)]="filter.format">
+      <option value="HARDCOVER">Hardcover</option>
+      <option value="PAPERBACK">Paperback</option>
+      <option value="EBOOK">E-Book</option>
+    </select>
+  </div> -->
+
+  <div>
+    <label for="priceRange">Fourchette de prix</label>
+    <p-slider [(ngModel)]="filter.priceRange" [range]="true" min="0" max="100"></p-slider>
+    <span>De {{ filter.priceRange[0] }} € à {{ filter.priceRange[1] }} €</span>
+  </div>
+
+  <button (click)="applyFilter()">Apply Filter</button>
+</div>
