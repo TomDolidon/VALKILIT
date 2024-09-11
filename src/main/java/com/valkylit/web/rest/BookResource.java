@@ -2,6 +2,8 @@ package com.valkylit.web.rest;
 
 import com.valkylit.domain.Book;
 import com.valkylit.repository.BookRepository;
+import com.valkylit.service.BookService;
+import com.valkylit.service.dto.BookCriteriaDTO;
 import com.valkylit.web.rest.errors.BadRequestAlertException;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
@@ -37,13 +39,16 @@ public class BookResource {
 
     private static final String ENTITY_NAME = "book";
 
+    private final BookService bookService;
+
     @Value("${jhipster.clientApp.name}")
     private String applicationName;
 
     private final BookRepository bookRepository;
 
-    public BookResource(BookRepository bookRepository) {
+    public BookResource(BookRepository bookRepository, BookService bookService) {
         this.bookRepository = bookRepository;
+        this.bookService = bookService;
     }
 
     /**
@@ -176,21 +181,15 @@ public class BookResource {
      *
      * @param pageable the pagination information.
      * @param eagerload flag to eager load entities from relationships (This is applicable for many-to-many).
+     * @param criteria filtering books criterias.
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of books in body.
      */
     @GetMapping("")
-    public ResponseEntity<List<Book>> getAllBooks(
-        @org.springdoc.core.annotations.ParameterObject Pageable pageable,
-        @RequestParam(name = "eagerload", required = false, defaultValue = "true") boolean eagerload
-    ) {
-        LOG.debug("REST request to get a page of Books");
-        Page<Book> page;
-        if (eagerload) {
-            page = bookRepository.findAllWithEagerRelationships(pageable);
-        } else {
-            page = bookRepository.findAll(pageable);
-        }
+    public ResponseEntity<List<Book>> getAllBooks(Pageable pageable, BookCriteriaDTO criteria) {
+        Page<Book> page = bookService.findAllWithEagerRelationships(pageable, criteria);
+
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
+
         return ResponseEntity.ok().headers(headers).body(page.getContent());
     }
 
