@@ -45,7 +45,7 @@ export class CartValidationButtonComponent {
         this.authenticationError.set(false);
         if (!this.router.getCurrentNavigation()) {
           // There were no routing during login (eg from navigationToStoredUrl)
-          this.router.navigate(['']);
+          this.router.navigate(['/checkout']);
         }
       },
       error: () => this.authenticationError.set(true),
@@ -54,10 +54,10 @@ export class CartValidationButtonComponent {
   validate(): void {
     if (this.accountService.isAuthenticated()) {
       // TODO METTRE LA BONE ROUTE ICI ET ENVOYER LE PANIER VERS LA BDD
-      this.router.navigate(['/account/settings']);
+      this.router.navigate(['/checkout']);
     } else {
       this.showDialog();
-      this.stageStorageService.storeUrl('/cart');
+      this.stageStorageService.storeUrl('/checkout');
     }
   }
 }

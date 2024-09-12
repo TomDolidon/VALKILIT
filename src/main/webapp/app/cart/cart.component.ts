@@ -8,13 +8,14 @@ import { debounce } from 'lodash';
 import SharedModule from 'app/shared/shared.module';
 import { Account } from 'app/core/auth/account.model';
 import { LocalCartService } from 'app/core/cart/cart.service';
+import { CartValidationButtonComponent } from './cart-validation-btn/-validation-btn.component';
 
 type CustomPurchaseLine = IPurchaseCommandLine & { totalPrice: number };
 
 @Component({
   selector: 'jhi-cart',
   standalone: true,
-  imports: [SharedModule, RouterModule, TableModule, ButtonModule],
+  imports: [SharedModule, RouterModule, TableModule, ButtonModule, CartValidationButtonComponent],
   templateUrl: './cart.component.html',
   styleUrl: './cart.component.scss',
 })
