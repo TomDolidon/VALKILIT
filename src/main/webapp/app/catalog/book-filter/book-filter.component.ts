@@ -11,20 +11,20 @@ import IBookFilter from 'app/model/IBookFilter';
 import { AutoCompleteModule } from 'primeng/autocomplete';
 import { ChipsModule } from 'primeng/chips';
 import { SliderModule } from 'primeng/slider';
+import { CheckboxModule } from 'primeng/checkbox';
+import { FloatLabelModule } from 'primeng/floatlabel';
 
 @Component({
   standalone: true,
   selector: 'jhi-book-filter',
   templateUrl: './book-filter.component.html',
   styleUrl: './book-filter.component.scss',
-  imports: [CommonModule, FormsModule, AutoCompleteModule, ChipsModule, SliderModule],
+  imports: [CommonModule, FormsModule, AutoCompleteModule, ChipsModule, SliderModule, CheckboxModule, FloatLabelModule],
 })
 export class BookFilterComponent {
   authors: any[] = [];
   filteredAuthors: any[] = [];
   selectedAuthor: string | null = null;
-
-  priceValues: number[] = [0, 100];
 
   minPrice = 0;
   maxPrice = 100;
@@ -35,15 +35,6 @@ export class BookFilterComponent {
     priceRange: [0, 100],
   };
 
-  // Pour le slider
-  priceRange: { min: number; max: number } = {
-    min: 0,
-    max: 1000,
-  };
-
-  value!: number;
-  range!: [number, number];
-
   public BookFormat = BookFormat;
   bookFormatKeys = Object.keys(BookFormat);
 
@@ -51,6 +42,9 @@ export class BookFilterComponent {
 
   constructor(private authorService: AuthorService) {}
 
+  /**
+   * On component mount, retrieve authors to fill autocomplete
+   */
   ngOnInit() {
     this.loadAuthors();
   }
@@ -71,20 +65,10 @@ export class BookFilterComponent {
     this.filteredAuthors = this.authors.filter(author => author.name.toLowerCase().includes(query));
   }
 
-  // addAuthor(event: any): void {
-  //   const author = event ? event.value : this.selectedAuthor;
-  //   if (author && !this.filter.authors!.includes(author)) {
-  //     this.filter.authors!.push(author);
-  //     this.selectedAuthor = null; // Réinitialiser le champ de saisie
-  //   }
-  // }
-
-  // removeAuthor(event: any): void {
-  //   this.filter.authors = this.filter.authors!.filter(a => a !== event.value);
-  // }
-
+  /**
+   * Emit filter change
+   */
   applyFilter(): void {
-    console.log('🔊 ~ BookFilterComponent ~ applyFilter ~ applyFilter:');
     this.filterChanged.emit(this.filter);
   }
 }

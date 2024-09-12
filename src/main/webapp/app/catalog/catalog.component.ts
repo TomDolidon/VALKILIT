@@ -2,13 +2,10 @@
 
 import { CommonModule } from '@angular/common';
 import { HttpResponse } from '@angular/common/http';
-import { Component, inject, OnInit, signal } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { IBook } from 'app/entities/book/book.model';
 import { BookService } from 'app/entities/book/service/book.service';
-import { SortService } from 'app/shared/sort';
 import { LazyLoadEvent } from 'primeng/api';
-import { ButtonModule } from 'primeng/button';
-import { CardModule } from 'primeng/card';
 import { PaginatorModule } from 'primeng/paginator';
 import BookListComponent from './book-list/book-list.component';
 import { BookFilterComponent } from './book-filter/book-filter.component';
@@ -26,9 +23,10 @@ export default class CatalogComponent implements OnInit {
   totalRecords = 0;
   itemsPerPage = 6;
   page = 0;
+  paginatorFirstRecordIndex = 0;
   filter: IBookFilter | undefined;
 
-  private sortService = inject(SortService);
+  // private sortService = inject(SortService);
 
   constructor(private bookService: BookService) {}
 
@@ -51,19 +49,19 @@ export default class CatalogComponent implements OnInit {
           this.books = res.body || [];
           this.totalRecords = Number(res.headers.get('X-Total-Count'));
         },
-        error: () => {
-          // Gérer les erreurs ici
-        },
+        error: () => {},
       });
   }
 
   onPageChange(event: LazyLoadEvent): void {
     this.page = event.first! / event.rows!;
+    this.paginatorFirstRecordIndex = event.first || 0;
     this.loadBooks();
   }
 
   onFilterChanged(filter: IBookFilter): void {
-    console.log('🔊 ~ CatalogComponent ~ onFilterChanged ~ onFilterChanged:');
+    this.paginatorFirstRecordIndex = 0;
+    this.page = 0;
     this.filter = filter;
     this.loadBooks();
   }

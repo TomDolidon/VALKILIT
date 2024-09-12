@@ -65,13 +65,13 @@ export class BookService {
 
     if (filter?.authors) {
       filter.authors.forEach(author => {
-        if (author.name) params = params.append('author', author.name);
+        if (author.name) params = params.append('authors', author.name);
       });
     }
 
     if (filter?.formats && filter.formats.length > 0) {
       filter.formats.forEach(format => {
-        params = params.append('format', format);
+        params = params.append('formats', format);
       });
     }
 
