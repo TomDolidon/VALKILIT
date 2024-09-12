@@ -39,6 +39,10 @@ const routes: Routes = [
     title: 'catalog',
   },
   {
+    path: 'checkout',
+    loadChildren: () => import('./checkout/checkout.routes'),
+  },
+  {
     path: '',
     loadChildren: () => import(`./entities/entity.routes`),
   },

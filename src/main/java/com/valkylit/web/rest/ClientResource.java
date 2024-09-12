@@ -2,6 +2,8 @@ package com.valkylit.web.rest;
 
 import com.valkylit.domain.Client;
 import com.valkylit.repository.ClientRepository;
+import com.valkylit.repository.UserRepository;
+import com.valkylit.security.SecurityUtils;
 import com.valkylit.web.rest.errors.BadRequestAlertException;
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -29,14 +31,16 @@ public class ClientResource {
     private static final Logger LOG = LoggerFactory.getLogger(ClientResource.class);
 
     private static final String ENTITY_NAME = "client";
+    private final UserRepository userRepository;
 
     @Value("${jhipster.clientApp.name}")
     private String applicationName;
 
     private final ClientRepository clientRepository;
 
-    public ClientResource(ClientRepository clientRepository) {
+    public ClientResource(ClientRepository clientRepository, UserRepository userRepository) {
         this.clientRepository = clientRepository;
+        this.userRepository = userRepository;
     }
 
     /**
@@ -160,6 +164,20 @@ public class ClientResource {
     public ResponseEntity<Client> getClient(@PathVariable("id") UUID id) {
         LOG.debug("REST request to get Client : {}", id);
         Optional<Client> client = clientRepository.findOneWithEagerRelationships(id);
+        return ResponseUtil.wrapOrNotFound(client);
+    }
+
+    /**
+     * {@code GET  /clients/self} : get the client for an authenticated user.
+     *
+     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the client, or with status {@code 404 (Not Found)}.
+     */
+    @GetMapping("/self")
+    public ResponseEntity<Client> getSelfClient() {
+        LOG.debug("REST request to get Client for authentificated user");
+        String userLogin = SecurityUtils.getCurrentUserLogin()
+            .orElseThrow(() -> new BadRequestAlertException("Current user login not found", "client", "loginnotfound"));
+        Optional<Client> client = clientRepository.findOneWithToOneRelationshipsByUserLogin(userLogin);
         return ResponseUtil.wrapOrNotFound(client);
     }
 

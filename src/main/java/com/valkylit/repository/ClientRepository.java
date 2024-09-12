@@ -6,7 +6,8 @@ import java.util.Optional;
 import java.util.UUID;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.jpa.repository.*;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
@@ -38,4 +39,9 @@ public interface ClientRepository extends JpaRepository<Client, UUID> {
 
     @Query("select client from Client client left join fetch client.internalUser left join fetch client.address where client.id =:id")
     Optional<Client> findOneWithToOneRelationships(@Param("id") UUID id);
+
+    @Query(
+        "select client from Client client left join fetch client.internalUser left join fetch client.address where client.internalUser.login =:login"
+    )
+    Optional<Client> findOneWithToOneRelationshipsByUserLogin(@Param("login") String login);
 }
