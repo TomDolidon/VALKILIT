@@ -1,6 +1,6 @@
-import { Injectable, inject } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { HttpClient, HttpResponse } from '@angular/common/http';
-import { Observable, map } from 'rxjs';
+import { map, Observable } from 'rxjs';
 
 import dayjs from 'dayjs/esm';
 
@@ -64,6 +64,12 @@ export class ClientService {
     return this.http
       .get<RestClient[]>(this.resourceUrl, { params: options, observe: 'response' })
       .pipe(map(res => this.convertResponseArrayFromServer(res)));
+  }
+
+  getForSelf(): Observable<EntityResponseType> {
+    return this.http
+      .get<RestClient>(`${this.resourceUrl}/self`, { observe: 'response' })
+      .pipe(map(res => this.convertResponseFromServer(res)));
   }
 
   delete(id: string): Observable<HttpResponse<{}>> {

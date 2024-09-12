@@ -34,6 +34,10 @@ const routes: Routes = [
     title: 'login.title',
   },
   {
+    path: 'checkout',
+    loadChildren: () => import('./checkout/checkout.routes'),
+  },
+  {
     path: '',
     loadChildren: () => import(`./entities/entity.routes`),
   },

@@ -1,0 +1,83 @@
+<div #ConfirmPaymentComponent>
+  <div class="d-flex justify-content-center">
+    <div class="col-md-8">
+      <jhi-alert-error></jhi-alert-error>
+
+      <form name="form" [formGroup]="paymentForm" novalidate>
+        <div class="mb-3">
+          <label class="form-label" for="creditCardNumbers">Numéro de carte</label>
+          <input
+            type="text"
+            class="form-control"
+            id="creditCardNumbers"
+            name="creditCardNumbers"
+            placeholder="Numéro de carte"
+            formControlName="creditCardNumbers"
+            data-cy="creditCardNumbers"
+          />
+
+          @let creditCardNumbersRef = paymentForm.get('creditCardNumbers')!;
+          @if (creditCardNumbersRef.invalid && (creditCardNumbersRef.dirty || creditCardNumbersRef.touched)) {
+            <div>
+              @if (creditCardNumbersRef?.errors?.required) {
+                <small class="form-text text-danger">Votre numéro de carte est requise.</small>
+              }
+
+              @if (creditCardNumbersRef?.errors?.minlength || creditCardNumbersRef?.errors?.maxlength) {
+                <small class="form-text text-danger">Votre numéro de carte doit comporter 16 caractères.</small>
+              }
+            </div>
+          }
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="expirationDate">Date d'expiration</label>
+          <input
+            type="date"
+            class="form-control"
+            id="expirationDate"
+            name="expirationDate"
+            placeholder="Date d'expiration"
+            formControlName="expirationDate"
+            data-cy="expirationDate"
+          />
+
+          @let expirationDateRef = paymentForm.get('expirationDate')!;
+          @if (expirationDateRef.invalid && (expirationDateRef.dirty || expirationDateRef.touched)) {
+            <div>
+              @if (expirationDateRef?.errors?.required) {
+                <small class="form-text text-danger">La date d'expiration est requise.</small>
+              }
+            </div>
+          }
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="securityCode">Code de sécurité</label>
+          <input
+            type="text"
+            class="form-control"
+            id="securityCode"
+            name="securityCode"
+            placeholder="Code de sécurité"
+            formControlName="securityCode"
+            data-cy="securityCode"
+          />
+
+          @let securityCodeRef = paymentForm.get('securityCode')!;
+          @if (securityCodeRef.invalid && (securityCodeRef.dirty || securityCodeRef.touched)) {
+            <div>
+              @if (securityCodeRef?.errors?.required) {
+                <small class="form-text text-danger">Votre code de sécurité est requis.</small>
+              }
+
+              @if (securityCodeRef?.errors?.minlength || securityCodeRef?.errors?.maxlength) {
+                <small class="form-text text-danger">Votre code de sécurité doit comporter 3 caractères.</small>
+              }
+            </div>
+          }
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

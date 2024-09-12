@@ -1,0 +1,122 @@
+<div #ConfirmAddressComponent>
+  <div class="d-flex justify-content-center">
+    <div class="col-md-8">
+      <jhi-alert-error></jhi-alert-error>
+
+      <form name="form" [formGroup]="addressForm" novalidate>
+        <div class="mb-3">
+          <label class="form-label" for="street">Adresse</label>
+          <input
+            type="text"
+            class="form-control"
+            id="street"
+            name="street"
+            placeholder="Adresse"
+            formControlName="street"
+            data-cy="street"
+          />
+
+          @let streetRef = addressForm.get('street')!;
+          @if (streetRef.invalid && (streetRef.dirty || streetRef.touched)) {
+            <div>
+              @if (streetRef?.errors?.required) {
+                <small class="form-text text-danger">Votre adresse est requise.</small>
+              }
+
+              @if (streetRef?.errors?.minlength) {
+                <small class="form-text text-danger">Votre adresse doit comporter au moins 5 caractères.</small>
+              }
+
+              @if (streetRef?.errors?.maxlength) {
+                <small class="form-text text-danger">Votre adresse ne doit pas comporter plus de 254 caractères.</small>
+              }
+            </div>
+          }
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="postalCode">Code postal</label>
+          <input
+            type="text"
+            class="form-control"
+            id="postalCode"
+            name="postalCode"
+            placeholder="Code postal"
+            formControlName="postalCode"
+            data-cy="postalCode"
+          />
+
+          @let postalCodeRef = addressForm.get('postalCode')!;
+          @if (postalCodeRef.invalid && (postalCodeRef.dirty || postalCodeRef.touched)) {
+            <div>
+              @if (postalCodeRef?.errors?.required) {
+                <small class="form-text text-danger">Votre code postal est requis.</small>
+              }
+
+              @if (postalCodeRef?.errors?.minlength || postalCodeRef?.errors?.maxlength) {
+                <small class="form-text text-danger">Votre code postal doit comporter 6 caractère.</small>
+              }
+            </div>
+          }
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="city">Ville</label>
+          <input type="text" class="form-control" id="city" name="city" placeholder="Ville" formControlName="city" data-cy="city" />
+
+          @let cityRef = addressForm.get('city')!;
+          @if (cityRef.invalid && (cityRef.dirty || cityRef.touched)) {
+            <div>
+              @if (cityRef?.errors?.required) {
+                <small class="form-text text-danger">Votre ville est requise.</small>
+              }
+
+              @if (cityRef?.errors?.minlength) {
+                <small class="form-text text-danger">Le nom de votre ville doit comporter au moins 2 caractères.</small>
+              }
+
+              @if (cityRef?.errors?.maxlength) {
+                <small class="form-text text-danger">Le nom de votre ville doit comporter au maximum 254 caractères.</small>
+              }
+            </div>
+          }
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="country">Pays</label>
+          <input
+            type="text"
+            class="form-control"
+            id="country"
+            name="country"
+            placeholder="Pays"
+            formControlName="country"
+            data-cy="country"
+          />
+
+          @let countryRef = addressForm.get('country')!;
+          @if (countryRef.invalid && (countryRef.dirty || countryRef.touched)) {
+            <div>
+              @if (countryRef?.errors?.required) {
+                <small class="form-text text-danger">Votre pays est requis.</small>
+              }
+
+              @if (countryRef?.errors?.minlength) {
+                <small class="form-text text-danger">Le nom du pays doit comporter au moins 4 caractères.</small>
+              }
+
+              @if (countryRef?.errors?.maxlength) {
+                <small class="form-text text-danger">Le nom du pays doit comporter au maximum 100 caractères.</small>
+              }
+            </div>
+          }
+        </div>
+      </form>
+
+      <p-button *ngIf="this.currentUserAddress.id !== ''" (onClick)="hydrateFormWithUserCurrentAddress()"
+        >Compléter avec l'adresse liée à mon compte</p-button
+      >
+      <p-button (onClick)="emptyForm()">Vider le formulaire</p-button>
+    </div>
+  </div>
+</div>
