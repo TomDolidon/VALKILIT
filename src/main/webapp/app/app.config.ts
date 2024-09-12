@@ -22,7 +22,6 @@ import routes from './app.routes';
 // jhipster-needle-angular-add-module-import JHipster will add new module here
 import { NgbDateDayjsAdapter } from './config/datepicker-adapter';
 import { AppPageTitleStrategy } from './app-page-title-strategy';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 const routerFeatures: RouterFeatures[] = [
   withComponentInputBinding(),
