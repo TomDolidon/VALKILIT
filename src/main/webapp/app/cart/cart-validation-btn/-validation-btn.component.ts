@@ -9,11 +9,11 @@ import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angula
 import { FormsModule } from '@angular/forms';
 import { TranslateService } from '@ngx-translate/core';
 @Component({
-  selector: 'jhi-cartvalidationbtn',
+  selector: 'jhi-cart-validation-btn',
   standalone: true,
   imports: [ButtonModule, DialogModule, FormsModule, ReactiveFormsModule],
-  templateUrl: './cartvalidationbtn.component.html',
-  styleUrl: './cartvalidationbtn.component.scss',
+  templateUrl: './cart-validation-btn.component.html',
+  styleUrl: './cart-validation-btn.component.scss',
   animations: [],
 })
 export class CartValidationButtonComponent {
