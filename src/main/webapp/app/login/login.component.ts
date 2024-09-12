@@ -40,6 +40,7 @@ export default class LoginComponent implements OnInit, AfterViewInit {
     this.username().nativeElement.focus();
   }
 
+  // TODO MODIFIER ICI POUR REVENIR AU PANIER APRES LOGIN
   login(): void {
     this.loginService.login(this.loginForm.getRawValue()).subscribe({
       next: () => {
