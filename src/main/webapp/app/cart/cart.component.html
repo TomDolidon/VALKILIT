@@ -1,6 +1,6 @@
 <p-table
   [value]="purchaseLines"
-  sortField="totalPrice"
+  sortField="sub_total"
   [sortOrder]="-1"
   styleClass="p-datatable-striped"
   responsiveLayout="stack"
@@ -13,22 +13,22 @@
   <ng-template pTemplate="header">
     <tr>
       <th pSortableColumn="book.title" style="width: 20%" jhiTranslate="cart.book">Livre <p-sortIcon field="book.title" /></th>
-      <th pSortableColumn="unitPrice" style="width: 20%" jhiTranslate="cart.price">Prix <p-sortIcon field="unitPrice" /></th>
+      <th pSortableColumn="book.price" style="width: 20%" jhiTranslate="cart.price">Prix <p-sortIcon field="book.price" /></th>
       <th pSortableColumn="quantity" style="width: 20%" jhiTranslate="cart.quantity">Quantité <p-sortIcon field="quantity" /></th>
-      <th pSortableColumn="totalPrice" style="width: 20%" jhiTranslate="cart.sub-total">Sous Total <p-sortIcon field="totalPrice" /></th>
+      <th pSortableColumn="sub_total" style="width: 20%" jhiTranslate="cart.sub-total">Sous Total <p-sortIcon field="sub_total" /></th>
     </tr>
   </ng-template>
   <ng-template pTemplate="body" let-line>
     <tr>
-      <td>{{ line.book.title }}</td>
-      <td>{{ line.unitPrice | currency: 'EUR' }}</td>
+      <td>{{ line.book?.title }}</td>
+      <td>{{ line.book?.price | currency: 'EUR' }}</td>
       <td>{{ line.quantity }}</td>
-      <td>{{ line.totalPrice | currency: 'EUR' }}</td>
+      <td>{{ line.sub_total | currency: 'EUR' }}</td>
     </tr>
   </ng-template>
   <ng-template pTemplate="summary">
     <div style="display: grid; justify-items: end; row-gap: 0.5rem">
-      <div>Total ({{ getCartTotalItems() }} livres) : {{ getCartTotalPrice() | currency: 'EUR' }}</div>
+      <div>Total ({{ onTotalItems() }} livres) : {{ onTotalPrice() | currency: 'EUR' }}</div>
       <div>
         <jhi-cart-validation-btn />
       </div>
