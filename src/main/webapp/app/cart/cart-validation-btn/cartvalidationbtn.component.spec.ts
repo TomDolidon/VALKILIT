@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { CartvalidateComponent } from './cartvalidate.component';
+import { CartvalidateComponent } from './cartvalidationbtn.component';
 
 describe('CartvalidateComponent', () => {
   let component: CartvalidateComponent;

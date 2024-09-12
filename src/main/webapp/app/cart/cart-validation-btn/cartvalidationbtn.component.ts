@@ -2,9 +2,6 @@ import { Component, inject, signal } from '@angular/core';
 import { Router } from '@angular/router';
 import { AccountService } from 'app/core/auth/account.service';
 import { ButtonModule } from 'primeng/button';
-import { InputTextModule } from 'primeng/inputtext';
-import { takeUntil } from 'rxjs';
-import { Account } from '../../../core/auth/account.model';
 import { StateStorageService } from 'app/core/auth/state-storage.service';
 import { DialogModule } from 'primeng/dialog';
 import { LoginService } from 'app/login/login.service';
@@ -12,14 +9,14 @@ import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angula
 import { FormsModule } from '@angular/forms';
 import { TranslateService } from '@ngx-translate/core';
 @Component({
-  selector: 'jhi-cartvalidate',
+  selector: 'jhi-cartvalidationbtn',
   standalone: true,
   imports: [ButtonModule, DialogModule, FormsModule, ReactiveFormsModule],
-  templateUrl: './cartvalidate.component.html',
-  styleUrl: './cartvalidate.component.scss',
+  templateUrl: './cartvalidationbtn.component.html',
+  styleUrl: './cartvalidationbtn.component.scss',
   animations: [],
 })
-export class CartvalidateComponent {
+export class CartValidationButtonComponent {
   authenticationError = signal(false);
   label = 'Valider le panier';
   account = false;
