@@ -6,6 +6,7 @@ import java.util.Optional;
 import java.util.UUID;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.data.jpa.repository.*;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
@@ -17,7 +18,7 @@ import org.springframework.stereotype.Repository;
  * For more information refer to https://github.com/jhipster/generator-jhipster/issues/17990.
  */
 @Repository
-public interface BookRepository extends BookRepositoryWithBagRelationships, JpaRepository<Book, UUID> {
+public interface BookRepository extends BookRepositoryWithBagRelationships, JpaRepository<Book, UUID>, JpaSpecificationExecutor<Book> {
     default Optional<Book> findOneWithEagerRelationships(UUID id) {
         return this.fetchBagRelationships(this.findOneWithToOneRelationships(id));
     }
@@ -28,6 +29,10 @@ public interface BookRepository extends BookRepositoryWithBagRelationships, JpaR
 
     default Page<Book> findAllWithEagerRelationships(Pageable pageable) {
         return this.fetchBagRelationships(this.findAllWithToOneRelationships(pageable));
+    }
+
+    default Page<Book> findAllWithEagerRelationships(Specification<Book> spec, Pageable pageable) {
+        return findAll(spec, pageable);
     }
 
     @Query(value = "select book from Book book left join fetch book.publisher", countQuery = "select count(book) from Book book")

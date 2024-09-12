@@ -1,0 +1,22 @@
+<div class="container">
+  <div class="row">
+    <div class="col-3">
+      <jhi-book-filter (filterChanged)="onFilterChanged($event)"></jhi-book-filter>
+    </div>
+    <div class="col-9">
+      <jhi-book-list [books]="books"></jhi-book-list>
+
+      <div class="d-flex justify-content-end">
+        <p class="align-self-center mr-2">
+          Affichage de {{ page * itemsPerPage + 1 }} à {{ page * itemsPerPage + itemsPerPage }} sur {{ totalRecords }} résultats
+        </p>
+        <p-paginator
+          [rows]="itemsPerPage"
+          [totalRecords]="totalRecords"
+          (onPageChange)="onPageChange($event)"
+          [first]="paginatorFirstRecordIndex"
+        ></p-paginator>
+      </div>
+    </div>
+  </div>
+</div>

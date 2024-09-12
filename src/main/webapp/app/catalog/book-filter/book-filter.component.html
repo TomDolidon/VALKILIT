@@ -1,0 +1,42 @@
+<div class="book-filter h-100 p-4">
+  <strong>Filtrer les résultats</strong>
+
+  <div class="my-2 mt-4">
+    <div class="mt-4">
+      <p-floatLabel>
+        <p-autoComplete
+          id="author"
+          [dropdown]="true"
+          [multiple]="true"
+          [(ngModel)]="filter.authors"
+          field="name"
+          [suggestions]="filteredAuthors"
+          (completeMethod)="filterAuthors($event)"
+          (onSelect)="applyFilter()"
+        ></p-autoComplete>
+        <label for="author">Auteurs</label>
+      </p-floatLabel>
+    </div>
+  </div>
+
+  <div class="my-2">
+    <label for="format" class="mb-2">Format</label>
+    <div *ngFor="let enum of BookFormat | keyvalue" class="field-checkbox">
+      <p-checkbox
+        class="my-1"
+        id="format"
+        [(ngModel)]="filter.formats"
+        [label]="enum.value"
+        name="group"
+        [value]="enum.value"
+        (onChange)="applyFilter()"
+      />
+    </div>
+  </div>
+
+  <div>
+    <label for="priceRange" class="mb-2">Fourchette de prix</label>
+    <p-slider [(ngModel)]="filter.priceRange" [range]="true" [min]="minPrice" [max]="maxPrice" (onSlideEnd)="applyFilter()"> ></p-slider>
+    <span>De {{ filter.priceRange[0] }} € à {{ filter.priceRange[1] }} €</span>
+  </div>
+</div>

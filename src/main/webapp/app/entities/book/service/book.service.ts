@@ -1,5 +1,5 @@
 import { Injectable, inject } from '@angular/core';
-import { HttpClient, HttpResponse } from '@angular/common/http';
+import { HttpClient, HttpParams, HttpResponse } from '@angular/common/http';
 import { Observable, map } from 'rxjs';
 
 import dayjs from 'dayjs/esm';
@@ -9,6 +9,7 @@ import { DATE_FORMAT } from 'app/config/input.constants';
 import { ApplicationConfigService } from 'app/core/config/application-config.service';
 import { createRequestOption } from 'app/core/request/request-util';
 import { IBook, NewBook } from '../book.model';
+import IBookFilter from 'app/model/IBookFilter';
 
 export type PartialUpdateBook = Partial<IBook> & Pick<IBook, 'id'>;
 
@@ -57,10 +58,40 @@ export class BookService {
       .pipe(map(res => this.convertResponseFromServer(res)));
   }
 
-  query(req?: any): Observable<EntityArrayResponseType> {
+  query(req?: any, filter?: IBookFilter): Observable<EntityArrayResponseType> {
     const options = createRequestOption(req);
+
+    let params = new HttpParams();
+
+    if (filter?.authors) {
+      filter.authors.forEach(author => {
+        if (author.name) params = params.append('authors', author.name);
+      });
+    }
+
+    if (filter?.formats && filter.formats.length > 0) {
+      filter.formats.forEach(format => {
+        params = params.append('formats', format);
+      });
+    }
+
+    if (filter?.priceRange !== undefined) {
+      params = params.set('minPrice', filter.priceRange[0].toString());
+    }
+
+    if (filter?.priceRange !== undefined) {
+      params = params.set('maxPrice', filter.priceRange[1].toString());
+    }
+
+    let mergedParams = options;
+    params.keys().forEach(key => {
+      params.getAll(key)?.forEach(value => {
+        mergedParams = mergedParams.append(key, value);
+      });
+    });
+
     return this.http
-      .get<RestBook[]>(this.resourceUrl, { params: options, observe: 'response' })
+      .get<RestBook[]>(this.resourceUrl, { params: mergedParams, observe: 'response' })
       .pipe(map(res => this.convertResponseArrayFromServer(res)));
   }
 
