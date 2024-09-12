@@ -7,7 +7,7 @@ import { IPurchaseCommandLine } from 'app/entities/purchase-command-line/purchas
 import { debounce } from 'lodash';
 import SharedModule from 'app/shared/shared.module';
 import { Account } from 'app/core/auth/account.model';
-import { LocalCartService } from './cart.service';
+import { LocalCartService } from 'app/core/cart/cart.service';
 
 type CustomPurchaseLine = IPurchaseCommandLine & { totalPrice: number };
 
@@ -28,6 +28,7 @@ export default class CartComponent implements OnInit, OnDestroy {
   private router = inject(Router);
   private localCartStorage = inject(LocalCartService);
   private storageKey = 'valkylit-cart';
+
   // Debounced version of saveCart()
   private debouncedSaveCart = debounce(() => {
     this.localCartStorage.saveCart(this.storageKey, JSON.stringify(this.purchaseLines));
@@ -73,6 +74,10 @@ export default class CartComponent implements OnInit, OnDestroy {
   removeItemFromCart(index: number): void {
     this.purchaseLines.splice(index, 1);
     this.localCartStorage.saveCart(this.storageKey, JSON.stringify(this.purchaseLines));
+  }
+
+  onClear(): void {
+    this.localCartStorage.clearCart();
   }
 
   // to set a basic (test only) cart

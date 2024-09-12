@@ -30,7 +30,7 @@
     <div style="display: grid; justify-items: end; row-gap: 0.5rem">
       <div>Total ({{ getCartTotalItems() }} livres) : {{ getCartTotalPrice() | currency: 'EUR' }}</div>
       <div>
-        <p-button label="Passer Commande" [raised]="true" icon="pi pi-check" iconPos="right" />
+        <p-button label="Passer Commande" [raised]="true" icon="pi pi-check" iconPos="right" (click)="onClear()" />
       </div>
     </div>
   </ng-template>
