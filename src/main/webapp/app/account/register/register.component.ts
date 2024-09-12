@@ -14,6 +14,8 @@ import { AccountService } from '../../core/auth/account.service';
 import { LoginService } from '../../login/login.service';
 import { ClientService } from '../../entities/client/service/client.service';
 import { Account } from '../../core/auth/account.model';
+import { catchError, switchMap, tap } from 'rxjs/operators';
+import { of } from 'rxjs';
 
 @Component({
   standalone: true,
@@ -106,55 +108,64 @@ export default class RegisterComponent implements AfterViewInit {
       // @ts-expect-error
       const newAddress: NewAddress = { street, postalCode, city, country };
 
-      // Create account.
       const { login, email } = this.registerForm.getRawValue();
-      this.registerService.save({ login, email, password, langKey: this.translateService.currentLang }).subscribe({
-        next: () => {
-          // Log-in automatically the user.
-          this.loginService.login({ username: login, password, rememberMe: false }).subscribe(() => {
-            this.accountService.identity(true).subscribe({
-              next: (account: Account | null) => {
-                if (account === null) {
-                  this.error.set(true);
-                  return;
-                }
 
-                // Update the account with additional fields.
-                account.firstName = firstName;
-                account.lastName = lastName;
-                this.accountService.save(account).subscribe({
-                  next: () => {
-                    // Create address entity.
-                    this.addressService.create(newAddress).subscribe({
-                      next: res => {
-                        const addressId: IAddress = res.body!;
+      // Create account.
+      this.registerService
+        .save({ login, email, password, langKey: this.translateService.currentLang })
+        .pipe(
+          // Log in the user.
+          switchMap(() => this.loginService.login({ username: login, password, rememberMe: false })),
 
-                        // Create client entity with the user id and address id.
-                        this.clientService
-                          .create({
-                            id: null,
-                            internalUser: { id: account.id! },
-                            address: addressId,
-                          })
-                          .subscribe({
-                            next: () => {
-                              this.router.navigate(['/']);
-                            },
-                            error: response => this.error.set(response),
-                          });
-                      },
-                      error: response => this.error.set(response),
-                    });
-                  },
-                  error: response => this.error.set(response),
-                });
-              },
-              error: response => this.error.set(response),
-            });
-          });
-        },
-        error: response => this.processError(response),
-      });
+          // Fetch user identity to get the account.
+          switchMap(() => this.accountService.identity(true)),
+
+          // Check if the account is valid.
+          switchMap((account: Account | null) => {
+            if (!account) {
+              this.error.set(true);
+              return of(null);
+            }
+
+            // Set firstname and lastname.
+            account.firstName = firstName;
+            account.lastName = lastName;
+
+            // Update the account.
+            return this.accountService.save(account).pipe(
+              // Create address.
+              switchMap(() => this.addressService.create(newAddress)),
+
+              // Create client entity with address and user references.
+              switchMap((res: any) => {
+                const addressId: IAddress = res.body;
+                return this.clientService
+                  .create({
+                    id: null,
+                    internalUser: { id: account.id! },
+                    address: addressId,
+                  })
+                  .pipe(
+                    // eslint-disable-next-line @typescript-eslint/no-misused-promises
+                    tap(() => this.router.navigate(['/'])),
+                  );
+              }),
+
+              // Address and client creation errors.
+              catchError(error => {
+                this.error.set(error);
+                return of(null);
+              }),
+            );
+          }),
+
+          // Login and account errors.
+          catchError(error => {
+            this.processError(error);
+            return of(null);
+          }),
+        )
+        .subscribe();
     }
   }
 
