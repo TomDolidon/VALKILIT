@@ -46,7 +46,6 @@ if (DEBUG_INFO_ENABLED) {
 export const appConfig: ApplicationConfig = {
   providers: [
     provideAnimations(),
-    importProvidersFrom(BrowserAnimationsModule),
     provideRouter(routes, ...routerFeatures),
     importProvidersFrom(BrowserModule),
     importProvidersFrom(BrowserAnimationsModule),

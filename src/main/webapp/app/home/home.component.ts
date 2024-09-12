@@ -13,7 +13,7 @@ import { CartvalidateComponent } from 'app/component/button/cartvalidate/cartval
   selector: 'jhi-home',
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss',
-  imports: [SharedModule, RouterModule, CartvalidateComponent],
+  imports: [SharedModule, RouterModule],
 })
 export default class HomeComponent implements OnInit, OnDestroy {
   account = signal<Account | null>(null);
