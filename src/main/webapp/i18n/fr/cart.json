@@ -1,0 +1,9 @@
+{
+  "cart": {
+    "title": "Mon Panier",
+    "book": "Livre",
+    "price": "Prix",
+    "quantity": "Quantité",
+    "sub-total": "Sous Total"
+  }
+}
