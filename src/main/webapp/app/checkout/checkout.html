@@ -1,0 +1,61 @@
+<p-stepper>
+  <p-stepperPanel header="Adresse">
+    <ng-template pTemplate="content" let-nextCallback="nextCallback" let-index="index">
+      <div class="flex flex-column h-12rem">
+        <div
+          class="border-2 border-dashed surface-border border-round surface-ground flex-auto flex justify-content-center align-items-center font-medium"
+        >
+          <jhi-confirm-address [addressForm]="getAddressGroupForm()"></jhi-confirm-address>
+        </div>
+      </div>
+      <div class="flex py-4">
+        <p-button label="Suivant" (onClick)="nextCallback.emit()" />
+      </div>
+    </ng-template>
+  </p-stepperPanel>
+  <p-stepperPanel header="Paiement">
+    <ng-template pTemplate="content" let-prevCallback="prevCallback" let-nextCallback="nextCallback" let-index="index">
+      <div class="flex flex-column h-12rem">
+        <div
+          class="border-2 border-dashed surface-border border-round surface-ground flex-auto flex justify-content-center align-items-center font-medium"
+        >
+          <jhi-confirm-payment [paymentForm]="getPaymentGroupForm()"></jhi-confirm-payment>
+        </div>
+      </div>
+      <div class="flex py-4 gap-2">
+        <p-button label="Retour" severity="secondary" (onClick)="prevCallback.emit()" />
+        <p-button label="Valider le paiement" [disabled]="!isFormValid()" (onClick)="proceedCheckout()" />
+      </div>
+    </ng-template>
+  </p-stepperPanel>
+  <p-stepperPanel header="Confirmation">
+    <ng-template pTemplate="content" let-prevCallback="prevCallback" let-index="index">
+      <div class="flex flex-column h-12rem">
+        <div
+          class="border-2 border-dashed surface-border border-round surface-ground flex-auto flex justify-content-center align-items-center font-medium"
+        >
+          <jhi-confirm-summary></jhi-confirm-summary>
+        </div>
+      </div>
+      <div class="flex py-4 gap-2">
+        <p-button label="Retour" severity="secondary" (onClick)="prevCallback.emit()" />
+        <p-button label="Terminer" />
+      </div>
+    </ng-template>
+  </p-stepperPanel>
+</p-stepper>
+
+<p-dialog
+  [showHeader]="false"
+  [modal]="true"
+  [(visible)]="isProceedingCheckout"
+  [style]="{ width: '50rem' }"
+  [breakpoints]="{ '1199px': '75vw', '575px': '90vw' }"
+  [closable]="false"
+  [draggable]="false"
+>
+  <div class="centered">
+    <p>Paiement en cours... Veuillez patienter.</p>
+    <img src="https://www.gifimili.com/gif/2018/03/sablier.gif" />
+  </div>
+</p-dialog>

@@ -1,4 +1,4 @@
-import { Component, OnInit, inject, signal } from '@angular/core';
+import { Component, inject, OnInit, signal } from '@angular/core';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { TranslateService } from '@ngx-translate/core';
 
@@ -54,7 +54,7 @@ export default class SettingsComponent implements OnInit {
   save(): void {
     this.success.set(false);
 
-    const account = this.settingsForm.getRawValue();
+    const account = { ...this.settingsForm.getRawValue(), id: null };
     this.accountService.save(account).subscribe(() => {
       this.success.set(true);
 
