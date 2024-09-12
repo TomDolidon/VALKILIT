@@ -1,0 +1,9 @@
+{
+  "cart": {
+    "title": "My cart",
+    "book": "Book",
+    "price": "Price",
+    "quantity": "Quantity",
+    "sub-total": "Sub Total"
+  }
+}

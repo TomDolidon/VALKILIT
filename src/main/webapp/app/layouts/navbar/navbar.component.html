@@ -27,6 +27,15 @@
             </span>
           </a>
         </li>
+        <!-- TEMPORARY - add a cart button -->
+        <li class="nav-item" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
+          <a class="nav-link" routerLink="/cart" (click)="collapseNavbar()">
+            <span>
+              <fa-icon icon="shopping-cart"></fa-icon>
+              <span jhiTranslate="global.menu.cart">Panier</span>
+            </span>
+          </a>
+        </li>
         <!-- jhipster-needle-add-element-to-menu - JHipster will add new menu items here -->
         @if (account() !== null) {
           <li

@@ -1,0 +1,37 @@
+<p-table
+  [value]="purchaseLines"
+  sortField="totalPrice"
+  [sortOrder]="-1"
+  styleClass="p-datatable-striped"
+  responsiveLayout="stack"
+  [breakpoint]="'960px'"
+  [tableStyle]="{ 'min-width': '60rem' }"
+>
+  <ng-template pTemplate="caption">
+    <div class="flex align-items-center justify-content-between" jhiTranslate="cart.title">Mon Panier</div>
+  </ng-template>
+  <ng-template pTemplate="header">
+    <tr>
+      <th pSortableColumn="book.title" style="width: 20%" jhiTranslate="cart.book">Livre <p-sortIcon field="book.title" /></th>
+      <th pSortableColumn="unitPrice" style="width: 20%" jhiTranslate="cart.price">Prix <p-sortIcon field="unitPrice" /></th>
+      <th pSortableColumn="quantity" style="width: 20%" jhiTranslate="cart.quantity">Quantité <p-sortIcon field="quantity" /></th>
+      <th pSortableColumn="totalPrice" style="width: 20%" jhiTranslate="cart.sub-total">Sous Total <p-sortIcon field="totalPrice" /></th>
+    </tr>
+  </ng-template>
+  <ng-template pTemplate="body" let-line>
+    <tr>
+      <td>{{ line.book.title }}</td>
+      <td>{{ line.unitPrice | currency: 'EUR' }}</td>
+      <td>{{ line.quantity }}</td>
+      <td>{{ line.totalPrice | currency: 'EUR' }}</td>
+    </tr>
+  </ng-template>
+  <ng-template pTemplate="summary">
+    <div style="display: grid; justify-items: end; row-gap: 0.5rem">
+      <div>Total ({{ getCartTotalItems() }} livres) : {{ getCartTotalPrice() | currency: 'EUR' }}</div>
+      <div>
+        <p-button label="Passer Commande" [raised]="true" icon="pi pi-check" iconPos="right" (click)="onClear()" />
+      </div>
+    </div>
+  </ng-template>
+</p-table>
