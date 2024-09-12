@@ -34,9 +34,9 @@ const routes: Routes = [
     title: 'login.title',
   },
   {
-    path: 'books',
-    loadComponent: () => import('./catalog/book-list/book-list.component'),
-    title: 'books',
+    path: 'catalog',
+    loadComponent: () => import('./catalog/catalog.component'),
+    title: 'catalog',
   },
   {
     path: '',
