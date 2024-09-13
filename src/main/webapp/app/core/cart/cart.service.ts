@@ -1,14 +1,20 @@
-import { Injectable } from '@angular/core';
+import { Injectable, signal } from '@angular/core';
 import IBookCart from 'app/model/IBookCart';
+import { BehaviorSubject, Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
 })
 export class LocalCartService {
   private storageKey = new Map<string, string>();
+  private cartItemCount = new BehaviorSubject<number>(0);
 
   constructor() {
     this.initStorageKeys();
+  }
+
+  getCartItemCount(): Observable<number> {
+    return this.cartItemCount.asObservable();
   }
 
   // -------------- METHODS -----------------
@@ -71,9 +77,11 @@ export class LocalCartService {
         bookInCart.quantity += JSON.parse(value).quantity as number;
         bookInCart.sub_total = bookInCart.quantity * bookInCart.book.price!;
         if (bookInCart.quantity < 1) {
-          localStorage.removeItem(key);
+          this.deleteCart(key);
+          this.cartItemCount.next(this.getCartTotalItems());
         } else {
           localStorage.setItem(key, JSON.stringify(bookInCart));
+          this.cartItemCount.next(this.getCartTotalItems());
         }
       } catch (error) {
         console.error('Error updating cart item:', error);
@@ -81,6 +89,7 @@ export class LocalCartService {
     } else {
       this.storageKey.set(key, key);
       localStorage.setItem(key, value);
+      this.cartItemCount.next(this.getCartTotalItems());
     }
   }
 
@@ -99,6 +108,7 @@ export class LocalCartService {
   public clearCart(): void {
     this.storageKey.clear();
     localStorage.clear();
+    this.cartItemCount.next(0);
   }
 
   private initStorageKeys(): void {
