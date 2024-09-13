@@ -1,4 +1,50 @@
-<div class="row">
+<div class="home">
+  <div class="section-1 d-flex justify-content-between">
+    <div class="d-flex flex-column justify-content-center content-text">
+      <h1 class="h1-main">Trouvez le livre qu'il vous faut</h1>
+      <h2>ValkyLit, c'est LA réference de vente de livre en ligne avec plus de 78 produits</h2>
+      <p-button [routerLink]="['/catalog']" class="catalog-btn" size="large">Explorer notre catalogue</p-button>
+    </div>
+    <!-- <div class="books-image align-self-end"></div> -->
+  </div>
+
+  <div class="section-2 d-flex flex-column">
+    <h3 class="m-4 align-self-center">Mettez vous à la page avec nos ajouts récents</h3>
+
+    <p-carousel [value]="recentBooks" [numVisible]="3" [numScroll]="3" [circular]="true">
+      <ng-template pTemplate="item" let-book>
+        <jhi-book-card [book]="book"></jhi-book-card>
+      </ng-template>
+    </p-carousel>
+  </div>
+
+  <div class="section-3 d-flex flex-column">
+    <h3 class="m-4 align-self-center">Catégorie à l'affiche</h3>
+    <div class="category-card d-flex">
+      <div
+        class="category-img"
+        [ngStyle]="{
+          'background-image':
+            'url(https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjshT-sEaKYSOXtn0jq_pAHlRklOPGcctkOB_2SfibJIr7HSuZn-GIP-PNcbuDbn7BH29X2Dm7fXSd7aElhr7PDJGV5xIBq6QDoXTfqLztbraKOXXyFwuVRDjMT15rs30q_PqNUdW68VCkjK6WdfBQXUhmwMExRPNTLkDls5MlzzD473BkoIbeg1w/s320/eschwitz_science_fiction_magazine_b15f7418-effe-43b9-a51d-0f2589a2baf6-1.jpg)',
+        }"
+      ></div>
+      <div class="d-flex flex-column justify-content-betweens mx-4">
+        <h2 class="align-self-center">Science-Fiction</h2>
+        <span class="align-self-center description">
+          La science-fiction (parfois abrégée en sci-fi ou SF) est un genre de fiction spéculative ou de littérature de l’imaginaire qui
+          traite généralement de concepts imaginatifs et futuristes tels que la science et la technologie avancées, l’exploration spatiale,
+          le voyage dans le temps, les univers parallèles et la vie extraterrestre. Elle a été appelée la « littérature des idées » et
+          explore souvent les conséquences potentielles des innovations scientifiques, sociales et technologiques.
+        </span>
+        <p-button [routerLink]="['/catalog?category=science-fiction']" styleClass="catalog-btn m-4" size="large" class="align-self-center"
+          >Découvrir nos livres de science fiction</p-button
+        >
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- <div class="row">
   <div class="col-md-3">
     <span class="hipster img-fluid rounded"></span>
   </div>
@@ -80,4 +126,4 @@
       >!
     </p>
   </div>
-</div>
+</div> -->

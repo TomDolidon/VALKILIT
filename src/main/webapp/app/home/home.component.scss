@@ -2,22 +2,111 @@
 Main page styles
 ========================================================================== */
 
-.hipster {
-  display: inline-block;
-  width: 347px;
-  height: 497px;
-  background: url('../../content/images/jhipster_family_member_0.svg') no-repeat center top;
-  background-size: contain;
-}
+// .hipster {
+//   display: inline-block;
+//   width: 347px;
+//   height: 497px;
+//   background: url('../../content/images/jhipster_family_member_0.svg') no-repeat center top;
+//   background-size: contain;
+// }
 
 /* wait autoprefixer update to allow simple generation of high pixel density media query */
-@media only screen and (-webkit-min-device-pixel-ratio: 2),
-  only screen and (-moz-min-device-pixel-ratio: 2),
-  only screen and (-o-min-device-pixel-ratio: 2/1),
-  only screen and (min-resolution: 192dpi),
-  only screen and (min-resolution: 2dppx) {
-  .hipster {
-    background: url('../../content/images/jhipster_family_member_0.svg') no-repeat center top;
+// @media only screen and (-webkit-min-device-pixel-ratio: 2),
+//   only screen and (-moz-min-device-pixel-ratio: 2),
+//   only screen and (-o-min-device-pixel-ratio: 2/1),
+//   only screen and (min-resolution: 192dpi),
+//   only screen and (min-resolution: 2dppx) {
+//   .hipster {
+//     background: url('../../content/images/jhipster_family_member_0.svg') no-repeat center top;
+//     background-size: contain;
+//   }
+// }
+
+$primary-color: #9e573f;
+$secondary-color: #85868a;
+$light-color: #e8e9e1;
+$accent-color: #bd607d;
+$dark-color: #30333b;
+
+.home {
+  background-color: $light-color;
+
+  .section-1 {
+    height: 600px;
+
+    background: url('../../content/images/books.png') no-repeat center right;
     background-size: contain;
+
+    .content-text {
+      margin-left: 50px;
+    }
+    h1 {
+      font-size: 48px;
+      font-weight: 800;
+      margin-bottom: 50px;
+    }
+    h2 {
+      margin: 0px 0px 55px 0px;
+      // font-size: 32px;
+      // font-weight: 600;
+    }
+    .catalog-btn {
+    }
+
+    .books-image {
+      // display: inline-block;
+      // width: 347px;
+      // height: 497px;
+      // background: url('../../content/images/books4.png') no-repeat center right;
+      // background-size: cover;
+      // -webkit-transform: scaleX(-1);
+      // transform: scaleX(-1);
+      // margin-bottom: -109px;
+    }
+  }
+
+  .section-2 {
+    background-color: $dark-color;
+    // height: 300px;
+
+    h3 {
+      color: $light-color;
+    }
+  }
+
+  .section-3 {
+    background-color: $light-color;
+    // height: 300px;
+
+    h3 {
+      color: $dark-color;
+    }
+
+    .category-card {
+      margin: 0 70px 20px 70px;
+      background-color: $accent-color;
+      color: white;
+      // border: 1px solid #dad8dd;
+      border-radius: 15px;
+      box-shadow: #d6cece 0px 7px 5px 0px;
+
+      .category-img {
+        border-radius: 10px 0px 0px 10px;
+        opacity: 1;
+        // width: 200px;
+        background-size: cover;
+        background-position: center center;
+        background-repeat: no-repeat;
+      }
+
+      .description {
+        text-align: center;
+      }
+
+      .catalog-btn {
+        background-color: white !important;
+        color: $dark-color !important;
+      }
+    }
   }
 }
