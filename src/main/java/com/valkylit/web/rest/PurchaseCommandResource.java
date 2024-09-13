@@ -1,7 +1,9 @@
 package com.valkylit.web.rest;
 
+import com.valkylit.domain.Client;
 import com.valkylit.domain.PurchaseCommand;
 import com.valkylit.repository.PurchaseCommandRepository;
+import com.valkylit.security.SecurityUtils;
 import com.valkylit.web.rest.errors.BadRequestAlertException;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
@@ -170,6 +172,34 @@ public class PurchaseCommandResource {
     public ResponseEntity<PurchaseCommand> getPurchaseCommand(@PathVariable("id") UUID id) {
         LOG.debug("REST request to get PurchaseCommand : {}", id);
         Optional<PurchaseCommand> purchaseCommand = purchaseCommandRepository.findOneWithEagerRelationships(id);
+        return ResponseUtil.wrapOrNotFound(purchaseCommand);
+    }
+
+    /**
+     * {@code GET  /purchase-commands/self} : get the purchase commands of an authenticated user.
+     *
+     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the client, or with status {@code 404 (Not Found)}.
+     */
+    @GetMapping("/self")
+    public List<PurchaseCommand> getSelfPurchaseCommands() {
+        LOG.debug("REST request to get Purchase Commands for authentificated user");
+        String userLogin = SecurityUtils.getCurrentUserLogin()
+            .orElseThrow(() -> new BadRequestAlertException("Current user login not found", "purchase-commands", "loginnotfound"));
+        return purchaseCommandRepository.findAllByLogin(userLogin);
+    }
+
+    /**
+     * {@code GET  /purchase-commands/self-current-draft} : get current purchase command
+     * with draft status of an authenticated user.
+     *
+     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the client, or with status {@code 404 (Not Found)}.
+     */
+    @GetMapping("/self-current-draft")
+    public ResponseEntity<PurchaseCommand> getSelfCurrentPurchaseCommand() {
+        LOG.debug("REST request to get the draft purchase command for authentificated user");
+        String userLogin = SecurityUtils.getCurrentUserLogin()
+            .orElseThrow(() -> new BadRequestAlertException("Current user login not found", "purchase-commands", "loginnotfound"));
+        Optional<PurchaseCommand> purchaseCommand = purchaseCommandRepository.findCurrentDraftByLogin(userLogin);
         return ResponseUtil.wrapOrNotFound(purchaseCommand);
     }
 
