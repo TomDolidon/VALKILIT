@@ -13,13 +13,14 @@ import { ProfileService } from 'app/layouts/profiles/profile.service';
 import { EntityNavbarItems } from 'app/entities/entity-navbar-items';
 import ActiveMenuDirective from './active-menu.directive';
 import NavbarItem from './navbar-item.model';
+import { SearchBarComponent } from 'app/shared/search-bar/search-bar.component';
 
 @Component({
   standalone: true,
   selector: 'jhi-navbar',
   templateUrl: './navbar.component.html',
   styleUrl: './navbar.component.scss',
-  imports: [RouterModule, SharedModule, HasAnyAuthorityDirective, ActiveMenuDirective],
+  imports: [RouterModule, SharedModule, HasAnyAuthorityDirective, ActiveMenuDirective, SearchBarComponent],
 })
 export default class NavbarComponent implements OnInit {
   inProduction?: boolean;

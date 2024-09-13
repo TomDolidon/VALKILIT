@@ -1,10 +1,13 @@
-<nav data-cy="navbar" class="navbar navbar-light navbar-expand-md bg-light">
+<nav data-cy="navbar" class="navbar navbar-light navbar-expand-md">
   <div class="container-fluid">
     <a class="navbar-brand logo" routerLink="/" (click)="collapseNavbar()">
       <span class="logo-img"></span>
-      <span class="navbar-title" jhiTranslate="global.title">Valkylit</span>
-      <span class="navbar-version">{{ version }}</span>
     </a>
+
+    <div class="search-bar-container">
+      <jhi-search-bar></jhi-search-bar>
+    </div>
+
     <a
       class="navbar-toggler d-lg-none"
       href="javascript:void(0);"
@@ -19,14 +22,6 @@
     </a>
     <div class="navbar-collapse collapse" id="navbarResponsive" [ngbCollapse]="isNavbarCollapsed()">
       <ul class="navbar-nav ms-auto">
-        <li class="nav-item" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
-          <a class="nav-link" routerLink="/" (click)="collapseNavbar()">
-            <span>
-              <fa-icon icon="home"></fa-icon>
-              <span jhiTranslate="global.menu.home">Accueil</span>
-            </span>
-          </a>
-        </li>
         <!-- TEMPORARY - add a cart button -->
         <li class="nav-item" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
           <a class="nav-link" routerLink="/cart" (click)="collapseNavbar()">
