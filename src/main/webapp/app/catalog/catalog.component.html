@@ -7,10 +7,14 @@
       <jhi-book-list [books]="books"></jhi-book-list>
 
       <div class="d-flex justify-content-end">
-        <p class="align-self-center mr-2">
-          Affichage de {{ page * itemsPerPage + 1 }} à {{ page * itemsPerPage + itemsPerPage }} sur {{ totalRecords }} résultats
+        <p class="align-self-center mr-2 result-number">
+          Affichage de {{ page * itemsPerPage + 1 }} à
+          {{ page * itemsPerPage + itemsPerPage > totalRecords ? totalRecords : page * itemsPerPage + itemsPerPage }} sur
+          {{ totalRecords }} résultats
         </p>
         <p-paginator
+          styleClass="paginator"
+          class="paginator"
           [rows]="itemsPerPage"
           [totalRecords]="totalRecords"
           (onPageChange)="onPageChange($event)"
