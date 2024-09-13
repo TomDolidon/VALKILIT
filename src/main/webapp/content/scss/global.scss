@@ -208,3 +208,23 @@ angular-cli removes postcss-rtl processed inline css, processed rules must be ad
   }
 }
 /* jhipster-needle-scss-add-main JHipster will add new css style */
+
+/* Valkylit */
+
+@font-face {
+  font-family: 'Merriweather_Sans';
+  src: url('../fonts/Merriweather_Sans/MerriweatherSans-VariableFont_wght.ttf') format('woff2');
+  font-weight: normal;
+  font-style: normal;
+}
+
+body {
+  font-family: 'Merriweather_Sans', sans-serif;
+}
+
+$light-color: #e8e9e1;
+
+body {
+  margin: 0;
+  background-color: $light-color;
+}
