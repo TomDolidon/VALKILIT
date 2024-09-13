@@ -4,6 +4,7 @@
     "book": "Livre",
     "price": "Prix",
     "quantity": "Quantité",
-    "sub-total": "Sous Total"
+    "sub-total": "Sous Total",
+    "total": "Total ({{count}} livres dans votre panier) : {{count2}}"
   }
 }
