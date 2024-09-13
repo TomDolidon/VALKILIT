@@ -58,7 +58,7 @@ export class BookService {
       .pipe(map(res => this.convertResponseFromServer(res)));
   }
 
-  query(req?: any, filter?: IBookFilter): Observable<EntityArrayResponseType> {
+  query(req?: any, filter?: IBookFilter, searchTerm?: string): Observable<EntityArrayResponseType> {
     const options = createRequestOption(req);
 
     let params = new HttpParams();
@@ -81,6 +81,10 @@ export class BookService {
 
     if (filter?.priceRange !== undefined) {
       params = params.set('maxPrice', filter.priceRange[1].toString());
+    }
+
+    if (searchTerm !== undefined) {
+      params = params.set('searchTerm', searchTerm.toString());
     }
 
     let mergedParams = options;

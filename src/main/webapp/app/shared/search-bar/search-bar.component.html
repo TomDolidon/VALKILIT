@@ -1,0 +1,17 @@
+<div class="search-bar">
+  <p-inputGroup>
+    <p-iconField iconPosition="right">
+      <input
+        [(ngModel)]="searchTerm"
+        (keydown.enter)="onSearch()"
+        type="text"
+        class="search-bar-input"
+        pInputText
+        placeholder="Recherchez un livre"
+      />
+      <p-inputIcon styleClass="pi pi-times" *ngIf="searchTerm" (click)="clearSearch()" />
+    </p-iconField>
+
+    <p-button type="button" icon="pi pi-search" severity="secondary" (click)="onSearch()"></p-button>
+  </p-inputGroup>
+</div>

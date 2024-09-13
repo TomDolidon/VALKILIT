@@ -186,6 +186,7 @@ public class BookResource {
      */
     @GetMapping("")
     public ResponseEntity<List<Book>> getAllBooks(Pageable pageable, BookCriteriaDTO criteria) {
+        System.out.println(criteria.getSearchTerm());
         Page<Book> page = bookService.findAllWithEagerRelationships(pageable, criteria);
 
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);

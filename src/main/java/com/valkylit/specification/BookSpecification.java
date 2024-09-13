@@ -32,7 +32,12 @@ public class BookSpecification {
                 predicates.add(criteriaBuilder.lessThanOrEqualTo(root.get("price"), criteria.getMaxPrice()));
             }
 
-            // Combine les prédicats
+            if (criteria.getSearchTerm() != null && !criteria.getSearchTerm().isEmpty()) {
+                predicates.add(
+                    criteriaBuilder.like(criteriaBuilder.lower(root.get("title")), "%" + criteria.getSearchTerm().toLowerCase() + "%")
+                );
+            }
+
             return criteriaBuilder.and(predicates.toArray(new Predicate[0]));
         };
     }
