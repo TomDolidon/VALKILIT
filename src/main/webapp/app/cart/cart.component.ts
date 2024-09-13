@@ -20,7 +20,6 @@ export default class CartComponent implements OnInit, OnDestroy {
   account = signal<Account | null>(null);
 
   public purchaseLines: IBookCart[] = [];
-  private defaultKey = 'valkylit-cart';
 
   private readonly destroy$ = new Subject<void>();
 
@@ -28,11 +27,7 @@ export default class CartComponent implements OnInit, OnDestroy {
   private localCartStorage = inject(LocalCartService);
 
   ngOnInit(): void {
-    if (this.localCartStorage.getCart(this.defaultKey)) {
-      this.purchaseLines = JSON.parse(this.localCartStorage.getCart(this.defaultKey)!);
-    } else {
-      this.purchaseLines = this.localCartStorage.getAllLines();
-    }
+    this.purchaseLines = this.localCartStorage.getAllLines();
   }
 
   display(): void {
@@ -40,7 +35,7 @@ export default class CartComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.localCartStorage.saveCart(this.defaultKey, JSON.stringify(this.purchaseLines));
+    // TODO : user logged -> order DRAFT en BD
     this.destroy$.next();
     this.destroy$.complete();
   }
