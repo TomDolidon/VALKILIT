@@ -10,6 +10,7 @@ import { PaginatorModule } from 'primeng/paginator';
 import BookListComponent from './book-list/book-list.component';
 import { BookFilterComponent } from './book-filter/book-filter.component';
 import IBookFilter from 'app/model/IBookFilter';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   standalone: true,
@@ -25,13 +26,20 @@ export default class CatalogComponent implements OnInit {
   page = 0;
   paginatorFirstRecordIndex = 0;
   filter: IBookFilter | undefined;
+  searchTerm: string | undefined;
 
   // private sortService = inject(SortService);
 
-  constructor(private bookService: BookService) {}
+  constructor(
+    private route: ActivatedRoute,
+    private bookService: BookService,
+  ) {}
 
   ngOnInit() {
-    this.loadBooks();
+    this.route.queryParams.subscribe(params => {
+      this.searchTerm = params['search'] || '';
+      this.loadBooks();
+    });
   }
 
   loadBooks() {
@@ -43,6 +51,7 @@ export default class CatalogComponent implements OnInit {
           // sort: this.sortService.buildSortParam({} as any, 'id'),
         },
         this.filter,
+        this.searchTerm,
       )
       .subscribe({
         next: (res: HttpResponse<IBook[]>) => {

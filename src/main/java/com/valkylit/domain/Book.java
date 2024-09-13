@@ -80,11 +80,11 @@ public class Book implements Serializable {
     @JsonIgnoreProperties(value = { "client", "book" }, allowSetters = true)
     private Set<Review> reviews = new HashSet<>();
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JsonIgnoreProperties(value = { "books" }, allowSetters = true)
     private Publisher publisher;
 
-    @ManyToMany(fetch = FetchType.LAZY)
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
         name = "rel_book__category",
         joinColumns = @JoinColumn(name = "book_id"),

@@ -9,6 +9,7 @@ public class BookCriteriaDTO {
     private List<BookFormat> formats;
     private Float minPrice;
     private Float maxPrice;
+    private String searchTerm;
 
     public List<String> getAuthors() {
         return authors;
@@ -40,5 +41,13 @@ public class BookCriteriaDTO {
 
     public void setMaxPrice(Float maxPrice) {
         this.maxPrice = maxPrice;
+    }
+
+    public String getSearchTerm() {
+        return this.searchTerm;
+    }
+
+    public void setSearchTerm(String searchTerm) {
+        this.searchTerm = searchTerm;
     }
 }
