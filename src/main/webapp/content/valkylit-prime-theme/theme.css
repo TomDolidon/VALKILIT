@@ -12,6 +12,7 @@
   --text-color: #495057;
   --text-color-secondary: #6c757d;
   --primary-color: #9e573f;
+  --primary-color-on-hover: #c17d65;
   --primary-color-text: #ffffff;
   --surface-0: #ffffff;
   --surface-50: #fafafa;
@@ -1335,7 +1336,7 @@
     background: #ffffff;
   }
   .p-inputswitch.p-inputswitch-checked:not(.p-disabled):hover .p-inputswitch-slider {
-    background: #449e48;
+    background: var(--primary-color-on-hover);
   }
 
   p-inputswitch.ng-dirty.ng-invalid > .p-inputswitch > .p-inputswitch-slider {
@@ -1936,8 +1937,8 @@
     color: #ffffff;
   }
   .p-selectbutton .p-button.p-highlight:hover {
-    background: #449e48;
-    border-color: #449e48;
+    background: var(--primary-color-on-hover);
+    border-color: var(--primary-color-on-hover);
     color: #ffffff;
   }
   .p-selectbutton .p-button.p-highlight:hover .p-button-icon-left,
@@ -2051,8 +2052,8 @@
     color: #ffffff;
   }
   .p-togglebutton.p-button.p-highlight:hover {
-    background: #449e48;
-    border-color: #449e48;
+    background: var(--primary-color-on-hover);
+    border-color: var(--primary-color-on-hover);
     color: #ffffff;
   }
   .p-togglebutton.p-button.p-highlight:hover .p-button-icon-left,
@@ -2225,9 +2226,9 @@
     outline-color: transparent;
   }
   .p-button:not(:disabled):hover {
-    background: #449e48;
+    background: var(--primary-color-on-hover);
     color: #ffffff;
-    border-color: #449e48;
+    border-color: var(--primary-color-on-hover);
   }
   .p-button:not(:disabled):active {
     background: #3d8c40;
@@ -4843,7 +4844,7 @@
     right: -1rem;
   }
   .p-overlaypanel .p-overlaypanel-close:enabled:hover {
-    background: #449e48;
+    background: var(--primary-color-on-hover);
     color: #ffffff;
   }
   .p-overlaypanel:after {
@@ -4974,9 +4975,9 @@
   }
 
   .p-fileupload-choose:not(.p-disabled):hover {
-    background: #449e48;
+    background: var(--primary-color-on-hover);
     color: #ffffff;
-    border-color: #449e48;
+    border-color: var(--primary-color-on-hover);
   }
   .p-fileupload-choose:not(.p-disabled):active {
     background: #3d8c40;
