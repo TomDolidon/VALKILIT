@@ -7,7 +7,7 @@ import { ButtonModule } from 'primeng/button';
 import SharedModule from 'app/shared/shared.module';
 import { Account } from 'app/core/auth/account.model';
 import { LocalCartService } from 'app/core/cart/cart.service';
-import { CartValidationButtonComponent } from './cart-validation-btn/-validation-btn.component';
+import { CartValidationButtonComponent } from './cart-validation-btn/cart-validation-btn.component';
 import IBookCart from 'app/model/IBookCart';
 
 @Component({
