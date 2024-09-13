@@ -1,7 +1,7 @@
 <p-table
   [value]="purchaseLines"
-  sortField="sub_total"
-  [sortOrder]="-1"
+  sortField="book.title"
+  [sortOrder]="1"
   styleClass="p-datatable-striped"
   responsiveLayout="stack"
   [breakpoint]="'960px'"
@@ -22,7 +22,16 @@
     <tr>
       <td>{{ line.book?.title }}</td>
       <td>{{ line.book?.price | currency: 'EUR' }}</td>
-      <td>{{ line.quantity }}</td>
+      <td>
+        <div class="quantity-control">
+          <!-- Minus button -->
+          <p-button icon="pi pi-minus" class="p-button-rounded p-button-text" (onClick)="onDecreaseQuantity(line)"></p-button>
+          <!-- Quantity display -->
+          <span class="quantity-display">{{ line.quantity }}</span>
+          <!-- Plus button -->
+          <p-button icon="pi pi-plus" class="p-button-rounded p-button-text" (onClick)="onIncreaseQuantity(line)"></p-button>
+        </div>
+      </td>
       <td>{{ line.sub_total | currency: 'EUR' }}</td>
     </tr>
   </ng-template>

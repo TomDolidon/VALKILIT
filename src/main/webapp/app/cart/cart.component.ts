@@ -1,6 +1,7 @@
 import { Component, OnDestroy, OnInit, inject, signal } from '@angular/core';
 import { Router, RouterModule } from '@angular/router';
 import { Subject } from 'rxjs';
+import { FormsModule } from '@angular/forms';
 import { TableModule } from 'primeng/table';
 import { ButtonModule } from 'primeng/button';
 import SharedModule from 'app/shared/shared.module';
@@ -12,7 +13,7 @@ import IBookCart from 'app/model/IBookCart';
 @Component({
   selector: 'jhi-cart',
   standalone: true,
-  imports: [SharedModule, RouterModule, TableModule, ButtonModule, CartValidationButtonComponent],
+  imports: [SharedModule, RouterModule, TableModule, ButtonModule, FormsModule, CartValidationButtonComponent],
   templateUrl: './cart.component.html',
   styleUrl: './cart.component.scss',
 })
@@ -26,8 +27,13 @@ export default class CartComponent implements OnInit, OnDestroy {
   private router = inject(Router);
   private localCartStorage = inject(LocalCartService);
 
-  ngOnInit(): void {
+  // Method to load cart data from local storage
+  loadCart(): void {
     this.purchaseLines = this.localCartStorage.getAllLines();
+  }
+
+  ngOnInit(): void {
+    this.loadCart();
   }
 
   display(): void {
@@ -46,5 +52,19 @@ export default class CartComponent implements OnInit, OnDestroy {
 
   public onTotalPrice(): number {
     return this.localCartStorage.getCartTotalPrice();
+  }
+
+  public onIncreaseQuantity(item: IBookCart): void {
+    item.quantity = 1;
+    this.localCartStorage.saveCart(item.id, JSON.stringify(item));
+    // Trigger change detection to update the table
+    this.loadCart();
+  }
+
+  public onDecreaseQuantity(item: IBookCart): void {
+    item.quantity = -1;
+    this.localCartStorage.saveCart(item.id, JSON.stringify(item));
+    // Trigger change detection to update the table
+    this.loadCart();
   }
 }

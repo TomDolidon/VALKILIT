@@ -68,9 +68,13 @@ export class LocalCartService {
     if (existingCartValue) {
       try {
         const bookInCart = JSON.parse(existingCartValue) as IBookCart;
-        bookInCart.quantity += 1;
-        bookInCart.sub_total! += bookInCart.book.price!;
-        localStorage.setItem(key, JSON.stringify(bookInCart));
+        bookInCart.quantity += JSON.parse(value).quantity as number;
+        bookInCart.sub_total = bookInCart.quantity * bookInCart.book.price!;
+        if (bookInCart.quantity < 1) {
+          localStorage.removeItem(key);
+        } else {
+          localStorage.setItem(key, JSON.stringify(bookInCart));
+        }
       } catch (error) {
         console.error('Error updating cart item:', error);
       }
