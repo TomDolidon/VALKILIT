@@ -1,6 +1,6 @@
-import { Injectable, inject } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { HttpClient, HttpResponse } from '@angular/common/http';
-import { Observable, map } from 'rxjs';
+import { map, Observable } from 'rxjs';
 
 import dayjs from 'dayjs/esm';
 
@@ -74,6 +74,18 @@ export class PurchaseCommandService {
 
   getPurchaseCommandIdentifier(purchaseCommand: Pick<IPurchaseCommand, 'id'>): string {
     return purchaseCommand.id;
+  }
+
+  getSelfCurrentDraftPurchaseCommand(): Observable<HttpResponse<{}>> {
+    return this.http.get(`${this.resourceUrl}/self-current-draft`, { observe: 'response' });
+  }
+
+  checkSelfCurrentDraftPurchaseCommandStock(): Observable<HttpResponse<{}>> {
+    return this.http.get(`${this.resourceUrl}/self-current-draft/check-stock`, { observe: 'response' });
+  }
+
+  validateSelfCurrentDraftPurchaseCommand(): Observable<HttpResponse<{}>> {
+    return this.http.get(`${this.resourceUrl}/self-current-draft/validate`, { observe: 'response' });
   }
 
   comparePurchaseCommand(o1: Pick<IPurchaseCommand, 'id'> | null, o2: Pick<IPurchaseCommand, 'id'> | null): boolean {

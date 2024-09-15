@@ -228,3 +228,25 @@ body {
   margin: 0;
   background-color: $light-color;
 }
+
+.p-stepper .p-stepper-header .p-stepper-action {
+  background-color: transparent;
+}
+
+.p-fieldset .p-fieldset-legend {
+  border: unset;
+  background: unset;
+  padding: 0.5rem;
+}
+
+.p-fieldset {
+  margin-bottom: 8px;
+}
+
+.pl-2 {
+  padding-right: 0.5rem !important;
+}
+
+.pr-2 {
+  padding-right: 0.5rem !important;
+}

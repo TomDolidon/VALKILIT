@@ -18,29 +18,7 @@ import { ClientService } from '../../entities/client/service/client.service';
 })
 export class ConfirmAddressComponent {
   @Input() addressForm!: FormGroup;
-  currentUserAddress!: IAddress;
-
-  constructor(private clientService: ClientService) {
-    this.currentUserAddress = {
-      id: '',
-      city: '',
-      country: '',
-      postalCode: null,
-      street: '',
-    };
-
-    this.setCurrentUserAddress();
-  }
-
-  success(): boolean {
-    return false;
-  }
-
-  setCurrentUserAddress(): void {
-    this.clientService.getForSelf().subscribe(value => {
-      Object.assign(this.currentUserAddress, value.body?.address);
-    });
-  }
+  @Input() currentUserAddress!: IAddress;
 
   hydrateFormWithUserCurrentAddress(): void {
     this.addressForm.get('street')?.setValue(this.currentUserAddress.street);
