@@ -229,6 +229,16 @@ body {
   background-color: $light-color;
 }
 
+.app-container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh; /* Full height of the viewport */
+}
+
+.content {
+  flex: 1; /* Takes up available space */
+}
+
 .p-stepper .p-stepper-header .p-stepper-action {
   background-color: transparent;
 }
@@ -249,4 +259,8 @@ body {
 
 .pr-2 {
   padding-right: 0.5rem !important;
+}
+
+.footer-content {
+  padding-bottom: 10px;
 }
