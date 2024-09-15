@@ -38,7 +38,7 @@
   <ng-template pTemplate="summary">
     <div style="display: grid; justify-items: end; row-gap: 0.5rem">
       <div jhiTranslate="cart.total" [translateValues]="{ count: onTotalItems(), count2: onTotalPrice() | currency: 'EUR' }"></div>
-      <div>
+      <div *ngIf="purchaseLines.length">
         <jhi-cart-validation-btn />
       </div>
     </div>
