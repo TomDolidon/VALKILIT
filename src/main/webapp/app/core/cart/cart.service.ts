@@ -1,6 +1,8 @@
 import { Injectable, signal } from '@angular/core';
-import IBookCart from 'app/model/IBookCart';
 import { BehaviorSubject, Observable } from 'rxjs';
+import IBookCart from 'app/model/IBookCart';
+import { IPurchaseCommandLine } from 'app/entities/purchase-command-line/purchase-command-line.model';
+import { IPurchaseCommand } from 'app/entities/purchase-command/purchase-command.model';
 
 @Injectable({
   providedIn: 'root',
@@ -18,6 +20,17 @@ export class LocalCartService {
   }
 
   // -------------- METHODS -----------------
+  // prepare the cart as an order
+  public prepareOrder(): void {
+    const order = this.getAllLines();
+    return;
+  }
+
+  // save the cart into the DB as DRAFT
+  public saveToDB(): void {
+    return;
+  }
+
   // Retrieve all lines in the cart
   public getAllLines(): IBookCart[] {
     const cart: IBookCart[] = [];
