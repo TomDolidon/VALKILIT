@@ -1,14 +1,19 @@
-<!-- <jhi-page-ribbon></jhi-page-ribbon> -->
+<div class="app-container">
+  <div class="content">
+    <router-outlet name="navbar"></router-outlet>
+    <p-toast></p-toast>
 
-<div>
-  <router-outlet name="navbar"></router-outlet>
-</div>
+    <!-- Fully designed pages as home or catalog -->
+    <div *ngIf="isSpecialPage; else genericTemplate">
+      <router-outlet></router-outlet>
+    </div>
 
-<div class="">
-  <p-toast></p-toast>
-
-  <div class="">
-    <router-outlet></router-outlet>
+    <!-- Generic template for basic pages -->
+    <ng-template #genericTemplate>
+      <jhi-generic-page>
+        <router-outlet></router-outlet>
+      </jhi-generic-page>
+    </ng-template>
   </div>
 
   <jhi-footer></jhi-footer>

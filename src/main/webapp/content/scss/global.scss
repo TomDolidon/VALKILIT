@@ -229,6 +229,16 @@ body {
   background-color: $light-color;
 }
 
+.app-container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh; /* Full height of the viewport */
+}
+
+.content {
+  flex: 1; /* Takes up available space */
+}
+
 .p-stepper .p-stepper-header .p-stepper-action {
   background-color: transparent;
 }
@@ -249,4 +259,33 @@ body {
 
 .pr-2 {
   padding-right: 0.5rem !important;
+}
+
+.footer-content {
+  padding-bottom: 10px;
+}
+
+.w-100 {
+  width: 100%;
+}
+
+.hr-with-text {
+  display: flex;
+  align-items: center;
+  text-align: center;
+  width: 100%;
+}
+
+.hr-with-text hr {
+  flex: 1;
+  border: none;
+  height: 1px;
+  background-color: #ccc;
+}
+
+.hr-with-text span {
+  padding: 0 10px;
+  font-size: 1rem;
+  color: #666;
+  white-space: nowrap;
 }

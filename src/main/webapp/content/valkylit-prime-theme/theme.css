@@ -13,6 +13,7 @@
   --text-color-secondary: #6c757d;
   --primary-color: #9e573f;
   --primary-color-on-hover: #c17d65;
+  --primary-color-active: #a16954;
   --primary-color-text: #ffffff;
   --surface-0: #ffffff;
   --surface-50: #fafafa;
@@ -2231,9 +2232,9 @@
     border-color: var(--primary-color-on-hover);
   }
   .p-button:not(:disabled):active {
-    background: #3d8c40;
+    background: var(--primary-color-active);
     color: #ffffff;
-    border-color: #3d8c40;
+    border-color: var(--primary-color-actove);
   }
   .p-button.p-button-outlined {
     background-color: transparent;

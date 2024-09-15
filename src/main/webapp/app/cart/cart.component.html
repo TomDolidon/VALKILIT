@@ -1,3 +1,5 @@
+<h1>Mon Panier</h1>
+
 <p-table
   [value]="purchaseLines"
   sortField="book.title"
@@ -7,9 +9,6 @@
   [breakpoint]="'960px'"
   [tableStyle]="{ 'min-width': '60rem' }"
 >
-  <ng-template pTemplate="caption">
-    <div class="flex align-items-center justify-content-between" jhiTranslate="cart.title">Mon Panier</div>
-  </ng-template>
   <ng-template pTemplate="header">
     <tr>
       <th pSortableColumn="book.title" style="width: 20%" jhiTranslate="cart.book">Livre <p-sortIcon field="book.title" /></th>

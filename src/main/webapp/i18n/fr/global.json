@@ -26,7 +26,7 @@
         "settings": "Profil",
         "password": "Mot de passe",
         "sessions": "Sessions",
-        "login": "S'authentifier",
+        "login": "Se connecter",
         "logout": "Déconnexion",
         "register": "Créer un compte"
       },
@@ -156,5 +156,10 @@
       "not.image": "Le fichier doit être une image et non du type \"{{ fileType }}\""
     }
   },
-  "footer": "Ceci est votre pied de page"
+  "footer": {
+    "tos": "Conditions Générales d'Utilisation",
+    "privacypolicy": "Politique de Confidentialité",
+    "mentions": "Mentions légales",
+    "contact": "Contact"
+  }
 }
