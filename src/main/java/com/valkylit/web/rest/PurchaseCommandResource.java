@@ -1,9 +1,10 @@
 package com.valkylit.web.rest;
 
-import com.valkylit.domain.Client;
 import com.valkylit.domain.PurchaseCommand;
 import com.valkylit.repository.PurchaseCommandRepository;
 import com.valkylit.security.SecurityUtils;
+import com.valkylit.service.PurchaseCommandService;
+import com.valkylit.service.dto.PurchaseCommandInvalidLineDTO;
 import com.valkylit.web.rest.errors.BadRequestAlertException;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
@@ -15,6 +16,7 @@ import java.util.Optional;
 import java.util.UUID;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
@@ -37,11 +39,11 @@ public class PurchaseCommandResource {
     @Value("${jhipster.clientApp.name}")
     private String applicationName;
 
-    private final PurchaseCommandRepository purchaseCommandRepository;
+    @Autowired
+    private PurchaseCommandRepository purchaseCommandRepository;
 
-    public PurchaseCommandResource(PurchaseCommandRepository purchaseCommandRepository) {
-        this.purchaseCommandRepository = purchaseCommandRepository;
-    }
+    @Autowired
+    private PurchaseCommandService purchaseCommandService;
 
     /**
      * {@code POST  /purchase-commands} : Create a new purchaseCommand.
@@ -182,7 +184,7 @@ public class PurchaseCommandResource {
      */
     @GetMapping("/self")
     public List<PurchaseCommand> getSelfPurchaseCommands() {
-        LOG.debug("REST request to get Purchase Commands for authentificated user");
+        LOG.debug("REST request to get Purchase Commands for authenticated user");
         String userLogin = SecurityUtils.getCurrentUserLogin()
             .orElseThrow(() -> new BadRequestAlertException("Current user login not found", "purchase-commands", "loginnotfound"));
         return purchaseCommandRepository.findAllByLogin(userLogin);
@@ -196,11 +198,35 @@ public class PurchaseCommandResource {
      */
     @GetMapping("/self-current-draft")
     public ResponseEntity<PurchaseCommand> getSelfCurrentPurchaseCommand() {
-        LOG.debug("REST request to get the draft purchase command for authentificated user");
+        LOG.debug("REST request to get the draft purchase command for authenticated user");
         String userLogin = SecurityUtils.getCurrentUserLogin()
             .orElseThrow(() -> new BadRequestAlertException("Current user login not found", "purchase-commands", "loginnotfound"));
         Optional<PurchaseCommand> purchaseCommand = purchaseCommandRepository.findCurrentDraftByLogin(userLogin);
         return ResponseUtil.wrapOrNotFound(purchaseCommand);
+    }
+
+    /**
+     * {@code GET  /purchase-commands/self-current-draft/check-stock} : check current draft purchase command
+     * of an authenticated user.
+     *
+     * @return the {@link List< PurchaseCommandInvalidLineDTO >} with status {@code 200 (OK)} and with body the invalid stocks, or with status {@code 404 (Not Found)}.
+     */
+    @GetMapping("/self-current-draft/check-stock")
+    public List<PurchaseCommandInvalidLineDTO> checkSelfCurrentPurchaseCommandStock() {
+        LOG.debug("REST request to check stock of the draft purchase command for authenticated user");
+        return this.purchaseCommandService.getInvalidBooksStockForSelfCurrentDraftPurchaseCommand();
+    }
+
+    /**
+     * {@code GET  /purchase-commands/self-current-draft/check-stock} : check current draft purchase command
+     * of an authenticated user.
+     *
+     * @return the {@link List< PurchaseCommandInvalidLineDTO >} with status {@code 200 (OK)} and with body the invalid stocks, or with status {@code 404 (Not Found)}.
+     */
+    @GetMapping("/self-current-draft/validate")
+    public boolean validateSelfCurrentPurchaseCommandStock() {
+        LOG.debug("REST request to check stock of the draft purchase command for authenticated user");
+        return this.purchaseCommandService.validateSelfCurrentDraftPurchaseCommand();
     }
 
     /**

@@ -47,7 +47,7 @@ public interface PurchaseCommandRepository extends JpaRepository<PurchaseCommand
     List<PurchaseCommand> findAllByLogin(@Param("login") String login);
 
     @Query(
-        "select purchaseCommand from PurchaseCommand purchaseCommand left join fetch purchaseCommand.deliveryAddress where purchaseCommand.client.internalUser.login =:login and purchaseCommand.status='DRAFT'"
+        "select purchaseCommand from PurchaseCommand purchaseCommand left join fetch purchaseCommand.deliveryAddress left join fetch purchaseCommand.purchaseCommandLines where purchaseCommand.client.internalUser.login =:login and purchaseCommand.status='DRAFT'"
     )
     Optional<PurchaseCommand> findCurrentDraftByLogin(@Param("login") String login);
 }
