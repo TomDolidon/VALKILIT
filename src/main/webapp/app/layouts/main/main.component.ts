@@ -1,5 +1,5 @@
-import { Component, OnInit, Renderer2, RendererFactory2, inject } from '@angular/core';
-import { Router, RouterOutlet } from '@angular/router';
+import { Component, inject, OnInit, Renderer2, RendererFactory2 } from '@angular/core';
+import { NavigationEnd, Router, RouterOutlet } from '@angular/router';
 import { LangChangeEvent, TranslateService } from '@ngx-translate/core';
 import dayjs from 'dayjs/esm';
 
@@ -9,15 +9,20 @@ import FooterComponent from '../footer/footer.component';
 import PageRibbonComponent from '../profiles/page-ribbon.component';
 import { ToastModule } from 'primeng/toast';
 import { MessageService } from 'primeng/api';
+import { GenericPageComponent } from '../generic-page/generic-page.component';
+import { NgIf } from '@angular/common';
 
 @Component({
   standalone: true,
   selector: 'jhi-main',
   templateUrl: './main.component.html',
   providers: [AppPageTitleStrategy, MessageService],
-  imports: [RouterOutlet, FooterComponent, PageRibbonComponent, ToastModule],
+  imports: [RouterOutlet, FooterComponent, PageRibbonComponent, ToastModule, GenericPageComponent, NgIf],
 })
 export default class MainComponent implements OnInit {
+  isSpecialPage = false;
+  specialDesignedPages = ['/', '/catalog', ''];
+
   private renderer: Renderer2;
 
   private router = inject(Router);
@@ -28,6 +33,12 @@ export default class MainComponent implements OnInit {
 
   constructor() {
     this.renderer = this.rootRenderer.createRenderer(document.querySelector('html'), null);
+
+    this.router.events.subscribe(event => {
+      if (event instanceof NavigationEnd) {
+        this.isSpecialPage = this.specialDesignedPages.includes(event.url) || event.url.startsWith('/catalog');
+      }
+    });
   }
 
   ngOnInit(): void {
