@@ -25,7 +25,7 @@
         <!-- TEMPORARY - add a cart button -->
         <li class="nav-item" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
           <a class="nav-link" routerLink="/cart" (click)="collapseNavbar()">
-            <span>
+            <span class="cart-text">
               <fa-icon icon="shopping-cart"></fa-icon>
               <span jhiTranslate="global.menu.cart">Panier</span>
               <span *ngIf="onCartItemCount() > 0" class="badge badge-pill badge-danger cart-badge">{{ onCartItemCount() }}</span>

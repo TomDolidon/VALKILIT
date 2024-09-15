@@ -13,7 +13,7 @@ export class LocalCartService {
     this.initStorageKeys();
   }
 
-  getCartItemCount(): Observable<number> {
+  public getCartItemCount(): Observable<number> {
     return this.cartItemCount.asObservable();
   }
 

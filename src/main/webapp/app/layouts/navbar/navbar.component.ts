@@ -55,6 +55,8 @@ export default class NavbarComponent implements OnInit {
     this.cartService.getCartItemCount().subscribe(count => {
       this.cartItemCount = count;
     });
+    // to get the numbers of items in cart when reloading pages
+    this.cartItemCount = this.cartService.getCartTotalItems();
   }
 
   changeLanguage(languageKey: string): void {
