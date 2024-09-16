@@ -2,26 +2,6 @@
 Main page styles
 ========================================================================== */
 
-// .hipster {
-//   display: inline-block;
-//   width: 347px;
-//   height: 497px;
-//   background: url('../../content/images/jhipster_family_member_0.svg') no-repeat center top;
-//   background-size: contain;
-// }
-
-/* wait autoprefixer update to allow simple generation of high pixel density media query */
-// @media only screen and (-webkit-min-device-pixel-ratio: 2),
-//   only screen and (-moz-min-device-pixel-ratio: 2),
-//   only screen and (-o-min-device-pixel-ratio: 2/1),
-//   only screen and (min-resolution: 192dpi),
-//   only screen and (min-resolution: 2dppx) {
-//   .hipster {
-//     background: url('../../content/images/jhipster_family_member_0.svg') no-repeat center top;
-//     background-size: contain;
-//   }
-// }
-
 $primary-color: #9e573f;
 $secondary-color: #85868a;
 $light-color: #e8e9e1;
@@ -107,6 +87,17 @@ $dark-color: #30333b;
         background-color: white !important;
         color: $dark-color !important;
       }
+    }
+  }
+}
+
+::ng-deep {
+  .p-carousel .p-carousel-content .p-carousel-prev,
+  .p-carousel .p-carousel-content .p-carousel-next {
+    background-color: #fff;
+
+    &:hover {
+      background-color: #f4f4f4;
     }
   }
 }

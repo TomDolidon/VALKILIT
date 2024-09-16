@@ -261,6 +261,14 @@ body {
   padding-right: 0.5rem !important;
 }
 
+.mr-1 {
+  margin-right: 0.25rem !important;
+}
+
+.mr-2 {
+  margin-right: 0.5rem !important;
+}
+
 .footer-content {
   padding-bottom: 10px;
 }
@@ -288,4 +296,35 @@ body {
   font-size: 1rem;
   color: #666;
   white-space: nowrap;
+}
+
+.bold,
+.text-bold {
+  font-weight: bold;
+}
+
+.text-sm {
+  font-size: 11px;
+}
+
+.generic-page-container {
+  margin-left: 10%;
+  margin-right: 10%;
+  margin-top: 2rem;
+  margin-bottom: 1rem;
+  border-radius: 8px;
+  overflow: hidden;
+  background-color: #fff;
+  padding: 1rem 3rem;
+  box-shadow:
+    0 4px 8px rgba(0, 0, 0, 0.1),
+    0 2px 4px rgba(0, 0, 0, 0.06); /* Light and subtle shadow */
+}
+
+.generic-page-container-transparent {
+  margin-left: 10%;
+  margin-right: 10%;
+  margin-top: 2rem;
+  margin-bottom: 1rem;
+  overflow: hidden;
 }

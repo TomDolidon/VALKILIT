@@ -9,8 +9,8 @@ import FooterComponent from '../footer/footer.component';
 import PageRibbonComponent from '../profiles/page-ribbon.component';
 import { ToastModule } from 'primeng/toast';
 import { MessageService } from 'primeng/api';
-import { GenericPageComponent } from '../generic-page/generic-page.component';
 import { NgIf } from '@angular/common';
+import { GenericPageComponent } from '../generic-page/generic-page.component';
 
 @Component({
   standalone: true,
@@ -36,7 +36,8 @@ export default class MainComponent implements OnInit {
 
     this.router.events.subscribe(event => {
       if (event instanceof NavigationEnd) {
-        this.isSpecialPage = this.specialDesignedPages.includes(event.url) || event.url.startsWith('/catalog');
+        this.isSpecialPage =
+          this.specialDesignedPages.includes(event.url) || event.url.startsWith('/catalog') || event.url.startsWith('/details/');
       }
     });
   }

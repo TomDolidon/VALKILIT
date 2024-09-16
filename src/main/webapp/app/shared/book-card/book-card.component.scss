@@ -16,7 +16,6 @@ $dark-color: #30333b;
     transform 0.3s ease,
     box-shadow 0.3s ease;
 
-  // border: 1px solid #ddd;
   border-radius: 8px;
   overflow: hidden;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
@@ -25,16 +24,21 @@ $dark-color: #30333b;
   background-color: #fff;
 
   .book-image {
-    flex: 1;
+    flex: 0 0 150px;
     display: flex;
     align-items: center;
     justify-content: center;
 
-    flex: 0 0 150px;
     img {
       width: 100%;
       height: auto;
       object-fit: cover;
+      transition-duration: 0.3s;
+
+      &:hover {
+        cursor: pointer;
+        filter: brightness(0.8);
+      }
     }
   }
 
@@ -42,10 +46,15 @@ $dark-color: #30333b;
     font-weight: 700;
     font-size: 17px;
     margin: 0;
+    transition-duration: 0.3s;
+
+    &:hover {
+      cursor: pointer;
+      color: var(--primary-color);
+    }
   }
 
   .subtitle {
-    // font-size: 1.2em;
     font-size: 14px;
     color: #666;
     margin-top: 4px;
@@ -57,18 +66,19 @@ $dark-color: #30333b;
   }
 
   &:hover {
-    cursor: pointer;
-    transform: scale(1.02);
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
   }
 
-  &:active {
-    transform: scale(0.98);
-  }
+  ::ng-deep .p-button {
+    transition:
+      transform 0.3s ease,
+      box-shadow 0.3s ease;
 
-  // .book-categories {
-  //   font-size: 12px;
-  // }
+    &:hover {
+      cursor: pointer;
+      transform: scale(1.1);
+    }
+  }
 }
 
 .book-content {
@@ -91,5 +101,5 @@ p {
 
 .price {
   font-weight: bold;
-  color: $primary-color; /* Couleur personnalisée */
+  color: $primary-color;
 }
