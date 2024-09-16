@@ -7,7 +7,6 @@ import { TranslateModule } from '@ngx-translate/core';
 import { IAddress } from '../../entities/address/address.model';
 import { JsonPipe, NgIf } from '@angular/common';
 import { Button } from 'primeng/button';
-import { ClientService } from '../../entities/client/service/client.service';
 
 @Component({
   selector: 'jhi-confirm-address',
@@ -19,6 +18,7 @@ import { ClientService } from '../../entities/client/service/client.service';
 export class ConfirmAddressComponent {
   @Input() addressForm!: FormGroup;
   @Input() currentUserAddress!: IAddress;
+  @Input() isShowingOptionalButtons = true;
 
   hydrateFormWithUserCurrentAddress(): void {
     this.addressForm.get('street')?.setValue(this.currentUserAddress.street);
