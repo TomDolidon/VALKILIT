@@ -312,6 +312,18 @@
               <li>
                 <a
                   class="dropdown-item"
+                  routerLink="/account/address"
+                  routerLinkActive="active"
+                  (click)="collapseNavbar()"
+                  data-cy="address"
+                >
+                  <fa-icon icon="wrench" [fixedWidth]="true"></fa-icon>
+                  <span jhiTranslate="global.menu.account.address">Mon adresse</span>
+                </a>
+              </li>
+              <li>
+                <a
+                  class="dropdown-item"
                   routerLink="/account/password"
                   routerLinkActive="active"
                   (click)="collapseNavbar()"

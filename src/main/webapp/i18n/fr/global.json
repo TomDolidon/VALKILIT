@@ -28,7 +28,8 @@
         "sessions": "Sessions",
         "login": "Se connecter",
         "logout": "Déconnexion",
-        "register": "Créer un compte"
+        "register": "Créer un compte",
+        "address": "Mon adresse"
       },
       "admin": {
         "main": "Administration",
