@@ -31,6 +31,7 @@ import { BookFormGroup, BookFormService } from './book-form.service';
 export class BookUpdateComponent implements OnInit {
   isSaving = false;
   book: IBook | null = null;
+  bookImageFile: File | null | undefined = null;
   bookFormatValues = Object.keys(BookFormat);
   languageValues = Object.keys(Language);
 
@@ -82,7 +83,13 @@ export class BookUpdateComponent implements OnInit {
         this.eventManager.broadcast(new EventWithContent<AlertError>('valkylitApp.error', { ...err, key: `error.file.${err.key}` })),
     });
   }
-
+  onImagePicked(event: Event): void {
+    if (event.target !== null) {
+      const HTMLInputElement = event.target as HTMLInputElement;
+      console.error(HTMLInputElement.files?.item(0));
+      this.bookImageFile = HTMLInputElement.files?.item(0);
+    }
+  }
   previousState(): void {
     window.history.back();
   }
@@ -90,10 +97,12 @@ export class BookUpdateComponent implements OnInit {
   save(): void {
     this.isSaving = true;
     const book = this.bookFormService.getBook(this.editForm);
+    const formData = new FormData();
     if (book.id !== null) {
       this.subscribeToSaveResponse(this.bookService.update(book));
     } else {
-      this.subscribeToSaveResponse(this.bookService.create(book));
+      if (this.bookImageFile !== null && this.bookImageFile !== undefined)
+        this.subscribeToSaveResponse(this.bookService.create(book, this.bookImageFile));
     }
   }
 

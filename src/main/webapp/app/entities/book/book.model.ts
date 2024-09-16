@@ -9,6 +9,7 @@ export interface IBook {
   id: string;
   title?: string | null;
   subtitle?: string | null;
+  imageFile?: File | null;
   imageUri?: string | null;
   price?: number | null;
   isbn?: string | null;

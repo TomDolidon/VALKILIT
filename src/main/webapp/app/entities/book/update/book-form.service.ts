@@ -21,6 +21,7 @@ type BookFormGroupContent = {
   title: FormControl<IBook['title']>;
   subtitle: FormControl<IBook['subtitle']>;
   imageUri: FormControl<IBook['imageUri']>;
+  imageFile: FormControl<IBook['imageFile']>;
   price: FormControl<IBook['price']>;
   isbn: FormControl<IBook['isbn']>;
   format: FormControl<IBook['format']>;
@@ -56,6 +57,9 @@ export class BookFormService {
       }),
       subtitle: new FormControl(bookRawValue.subtitle),
       imageUri: new FormControl(bookRawValue.imageUri),
+      imageFile: new FormControl(bookRawValue.imageFile, {
+        validators: [Validators.required],
+      }),
       price: new FormControl(bookRawValue.price, {
         validators: [Validators.required],
       }),

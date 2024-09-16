@@ -33,9 +33,19 @@ export class BookService {
 
   protected resourceUrl = this.applicationConfigService.getEndpointFor('api/books');
 
-  create(book: NewBook): Observable<EntityResponseType> {
+  create(book: NewBook, file: File): Observable<EntityResponseType> {
     const copy = this.convertDateFromClient(book);
-    return this.http.post<RestBook>(this.resourceUrl, copy, { observe: 'response' }).pipe(map(res => this.convertResponseFromServer(res)));
+    const formData = new FormData();
+    formData.append('file', file);
+    formData.append(
+      'bookCreate',
+      new Blob([JSON.stringify(copy)], {
+        type: 'application/json',
+      }),
+    );
+    return this.http
+      .post<RestBook>(this.resourceUrl, formData, { observe: 'response' })
+      .pipe(map(res => this.convertResponseFromServer(res)));
   }
 
   update(book: IBook): Observable<EntityResponseType> {

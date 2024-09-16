@@ -3,6 +3,8 @@ package com.valkylit.web.rest;
 import com.valkylit.domain.Book;
 import com.valkylit.repository.BookRepository;
 import com.valkylit.service.BookService;
+import com.valkylit.service.S3bucket.AmazonS3BucketService;
+import com.valkylit.service.dto.BookCreateDTO;
 import com.valkylit.service.dto.BookCriteriaDTO;
 import com.valkylit.web.rest.errors.BadRequestAlertException;
 import jakarta.validation.Valid;
@@ -15,13 +17,16 @@ import java.util.Optional;
 import java.util.UUID;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import tech.jhipster.web.util.HeaderUtil;
 import tech.jhipster.web.util.PaginationUtil;
@@ -46,6 +51,9 @@ public class BookResource {
 
     private final BookRepository bookRepository;
 
+    @Autowired
+    private AmazonS3BucketService amazonS3BucketService;
+
     public BookResource(BookRepository bookRepository, BookService bookService) {
         this.bookRepository = bookRepository;
         this.bookService = bookService;
@@ -59,15 +67,54 @@ public class BookResource {
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
     @PostMapping("")
-    public ResponseEntity<Book> createBook(@Valid @RequestBody Book book) throws URISyntaxException {
-        LOG.debug("REST request to save Book : {}", book);
-        if (book.getId() != null) {
+    public ResponseEntity<Book> createBook(@RequestParam MultipartFile file, @RequestPart BookCreateDTO bookCreate)
+        throws URISyntaxException {
+        LOG.debug("REST request to save Book BIMBAM : {}", bookCreate);
+        if (bookCreate.getId() != null) {
             throw new BadRequestAlertException("A new book cannot already have an ID", ENTITY_NAME, "idexists");
         }
+        Book book = new Book();
+        this.bookCreateDTOToBook(book, bookCreate);
+        book.setImageUri(amazonS3BucketService.uploadFile(file));
         book = bookRepository.save(book);
         return ResponseEntity.created(new URI("/api/books/" + book.getId()))
             .headers(HeaderUtil.createEntityCreationAlert(applicationName, true, ENTITY_NAME, book.getId().toString()))
             .body(book);
+    }
+
+    private void bookCreateDTOToBook(Book book, BookCreateDTO bookCreate) {
+        book.setAuthors(bookCreate.getAuthors());
+        book.setAwardBooks(bookCreate.getAwardBooks());
+        book.setCategories(bookCreate.getCategories());
+        book.setDescription(bookCreate.getDescription());
+        book.setFormat(bookCreate.getFormat());
+        book.setIsbn(bookCreate.getIsbn());
+        book.setLanguage(bookCreate.getLanguage());
+        book.setPageCount(bookCreate.getPageCount());
+        book.setPrice(bookCreate.getPrice());
+        book.setPublishDate(bookCreate.getPublishDate());
+        book.setStock(bookCreate.getStock());
+        book.setPublisher(bookCreate.getPublisher());
+        book.setReviews(bookCreate.getReviews());
+        book.setSubtitle(bookCreate.getSubtitle());
+        book.setTitle(bookCreate.getTitle());
+    }
+
+    @PostMapping("/upload")
+    public ResponseEntity<String> uploadFile(@RequestParam("file") MultipartFile file) {
+        // System.out.println("BONJOUR");
+
+        // Vérifiez si le fichier est vide
+        if (file.isEmpty()) {
+            return new ResponseEntity<>("Le fichier est vide.", HttpStatus.BAD_REQUEST);
+        }
+
+        return new ResponseEntity<>(this.amazonS3BucketService.uploadFile(file), HttpStatus.OK);
+        // Traitez le fichier ici (sauvegarde, validation, etc.)
+        // String fileName = file.getOriginalFilename();
+        // // Vous pouvez sauvegarder le fichier sur le serveur ou effectuer d'autres opérations
+
+        // return new ResponseEntity<>("Fichier reçu : " + fileName, HttpStatus.OK);
     }
 
     /**
@@ -217,6 +264,7 @@ public class BookResource {
     public ResponseEntity<Void> deleteBook(@PathVariable("id") UUID id) {
         LOG.debug("REST request to delete Book : {}", id);
         bookRepository.deleteById(id);
+
         return ResponseEntity.noContent()
             .headers(HeaderUtil.createEntityDeletionAlert(applicationName, true, ENTITY_NAME, id.toString()))
             .build();
