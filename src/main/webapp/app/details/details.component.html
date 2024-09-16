@@ -1,54 +1,70 @@
-<div class="row">
-  <div class="col-3">
-    <div class="book-image">
-      <p-image src="{{ book.imageUri }}" alt="{{ book.title }}" [preview]="true" />
-    </div>
-  </div>
-  <div class="col-9">
-    <h1 class="mb-1">{{ book.title }}</h1>
-    <h3 class="mt-0 mb-2">{{ book.subtitle }} • {{ getAuthorNames() }}</h3>
-    <div class="book-categories mb-4">
-      <p-chip routerLink="/catalog/" styleClass="mt-1 mr-1 mb-1" *ngFor="let category of book.categories" [label]="category.name || ''" />
-    </div>
-
-    <div class="text-bold mt-2 mb-2">Résumé</div>
-    <div class="mb-4">{{ book.description }}</div>
-
-    <div class="text-bold mt-3 mb-2">Détails du produit</div>
-    <table>
-      <tr>
-        <td class="pr-2">ISBN :</td>
-        <td>{{ book.isbn }}</td>
-      </tr>
-      <tr>
-        <td class="pr-2">Format :</td>
-        <td>{{ book.format }}</td>
-      </tr>
-      <tr>
-        <td class="pr-2">Langue :</td>
-        <td>{{ book.language }}</td>
-      </tr>
-      <tr>
-        <td class="pr-2">Nombre de pages :</td>
-        <td>{{ book.pageCount }}</td>
-      </tr>
-      <tr>
-        <td class="pr-2">Date de parution :</td>
-        <td>{{ book.publishDate?.toDate() | date: 'dd/MM/yy' }}</td>
-      </tr>
-      <tr>
-        <td class="pr-2">Éditeur :</td>
-        <td>{{ book.publisher?.name?.toUpperCase() }}</td>
-      </tr>
-    </table>
-
-    <div class="mt-3">
-      <div class="mb-2 text-{{ getStockClass(book.stock!) }}">Il reste {{ book.stock }} exemplaires en stock.</div>
-
-      <div class="d-flex justify-content-start align-items-center gap-3">
-        <h1 class="m-0">{{ book.price | currency: 'EUR' }}</h1>
-        <p-button size="small" icon="pi pi-cart-plus" (onClick)="onBuyBookBtnClick()" label="Acheter" />
+<div class="generic-page-container mb-3">
+  <div class="row">
+    <div class="col-3">
+      <div class="book-image-container">
+        <p-image [preview]="true" alt="{{ book.title }}" src="{{ book.imageUri }}" />
       </div>
     </div>
+    <div class="col-9">
+      <h1 class="mb-1">{{ book.title }}</h1>
+      <h3 class="mt-0 mb-2">{{ book.subtitle }} • {{ getAuthorNames() }}</h3>
+      <div class="book-categories mb-4">
+        <p-chip *ngFor="let category of book.categories" [label]="category.name || ''" routerLink="/catalog/" styleClass="mt-1 mr-1 mb-1" />
+      </div>
+
+      <div class="text-bold mt-2 mb-2">Résumé</div>
+      <div class="mb-4">{{ book.description }}</div>
+
+      <div class="text-bold mt-3 mb-2">Détails du produit</div>
+      <table>
+        <tr>
+          <td class="pr-2">ISBN :</td>
+          <td>{{ book.isbn }}</td>
+        </tr>
+        <tr>
+          <td class="pr-2">Format :</td>
+          <td>{{ book.format }}</td>
+        </tr>
+        <tr>
+          <td class="pr-2">Langue :</td>
+          <td>{{ book.language }}</td>
+        </tr>
+        <tr>
+          <td class="pr-2">Nombre de pages :</td>
+          <td>{{ book.pageCount }}</td>
+        </tr>
+        <tr>
+          <td class="pr-2">Date de parution :</td>
+          <td>{{ book.publishDate?.toDate() | date: 'dd/MM/yy' }}</td>
+        </tr>
+        <tr>
+          <td class="pr-2">Éditeur :</td>
+          <td>{{ book.publisher?.name?.toUpperCase() }}</td>
+        </tr>
+      </table>
+
+      <div class="mt-3">
+        <div class="mb-2 text-{{ getStockClass(book.stock!) }}">Il reste {{ book.stock }} exemplaires en stock.</div>
+
+        <div class="d-flex justify-content-start align-items-center gap-3">
+          <h1 class="m-0">{{ book.price | currency: 'EUR' }}</h1>
+          <p-button (onClick)="onBuyBookBtnClick()" [disabled]="!book.stock" icon="pi pi-cart-plus" label="Acheter" size="small" />
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div *ngIf="firstAuthorOthersBooks.length" class="mt-3 mb-3 bg-dark">
+  <div class="generic-page-container-transparent">
+    <h2 class="text-white mb-2">Découvrir d'autres livres de {{ getFirstAuthor()?.name }}</h2>
+  </div>
+
+  <div class="section-2 d-flex flex-column">
+    <p-carousel [circular]="firstAuthorOthersBooks.length > 3" [numScroll]="3" [numVisible]="3" [value]="firstAuthorOthersBooks">
+      <ng-template let-book pTemplate="item">
+        <jhi-book-card [book]="book"></jhi-book-card>
+      </ng-template>
+    </p-carousel>
   </div>
 </div>

@@ -10,20 +10,40 @@ import { LocalCartService } from '../core/cart/cart.service';
 import { ImageModule } from 'primeng/image';
 import { ChipModule } from 'primeng/chip';
 import { ChipsModule } from 'primeng/chips';
+import { IAuthor } from '../entities/author/author.model';
+import { AuthorService } from '../entities/author/service/author.service';
+import { HttpResponse } from '@angular/common/http';
+import BookCard2Component from '../shared/book-card/book-card.component';
+import { CarouselModule } from 'primeng/carousel';
 
 @Component({
   selector: 'jhi-details',
   standalone: true,
-  imports: [BookFilterComponent, BookListComponent, DatePipe, CurrencyPipe, Button, NgIf, ImageModule, ChipModule, NgForOf, ChipsModule],
+  imports: [
+    BookFilterComponent,
+    BookListComponent,
+    DatePipe,
+    CurrencyPipe,
+    Button,
+    NgIf,
+    ImageModule,
+    ChipModule,
+    NgForOf,
+    ChipsModule,
+    BookCard2Component,
+    CarouselModule,
+  ],
   templateUrl: './details.component.html',
   styleUrl: './details.component.scss',
 })
 export default class DetailsComponent implements OnInit {
   bookId = '';
   book!: IBook;
+  firstAuthorOthersBooks!: IBook[];
 
   constructor(
     private bookService: BookService,
+    private authorService: AuthorService,
     private route: ActivatedRoute,
     private router: Router,
     private cartService: LocalCartService,
@@ -42,12 +62,27 @@ export default class DetailsComponent implements OnInit {
           if (this.book.id === '') {
             this.router.navigate(['/404']);
           }
+          this.loadFirstAuthorBooks();
+          window.scrollTo({ top: 0, behavior: 'smooth' });
         },
         error: () => {
           this.router.navigate(['/404']);
         },
       });
     });
+  }
+
+  loadFirstAuthorBooks(): void {
+    this.bookService
+      .query({
+        size: 12,
+        authors: this.getFirstAuthor()?.name,
+      })
+      .subscribe({
+        next: (res: HttpResponse<IBook[]>) => {
+          this.firstAuthorOthersBooks = res.body?.filter(book => book.id !== this.book.id) ?? [];
+        },
+      });
   }
 
   getAuthorNames(): string {
@@ -89,5 +124,9 @@ export default class DetailsComponent implements OnInit {
     } else {
       return 'success';
     }
+  }
+
+  getFirstAuthor(): IAuthor | null {
+    return this.book.authors?.length ? this.book.authors[0] : null;
   }
 }

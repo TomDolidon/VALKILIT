@@ -302,3 +302,29 @@ body {
 .text-bold {
   font-weight: bold;
 }
+
+.text-sm {
+  font-size: 11px;
+}
+
+.generic-page-container {
+  margin-left: 10%;
+  margin-right: 10%;
+  margin-top: 2rem;
+  margin-bottom: 1rem;
+  border-radius: 8px;
+  overflow: hidden;
+  background-color: #fff;
+  padding: 1rem 3rem;
+  box-shadow:
+    0 4px 8px rgba(0, 0, 0, 0.1),
+    0 2px 4px rgba(0, 0, 0, 0.06); /* Light and subtle shadow */
+}
+
+.generic-page-container-transparent {
+  margin-left: 10%;
+  margin-right: 10%;
+  margin-top: 2rem;
+  margin-bottom: 1rem;
+  overflow: hidden;
+}
