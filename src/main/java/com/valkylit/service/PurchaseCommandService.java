@@ -7,7 +7,6 @@ import com.valkylit.repository.BookRepository;
 import com.valkylit.repository.PurchaseCommandRepository;
 import com.valkylit.security.SecurityUtils;
 import com.valkylit.service.dto.PurchaseCommandInvalidLineDTO;
-import com.valkylit.web.rest.errors.BadRequestAlertException;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.LockModeType;
 import jakarta.persistence.LockTimeoutException;
@@ -60,9 +59,8 @@ public class PurchaseCommandService {
         }
     }
 
-    public List<PurchaseCommandInvalidLineDTO> getInvalidBooksStockForSelfCurrentDraftPurchaseCommand() {
-        String userLogin = SecurityUtils.getCurrentUserLogin()
-            .orElseThrow(() -> new BadRequestAlertException("Current user login not found", "purchase-commands-check", "loginnotfound"));
+    public List<PurchaseCommandInvalidLineDTO> getInvalidBooksStockForSelfCurrentDraftPurchaseCommand() throws Exception {
+        String userLogin = SecurityUtils.getCurrentUserLogin().orElseThrow(() -> new Exception("Current user login not found"));
         Optional<PurchaseCommand> purchaseCommand = purchaseCommandRepository.findCurrentDraftByLogin(userLogin);
 
         List<PurchaseCommandInvalidLineDTO> invalidLines = new ArrayList<>();
@@ -86,12 +84,11 @@ public class PurchaseCommandService {
     }
 
     @Transactional
-    public boolean validateSelfCurrentDraftPurchaseCommand() {
-        String userLogin = SecurityUtils.getCurrentUserLogin()
-            .orElseThrow(() -> new BadRequestAlertException("Current user login not found", "purchase-commands-validate", "loginnotfound"));
+    public boolean validateSelfCurrentDraftPurchaseCommand() throws Exception {
+        String userLogin = SecurityUtils.getCurrentUserLogin().orElseThrow(() -> new Exception("Current user login not found"));
         Optional<PurchaseCommand> purchaseCommand = purchaseCommandRepository.findCurrentDraftByLogin(userLogin);
         if (purchaseCommand.isEmpty()) {
-            throw new BadRequestAlertException("No purchase command found", "purchase-commands-validate", "pcnotfound");
+            throw new Exception("No purchase command found");
         }
 
         for (int i = 0; i < PURCHASE_ATTEMPTS_COUNT; i++) {
@@ -103,7 +100,11 @@ public class PurchaseCommandService {
                         Book book = entityManager.find(Book.class, pcl.getBook().getId(), LockModeType.PESSIMISTIC_WRITE);
                         int futureStock = book.getStock() - pcl.getQuantity();
                         if (futureStock < 0) {
-                            throw new BadRequestAlertException("Insufficient stock", "purchase-commands-validate", "nostockforbook");
+                            try {
+                                throw new Exception("Insufficient stock");
+                            } catch (Exception e) {
+                                throw new RuntimeException(e);
+                            }
                         }
                         book.setStock(futureStock);
                     });
