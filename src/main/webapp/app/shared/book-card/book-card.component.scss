@@ -33,6 +33,12 @@ $dark-color: #30333b;
       width: 100%;
       height: auto;
       object-fit: cover;
+      transition-duration: 0.3s;
+
+      &:hover {
+        cursor: pointer;
+        filter: brightness(0.8);
+      }
     }
   }
 
@@ -40,6 +46,12 @@ $dark-color: #30333b;
     font-weight: 700;
     font-size: 17px;
     margin: 0;
+    transition-duration: 0.3s;
+
+    &:hover {
+      cursor: pointer;
+      color: var(--primary-color);
+    }
   }
 
   .subtitle {
@@ -54,13 +66,18 @@ $dark-color: #30333b;
   }
 
   &:hover {
-    cursor: pointer;
-    transform: scale(1.02);
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
   }
 
-  &:active {
-    transform: scale(0.98);
+  ::ng-deep .p-button {
+    transition:
+      transform 0.3s ease,
+      box-shadow 0.3s ease;
+
+    &:hover {
+      cursor: pointer;
+      transform: scale(1.1);
+    }
   }
 }
 
