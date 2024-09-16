@@ -52,7 +52,7 @@ export default class NavbarComponent implements OnInit {
       this.inProduction = profileInfo.inProduction;
       this.openAPIEnabled = profileInfo.openAPIEnabled;
     });
-    this.cartService.getCartItemCount().subscribe(count => {
+    this.cartService.getCartItemsCount().subscribe(count => {
       this.cartItemCount = count;
     });
     // to get the numbers of items in cart when reloading pages

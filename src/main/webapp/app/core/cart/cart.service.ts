@@ -9,27 +9,17 @@ import { IPurchaseCommand } from 'app/entities/purchase-command/purchase-command
 })
 export class LocalCartService {
   private storageKey = new Map<string, string>();
-  private cartItemCount = new BehaviorSubject<number>(0);
+  private cartItemsCount = new BehaviorSubject<number>(0);
 
   constructor() {
     this.initStorageKeys();
   }
 
-  public getCartItemCount(): Observable<number> {
-    return this.cartItemCount.asObservable();
+  public getCartItemsCount(): Observable<number> {
+    return this.cartItemsCount.asObservable();
   }
 
   // -------------- METHODS -----------------
-  // prepare the cart as an order
-  public prepareOrder(): void {
-    const order = this.getAllLines();
-    return;
-  }
-
-  // save the cart into the DB as DRAFT
-  public saveToDB(): void {
-    return;
-  }
 
   // Retrieve all lines in the cart
   public getAllLines(): IBookCart[] {
@@ -91,10 +81,10 @@ export class LocalCartService {
         bookInCart.sub_total = bookInCart.quantity * bookInCart.book.price!;
         if (bookInCart.quantity < 1) {
           this.deleteCart(key);
-          this.cartItemCount.next(this.getCartTotalItems());
+          this.cartItemsCount.next(this.getCartTotalItems());
         } else {
           localStorage.setItem(key, JSON.stringify(bookInCart));
-          this.cartItemCount.next(this.getCartTotalItems());
+          this.cartItemsCount.next(this.getCartTotalItems());
         }
       } catch (error) {
         console.error('Error updating cart item:', error);
@@ -102,7 +92,7 @@ export class LocalCartService {
     } else {
       this.storageKey.set(key, key);
       localStorage.setItem(key, value);
-      this.cartItemCount.next(this.getCartTotalItems());
+      this.cartItemsCount.next(this.getCartTotalItems());
     }
   }
 
@@ -121,7 +111,7 @@ export class LocalCartService {
   public clearCart(): void {
     this.storageKey.clear();
     localStorage.clear();
-    this.cartItemCount.next(0);
+    this.cartItemsCount.next(0);
   }
 
   private initStorageKeys(): void {
