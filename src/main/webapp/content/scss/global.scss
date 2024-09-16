@@ -261,6 +261,14 @@ body {
   padding-right: 0.5rem !important;
 }
 
+.mr-1 {
+  margin-right: 0.25rem !important;
+}
+
+.mr-2 {
+  margin-right: 0.5rem !important;
+}
+
 .footer-content {
   padding-bottom: 10px;
 }
@@ -288,4 +296,9 @@ body {
   font-size: 1rem;
   color: #666;
   white-space: nowrap;
+}
+
+.bold,
+.text-bold {
+  font-weight: bold;
 }

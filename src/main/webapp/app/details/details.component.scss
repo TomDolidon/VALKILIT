@@ -1,0 +1,11 @@
+::ng-deep .book-image {
+  margin-block-start: 1.7em;
+
+  .p-image,
+  img,
+  .p-image-preview-indicator {
+    width: 95%;
+    max-width: 95%;
+    margin-right: 5%;
+  }
+}
