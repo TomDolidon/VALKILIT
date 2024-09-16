@@ -2,8 +2,8 @@ package com.valkylit.web.rest;
 
 import com.valkylit.domain.Book;
 import com.valkylit.repository.BookRepository;
+import com.valkylit.service.AmazonS3BucketService;
 import com.valkylit.service.BookService;
-import com.valkylit.service.S3bucket.AmazonS3BucketService;
 import com.valkylit.service.dto.BookCreateDTO;
 import com.valkylit.service.dto.BookCriteriaDTO;
 import com.valkylit.web.rest.errors.BadRequestAlertException;
@@ -75,7 +75,8 @@ public class BookResource {
         }
         Book book = new Book();
         this.bookCreateDTOToBook(book, bookCreate);
-        book.setImageUri(amazonS3BucketService.uploadFile(file));
+        String uploadedImageUri = amazonS3BucketService.uploadFile(file);
+        book.setImageUri(uploadedImageUri);
         book = bookRepository.save(book);
         return ResponseEntity.created(new URI("/api/books/" + book.getId()))
             .headers(HeaderUtil.createEntityCreationAlert(applicationName, true, ENTITY_NAME, book.getId().toString()))
@@ -98,23 +99,6 @@ public class BookResource {
         book.setReviews(bookCreate.getReviews());
         book.setSubtitle(bookCreate.getSubtitle());
         book.setTitle(bookCreate.getTitle());
-    }
-
-    @PostMapping("/upload")
-    public ResponseEntity<String> uploadFile(@RequestParam("file") MultipartFile file) {
-        // System.out.println("BONJOUR");
-
-        // Vérifiez si le fichier est vide
-        if (file.isEmpty()) {
-            return new ResponseEntity<>("Le fichier est vide.", HttpStatus.BAD_REQUEST);
-        }
-
-        return new ResponseEntity<>(this.amazonS3BucketService.uploadFile(file), HttpStatus.OK);
-        // Traitez le fichier ici (sauvegarde, validation, etc.)
-        // String fileName = file.getOriginalFilename();
-        // // Vous pouvez sauvegarder le fichier sur le serveur ou effectuer d'autres opérations
-
-        // return new ResponseEntity<>("Fichier reçu : " + fileName, HttpStatus.OK);
     }
 
     /**

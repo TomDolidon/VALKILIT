@@ -19,12 +19,19 @@ public class BookCreateDTO {
     private String title;
     private String subtitle;
     private String imageUri;
-    // private MultipartFile imageFile;
     private Float price;
     private String isbn;
     private BookFormat format;
     private Integer stock;
     private String description;
+    private Integer pageCount;
+    private Language language;
+    private LocalDate publishDate;
+    private Set<AwardBook> awardBooks = new HashSet<>();
+    private Set<Review> reviews = new HashSet<>();
+    private Publisher publisher;
+    private Set<BookCategory> categories = new HashSet<>();
+    private Set<Author> authors = new HashSet<>();
 
     public String getTitle() {
         return title;
@@ -161,13 +168,4 @@ public class BookCreateDTO {
     public void setImageUri(String imageUri) {
         this.imageUri = imageUri;
     }
-
-    private Integer pageCount;
-    private Language language;
-    private LocalDate publishDate;
-    private Set<AwardBook> awardBooks = new HashSet<>();
-    private Set<Review> reviews = new HashSet<>();
-    private Publisher publisher;
-    private Set<BookCategory> categories = new HashSet<>();
-    private Set<Author> authors = new HashSet<>();
 }

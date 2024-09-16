@@ -1,4 +1,4 @@
-package com.valkylit.service.S3bucket;
+package com.valkylit.service;
 
 import com.amazonaws.auth.AWSCredentials;
 import com.amazonaws.auth.BasicAWSCredentials;

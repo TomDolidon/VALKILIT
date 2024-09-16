@@ -86,7 +86,6 @@ export class BookUpdateComponent implements OnInit {
   onImagePicked(event: Event): void {
     if (event.target !== null) {
       const HTMLInputElement = event.target as HTMLInputElement;
-      console.error(HTMLInputElement.files?.item(0));
       this.bookImageFile = HTMLInputElement.files?.item(0);
     }
   }
