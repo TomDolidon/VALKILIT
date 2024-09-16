@@ -212,7 +212,7 @@ public class PurchaseCommandResource {
      * @return the {@link List< PurchaseCommandInvalidLineDTO >} with status {@code 200 (OK)} and with body the invalid stocks, or with status {@code 404 (Not Found)}.
      */
     @GetMapping("/self-current-draft/check-stock")
-    public List<PurchaseCommandInvalidLineDTO> checkSelfCurrentPurchaseCommandStock() {
+    public List<PurchaseCommandInvalidLineDTO> checkSelfCurrentPurchaseCommandStock() throws Exception {
         LOG.debug("REST request to check stock of the draft purchase command for authenticated user");
         return this.purchaseCommandService.getInvalidBooksStockForSelfCurrentDraftPurchaseCommand();
     }
@@ -224,7 +224,7 @@ public class PurchaseCommandResource {
      * @return the {@link List< PurchaseCommandInvalidLineDTO >} with status {@code 200 (OK)} and with body the invalid stocks, or with status {@code 404 (Not Found)}.
      */
     @GetMapping("/self-current-draft/validate")
-    public boolean validateSelfCurrentPurchaseCommandStock() {
+    public boolean validateSelfCurrentPurchaseCommandStock() throws Exception {
         LOG.debug("REST request to check stock of the draft purchase command for authenticated user");
         return this.purchaseCommandService.validateSelfCurrentDraftPurchaseCommand();
     }
