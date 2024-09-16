@@ -2,7 +2,7 @@ package com.valkylit.config;
 
 import static org.springframework.security.config.Customizer.withDefaults;
 
-import com.valkylit.security.*;
+import com.valkylit.security.AuthoritiesConstants;
 import com.valkylit.web.filter.SpaWebFilter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -69,6 +69,9 @@ public class SecurityConfiguration {
                     .requestMatchers(mvc.pattern("/api/activate")).permitAll()
                     .requestMatchers(mvc.pattern("/api/account/reset-password/init")).permitAll()
                     .requestMatchers(mvc.pattern("/api/account/reset-password/finish")).permitAll()
+                    .requestMatchers(mvc.pattern(HttpMethod.GET, "/api/book**")).permitAll()
+                    .requestMatchers(mvc.pattern(HttpMethod.GET, "/api/authors")).permitAll()
+                    .requestMatchers(mvc.pattern(HttpMethod.GET, "/api/books/{id}")).permitAll()
                     .requestMatchers(mvc.pattern("/api/admin/**")).hasAuthority(AuthoritiesConstants.ADMIN)
                     .requestMatchers(mvc.pattern("/api/**")).authenticated()
                     .requestMatchers(mvc.pattern("/v3/api-docs/**")).hasAuthority(AuthoritiesConstants.ADMIN)

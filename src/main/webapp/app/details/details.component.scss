@@ -1,0 +1,17 @@
+::ng-deep .book-image-container {
+  margin-block-start: 1.7em;
+
+  .p-image,
+  img,
+  .p-image-preview-indicator {
+    width: 95%;
+    max-width: 95%;
+    margin-right: 5%;
+  }
+}
+
+.p-carousel-container {
+  .p-link:disabled .p-icon-wrapper {
+    display: none;
+  }
+}

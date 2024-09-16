@@ -1,3 +1,17 @@
+<div class="d-flex justify-content-between">
+  <h1>Mon Panier</h1>
+
+  <p-button
+    class="align-self-center"
+    outlined="true"
+    icon="pi pi-trash"
+    severity="danger"
+    label="Vider mon panier"
+    (onClick)="isEmptyCartDialogVisible = true"
+    [disabled]="!purchaseLines.length"
+  />
+</div>
+
 <p-table
   [value]="purchaseLines"
   sortField="book.title"
@@ -7,15 +21,13 @@
   [breakpoint]="'960px'"
   [tableStyle]="{ 'min-width': '60rem' }"
 >
-  <ng-template pTemplate="caption">
-    <div class="flex align-items-center justify-content-between" jhiTranslate="cart.title">Mon Panier</div>
-  </ng-template>
   <ng-template pTemplate="header">
     <tr>
       <th pSortableColumn="book.title" style="width: 20%" jhiTranslate="cart.book">Livre <p-sortIcon field="book.title" /></th>
       <th pSortableColumn="book.price" style="width: 20%" jhiTranslate="cart.price">Prix <p-sortIcon field="book.price" /></th>
       <th pSortableColumn="quantity" style="width: 20%" jhiTranslate="cart.quantity">Quantité <p-sortIcon field="quantity" /></th>
       <th pSortableColumn="sub_total" style="width: 20%" jhiTranslate="cart.sub-total">Sous Total <p-sortIcon field="sub_total" /></th>
+      <th style="width: 5%"></th>
     </tr>
   </ng-template>
   <ng-template pTemplate="body" let-line>
@@ -23,24 +35,56 @@
       <td>{{ line.book?.title }}</td>
       <td>{{ line.book?.price | currency: 'EUR' }}</td>
       <td>
-        <div class="quantity-control">
+        <div class="quantity-control d-flex">
           <!-- Minus button -->
-          <p-button icon="pi pi-minus" class="p-button-rounded p-button-text" (onClick)="onDecreaseQuantity(line)"></p-button>
+          <p-button
+            size="small"
+            outlined="true"
+            icon="pi pi-minus"
+            class="p-button-rounded p-button-text"
+            (onClick)="onDecreaseQuantity(line)"
+          ></p-button>
           <!-- Quantity display -->
-          <span class="quantity-display">{{ line.quantity }}</span>
+          <span class="quantity-display mx-2 align-self-center">{{ line.quantity }}</span>
           <!-- Plus button -->
-          <p-button icon="pi pi-plus" class="p-button-rounded p-button-text" (onClick)="onIncreaseQuantity(line)"></p-button>
+          <p-button
+            size="small"
+            outlined="true"
+            icon="pi pi-plus"
+            class="p-button-rounded p-button-text"
+            (onClick)="onIncreaseQuantity(line)"
+          ></p-button>
         </div>
       </td>
       <td>{{ line.sub_total | currency: 'EUR' }}</td>
+
+      <td><p-button outlined="true" icon="pi pi-trash" severity="danger" (onClick)="onBookTrashBTnClick(line)" /></td>
     </tr>
   </ng-template>
   <ng-template pTemplate="summary">
     <div style="display: grid; justify-items: end; row-gap: 0.5rem">
       <div jhiTranslate="cart.total" [translateValues]="{ count: onTotalItems(), count2: onTotalPrice() | currency: 'EUR' }"></div>
-      <div>
+      <div *ngIf="purchaseLines.length">
         <jhi-cart-validation-btn />
       </div>
     </div>
   </ng-template>
 </p-table>
+
+<p-dialog header="Vider le panier" [modal]="true" [(visible)]="isEmptyCartDialogVisible" [style]="{ width: '25rem' }">
+  <span class="p-text-secondary block mb-5">Êtes-vous sûr de vouloir vider le panier ?</span>
+  <div class="d-flex justify-content-end gap-2 m-2">
+    <p-button label="Annuler" severity="secondary" (onClick)="isEmptyCartDialogVisible = false" />
+    <p-button label="Vider" (onClick)="onEmptyCart()" />
+  </div>
+</p-dialog>
+
+<p-dialog header="Suppression d'un élement " [modal]="true" [(visible)]="isRemoveItemDialogVisible" [style]="{ width: '25rem' }">
+  <span class="p-text-secondary block mb-5"
+    >Êtes-vous sûr de vouloir retirer le livre "{{ itemToDelete?.book?.title }}" de votre panier ?</span
+  >
+  <div class="d-flex justify-content-end gap-2 m-2">
+    <p-button label="Annuler" severity="secondary" (onClick)="isRemoveItemDialogVisible = false" />
+    <p-button label="Retirer" (onClick)="onRemoveCartItemClick()" />
+  </div>
+</p-dialog>

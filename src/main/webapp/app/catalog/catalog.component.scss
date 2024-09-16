@@ -1,0 +1,10 @@
+$light-color: #e8e9e1;
+
+.result-number {
+  color: #333;
+}
+:host {
+  ::ng-deep .p-paginator {
+    background-color: $light-color;
+  }
+}

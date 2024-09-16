@@ -1,11 +1,11 @@
 {
   "login": {
-    "title": "Authentification",
+    "title": "Connexion",
     "form": {
       "password": "Mot de passe",
       "password.placeholder": "Votre mot de passe",
-      "rememberme": "Garder la session ouverte",
-      "button": "Connexion"
+      "rememberme": "Rester connecté",
+      "button": "Se connecter"
     },
     "messages": {
       "error": {

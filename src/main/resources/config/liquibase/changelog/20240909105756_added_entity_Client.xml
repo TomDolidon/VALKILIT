@@ -39,12 +39,13 @@
     -->
     <changeSet id="20240909105756-1-data" author="jhipster" context="faker">
         <loadData
-                  file="config/liquibase/fake-data/client.csv"
+                  file="config/liquibase/data/client.csv"
                   separator=";"
                   tableName="client"
                   usePreparedStatements="true">
             <column name="id" type="${uuidType}"/>
             <column name="birthdate" type="date"/>
+            <column name="address_id" type="${uuidType}"/>
             <!-- jhipster-needle-liquibase-add-loadcolumn - JHipster (and/or extensions) can add load columns here -->
         </loadData>
     </changeSet>

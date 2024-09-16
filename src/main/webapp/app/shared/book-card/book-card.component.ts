@@ -1,19 +1,20 @@
 /* eslint-disable */
 
 import { CommonModule } from '@angular/common';
-import { Component, inject, Input, OnInit } from '@angular/core';
+import { Component, inject, Input } from '@angular/core';
 import { IBook } from 'app/entities/book/book.model';
 import { ButtonModule } from 'primeng/button';
 import { AnimateModule } from 'primeng/animate';
 import { ChipModule } from 'primeng/chip';
 import { LocalCartService } from 'app/core/cart/cart.service';
+import { RouterLink } from '@angular/router';
 
 @Component({
   standalone: true,
   selector: 'jhi-book-card',
   templateUrl: './book-card.component.html',
   styleUrl: './book-card.component.scss',
-  imports: [CommonModule, ButtonModule, AnimateModule, ChipModule],
+  imports: [CommonModule, ButtonModule, AnimateModule, ChipModule, RouterLink],
 })
 export default class BookCard2Component {
   @Input() book: IBook = {

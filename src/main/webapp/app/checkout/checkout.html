@@ -1,19 +1,19 @@
-<p-stepper>
-  <p-stepperPanel header="Adresse">
+<p-stepper [linear]="true">
+  <p-stepperPanel header="Adresse de livraison">
     <ng-template pTemplate="content" let-nextCallback="nextCallback" let-index="index">
       <div class="flex flex-column h-12rem">
         <div
           class="border-2 border-dashed surface-border border-round surface-ground flex-auto flex justify-content-center align-items-center font-medium"
         >
-          <jhi-confirm-address [addressForm]="getAddressGroupForm()"></jhi-confirm-address>
+          <jhi-confirm-address [addressForm]="getAddressGroupForm()" [currentUserAddress]="currentUserAddress"></jhi-confirm-address>
         </div>
       </div>
-      <div class="flex py-4">
-        <p-button label="Suivant" (onClick)="nextCallback.emit()" />
+      <div class="flex py-4 text-end">
+        <p-button (onClick)="nextCallback.emit()" [disabled]="!getAddressGroupForm().valid" label="Suivant" />
       </div>
     </ng-template>
   </p-stepperPanel>
-  <p-stepperPanel header="Paiement">
+  <p-stepperPanel header="Moyen de paiement">
     <ng-template pTemplate="content" let-prevCallback="prevCallback" let-nextCallback="nextCallback" let-index="index">
       <div class="flex flex-column h-12rem">
         <div
@@ -22,24 +22,24 @@
           <jhi-confirm-payment [paymentForm]="getPaymentGroupForm()"></jhi-confirm-payment>
         </div>
       </div>
-      <div class="flex py-4 gap-2">
+      <div class="flex py-4 gap-2 text-end">
         <p-button label="Retour" severity="secondary" (onClick)="prevCallback.emit()" />
-        <p-button label="Valider le paiement" [disabled]="!isFormValid()" (onClick)="proceedCheckout()" />
+        <p-button (onClick)="nextCallback.emit()" [disabled]="!getPaymentGroupForm().valid" label="Suivant" />
       </div>
     </ng-template>
   </p-stepperPanel>
-  <p-stepperPanel header="Confirmation">
+  <p-stepperPanel header="Récapitulatif et paiement">
     <ng-template pTemplate="content" let-prevCallback="prevCallback" let-index="index">
       <div class="flex flex-column h-12rem">
         <div
           class="border-2 border-dashed surface-border border-round surface-ground flex-auto flex justify-content-center align-items-center font-medium"
         >
-          <jhi-confirm-summary></jhi-confirm-summary>
+          <jhi-confirm-summary [addressForm]="getAddressGroupForm()" [paymentForm]="getPaymentGroupForm()"></jhi-confirm-summary>
         </div>
       </div>
-      <div class="flex py-4 gap-2">
-        <p-button label="Retour" severity="secondary" (onClick)="prevCallback.emit()" />
-        <p-button label="Terminer" />
+      <div class="flex py-4 gap-2 text-end">
+        <p-button (onClick)="prevCallback.emit()" [disabled]="isProceedingCheckout" label="Retour" severity="secondary" />
+        <p-button (onClick)="proceedCheckout()" [disabled]="!isFormValid() || isProceedingCheckout" label="Valider le paiement" />
       </div>
     </ng-template>
   </p-stepperPanel>
@@ -55,7 +55,50 @@
   [draggable]="false"
 >
   <div class="centered">
-    <p>Paiement en cours... Veuillez patienter.</p>
-    <img src="https://www.gifimili.com/gif/2018/03/sablier.gif" />
+    <p>Validation et paiement de votre commande en cours... Veuillez patienter.</p>
+    <img alt="Sablier" src="./content/images/sablier.gif" />
+  </div>
+</p-dialog>
+
+<p-dialog
+  [(visible)]="isProceedingCartAdjustment"
+  [breakpoints]="{ '1199px': '75vw', '575px': '90vw' }"
+  [closable]="false"
+  [draggable]="false"
+  [modal]="true"
+  [showHeader]="true"
+  [style]="{ width: '50rem' }"
+  header="Confirmation"
+>
+  <div class="centered">
+    <p>Certains livres n'ont plus le stock nécessaire pour passer votre commande.</p>
+    <div *ngFor="let book of purchaseCommandInvalidLines">
+      {{ book.purchaseCommandQuantity }}x {{ book.title }} ({{ book.purchaseCommandUnitPrice | currency: 'EUR' }}) :
+      <span class="text-danger bold">{{ book.stock }} livres sont actuellement en stock</span>
+    </div>
+    <p>Validez-vous l'ajustement automatique de votre panier afin de passer la commande ?</p>
+  </div>
+  <div class="d-flex justify-content-end gap-2">
+    <p-button (onClick)="router.navigate(['/cart'])" label="Retourner au panier" severity="secondary" />
+    <p-button (onClick)="proceedCheckoutWithAdjustments()" [autofocus]="true" label="Valider" severity="primary" />
+  </div>
+</p-dialog>
+
+<p-dialog
+  [(visible)]="isCartTotallyWrong"
+  [breakpoints]="{ '1199px': '75vw', '575px': '90vw' }"
+  [closable]="false"
+  [draggable]="false"
+  [modal]="true"
+  [showHeader]="true"
+  [style]="{ width: '50rem' }"
+  header="Information"
+>
+  <div class="centered mb-2">
+    <div class="text-danger">Rupture de stock sur l'ensemble des livres de votre commande. Veuillez refaire votre panier.</div>
+    <div>Vous allez être redirigé vers le catalogue.</div>
+  </div>
+  <div class="d-flex justify-content-end gap-2">
+    <p-button (onClick)="clearCartAndGoToCatalog()" label="OK" />
   </div>
 </p-dialog>

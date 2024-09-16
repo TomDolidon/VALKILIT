@@ -1,1 +1,49 @@
-<p>confirm-summary works!</p>
+<p-fieldset legend="Adresse de livraison">
+  <div class="m-0 mb-3">
+    <table>
+      <tr>
+        <td class="pr-2">Adresse :</td>
+        <td>{{ addressForm.get('street')?.value }}</td>
+      </tr>
+      <tr>
+        <td class="pr-2">Code postal :</td>
+        <td>{{ addressForm.get('postalCode')?.value }}</td>
+      </tr>
+      <tr>
+        <td class="pr-2">Ville :</td>
+        <td>{{ addressForm.get('city')?.value }}</td>
+      </tr>
+      <tr>
+        <td class="pr-2">Pays :</td>
+        <td>{{ addressForm.get('country')?.value }}</td>
+      </tr>
+    </table>
+  </div>
+  <div class="m-0 text-info">Votre commande sera expédiée dans un délai de 24 heures.</div>
+</p-fieldset>
+
+<p-fieldset legend="Moyen de paiement">
+  <div>
+    <table>
+      <tr>
+        <td class="pr-2">Numéro de carte :</td>
+        <td>{{ paymentForm.get('creditCardNumbers')?.value }}</td>
+      </tr>
+      <tr>
+        <td class="pr-2">Date d'expiration :</td>
+        <td>{{ paymentForm.get('expirationDate')?.value | date }}</td>
+      </tr>
+    </table>
+  </div>
+</p-fieldset>
+
+<p-fieldset legend="Mon panier">
+  <div class="mb-3">
+    <div *ngFor="let line of localCartService.getAllLines(); let i = index">
+      {{ line.quantity }}x {{ line.book.title }} ({{ line.book.price | currency: 'EUR' }})
+    </div>
+  </div>
+  <div class="text-info">
+    Total ({{ localCartService.getCartTotalItems() }} articles) : {{ localCartService.getCartTotalPrice() | currency: 'EUR' }}
+  </div>
+</p-fieldset>
