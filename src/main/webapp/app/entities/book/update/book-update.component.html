@@ -32,10 +32,21 @@
           <label class="form-label" for="field_subtitle" jhiTranslate="valkylitApp.book.subtitle">Subtitle</label>
           <input type="text" class="form-control" name="subtitle" id="field_subtitle" data-cy="subtitle" formControlName="subtitle" />
         </div>
-
         <div class="mb-3">
-          <label class="form-label" for="field_imageUri" jhiTranslate="valkylitApp.book.imageUri">Image Uri</label>
-          <input type="text" class="form-control" name="imageUri" id="field_imageUri" data-cy="imageUri" formControlName="imageUri" />
+          <label class="form-label" for="field_imageUri">Image Uri</label>
+          <input type="string" class="form-control" name="imageUri" id="field_imageUri" data-cy="imageUri" formControlName="imageUri" />
+        </div>
+        <div class="mb-3">
+          <label class="form-label" for="field_imageFile">Image File</label>
+          <input
+            type="file"
+            class="form-control"
+            name="imageFile"
+            id="field_imageFile"
+            data-cy="imageFile"
+            formControlName="imageFile"
+            (change)="onImagePicked($event)"
+          />
         </div>
 
         @let priceRef = editForm.get('price')!;

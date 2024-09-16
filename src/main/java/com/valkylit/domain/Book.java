@@ -12,6 +12,7 @@ import java.util.Set;
 import java.util.UUID;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
+import org.springframework.web.multipart.MultipartFile;
 
 /**
  * A Book.
