@@ -1,17 +1,26 @@
-import { Injectable } from '@angular/core';
+import { Injectable, signal } from '@angular/core';
+import { BehaviorSubject, Observable } from 'rxjs';
 import IBookCart from 'app/model/IBookCart';
+import { IPurchaseCommandLine } from 'app/entities/purchase-command-line/purchase-command-line.model';
+import { IPurchaseCommand } from 'app/entities/purchase-command/purchase-command.model';
 
 @Injectable({
   providedIn: 'root',
 })
 export class LocalCartService {
   private storageKey = new Map<string, string>();
+  private cartItemsCount = new BehaviorSubject<number>(0);
 
   constructor() {
     this.initStorageKeys();
   }
 
+  public getCartItemsCount(): Observable<number> {
+    return this.cartItemsCount.asObservable();
+  }
+
   // -------------- METHODS -----------------
+
   // Retrieve all lines in the cart
   public getAllLines(): IBookCart[] {
     const cart: IBookCart[] = [];
@@ -71,9 +80,11 @@ export class LocalCartService {
         bookInCart.quantity += JSON.parse(value).quantity as number;
         bookInCart.sub_total = bookInCart.quantity * bookInCart.book.price!;
         if (bookInCart.quantity < 1) {
-          localStorage.removeItem(key);
+          this.deleteCart(key);
+          this.cartItemsCount.next(this.getCartTotalItems());
         } else {
           localStorage.setItem(key, JSON.stringify(bookInCart));
+          this.cartItemsCount.next(this.getCartTotalItems());
         }
       } catch (error) {
         console.error('Error updating cart item:', error);
@@ -81,6 +92,7 @@ export class LocalCartService {
     } else {
       this.storageKey.set(key, key);
       localStorage.setItem(key, value);
+      this.cartItemsCount.next(this.getCartTotalItems());
     }
   }
 
@@ -99,6 +111,7 @@ export class LocalCartService {
   public clearCart(): void {
     this.storageKey.clear();
     localStorage.clear();
+    this.cartItemsCount.next(0);
   }
 
   private initStorageKeys(): void {

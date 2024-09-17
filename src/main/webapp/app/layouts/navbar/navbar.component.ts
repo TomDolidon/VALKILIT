@@ -10,6 +10,7 @@ import { LANGUAGES } from 'app/config/language.constants';
 import { AccountService } from 'app/core/auth/account.service';
 import { LoginService } from 'app/login/login.service';
 import { ProfileService } from 'app/layouts/profiles/profile.service';
+import { LocalCartService } from 'app/core/cart/cart.service';
 import { EntityNavbarItems } from 'app/entities/entity-navbar-items';
 import ActiveMenuDirective from './active-menu.directive';
 import NavbarItem from './navbar-item.model';
@@ -36,6 +37,8 @@ export default class NavbarComponent implements OnInit {
   private stateStorageService = inject(StateStorageService);
   private profileService = inject(ProfileService);
   private router = inject(Router);
+  private cartService = inject(LocalCartService);
+  private cartItemCount = 0;
 
   constructor() {
     if (VERSION) {
@@ -49,6 +52,11 @@ export default class NavbarComponent implements OnInit {
       this.inProduction = profileInfo.inProduction;
       this.openAPIEnabled = profileInfo.openAPIEnabled;
     });
+    this.cartService.getCartItemsCount().subscribe(count => {
+      this.cartItemCount = count;
+    });
+    // to get the numbers of items in cart when reloading pages
+    this.cartItemCount = this.cartService.getCartTotalItems();
   }
 
   changeLanguage(languageKey: string): void {
@@ -72,5 +80,9 @@ export default class NavbarComponent implements OnInit {
 
   toggleNavbar(): void {
     this.isNavbarCollapsed.update(isNavbarCollapsed => !isNavbarCollapsed);
+  }
+
+  onCartItemCount(): number {
+    return this.cartItemCount;
   }
 }

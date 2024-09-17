@@ -1,10 +1,11 @@
 {
   "cart": {
-    "title": "My cart",
+    "title": "My Cart",
     "book": "Book",
     "price": "Price",
     "quantity": "Quantity",
     "sub-total": "Sub Total",
-    "total": "Total ({{count}} books in your cart) : {{count2}}"
+    "total": "Total ({{count}} books in your cart) : {{count2}}",
+    "empty-cart": "Empty my cart"
   }
 }

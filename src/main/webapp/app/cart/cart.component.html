@@ -1,12 +1,12 @@
 <div class="d-flex justify-content-between">
-  <h1>Mon Panier</h1>
+  <h1 jhiTranslate="cart.title">Mon Panier</h1>
 
   <p-button
     class="align-self-center"
     outlined="true"
     icon="pi pi-trash"
     severity="danger"
-    label="Vider mon panier"
+    [label]="'cart.empty-cart' | translate"
     (onClick)="isEmptyCartDialogVisible = true"
     [disabled]="!purchaseLines.length"
   />
@@ -18,7 +18,7 @@
   [sortOrder]="1"
   styleClass="p-datatable-striped"
   responsiveLayout="stack"
-  [breakpoint]="'960px'"
+  [breakpoint]="'1080px'"
   [tableStyle]="{ 'min-width': '60rem' }"
 >
   <ng-template pTemplate="header">
