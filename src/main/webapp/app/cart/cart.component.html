@@ -8,12 +8,12 @@
     severity="danger"
     [label]="'cart.empty-cart' | translate"
     (onClick)="isEmptyCartDialogVisible = true"
-    [disabled]="!purchaseLines.length"
+    [disabled]="!getCommandLines().length"
   />
 </div>
 
 <p-table
-  [value]="purchaseLines"
+  [value]="getCommandLines()"
   sortField="book.title"
   [sortOrder]="1"
   styleClass="p-datatable-striped"
@@ -42,7 +42,7 @@
             outlined="true"
             icon="pi pi-minus"
             class="p-button-rounded p-button-text"
-            (onClick)="onDecreaseQuantity(line)"
+            (onClick)="onDecreaseQuantity(line.book)"
           ></p-button>
           <!-- Quantity display -->
           <span class="quantity-display mx-2 align-self-center">{{ line.quantity }}</span>
@@ -52,7 +52,7 @@
             outlined="true"
             icon="pi pi-plus"
             class="p-button-rounded p-button-text"
-            (onClick)="onIncreaseQuantity(line)"
+            (onClick)="onIncreaseQuantity(line.book)"
           ></p-button>
         </div>
       </td>
@@ -64,7 +64,7 @@
   <ng-template pTemplate="summary">
     <div style="display: grid; justify-items: end; row-gap: 0.5rem">
       <div jhiTranslate="cart.total" [translateValues]="{ count: onTotalItems(), count2: onTotalPrice() | currency: 'EUR' }"></div>
-      <div *ngIf="purchaseLines.length">
+      <div *ngIf="getCommandLines().length">
         <jhi-cart-validation-btn />
       </div>
     </div>

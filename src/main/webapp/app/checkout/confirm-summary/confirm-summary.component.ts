@@ -2,7 +2,7 @@ import { Component, inject, Input } from '@angular/core';
 import { FieldsetModule } from 'primeng/fieldset';
 import { FormGroup } from '@angular/forms';
 import { CurrencyPipe, DatePipe, NgForOf } from '@angular/common';
-import { LocalCartService } from '../../core/cart/cart.service';
+import { CartService } from 'app/core/cart/cart.service';
 
 @Component({
   selector: 'jhi-confirm-summary',
@@ -15,5 +15,5 @@ export class ConfirmSummaryComponent {
   @Input() addressForm!: FormGroup;
   @Input() paymentForm!: FormGroup;
 
-  constructor(protected localCartService: LocalCartService) {}
+  constructor(protected cartService: CartService) {}
 }

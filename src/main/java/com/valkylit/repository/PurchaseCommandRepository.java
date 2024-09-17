@@ -1,6 +1,9 @@
 package com.valkylit.repository;
 
+import com.valkylit.domain.Client;
 import com.valkylit.domain.PurchaseCommand;
+import com.valkylit.domain.PurchaseCommandLine;
+import com.valkylit.domain.enumeration.PurchaseCommandStatus;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -61,4 +64,7 @@ public interface PurchaseCommandRepository extends JpaRepository<PurchaseCommand
         "select purchaseCommand from PurchaseCommand purchaseCommand where purchaseCommand.client.internalUser.login =:login and purchaseCommand.status='DRAFT'"
     )
     Optional<PurchaseCommand> findCurrentDraftByLogin(@Param("login") String login);
+
+    @Query("SELECT pc FROM PurchaseCommand pc WHERE pc.client = :client AND pc.status = :status")
+    Optional<PurchaseCommand> findByClientAndStatus(Client client, PurchaseCommandStatus status);
 }

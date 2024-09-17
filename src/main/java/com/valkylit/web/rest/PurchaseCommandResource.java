@@ -1,6 +1,9 @@
 package com.valkylit.web.rest;
 
+import com.valkylit.domain.Client;
 import com.valkylit.domain.PurchaseCommand;
+import com.valkylit.domain.PurchaseCommandLine;
+import com.valkylit.repository.ClientRepository;
 import com.valkylit.repository.PurchaseCommandRepository;
 import com.valkylit.security.SecurityUtils;
 import com.valkylit.service.PurchaseCommandService;
@@ -44,6 +47,9 @@ public class PurchaseCommandResource {
 
     @Autowired
     private PurchaseCommandService purchaseCommandService;
+
+    @Autowired
+    private ClientRepository clientRepository;
 
     /**
      * {@code POST  /purchase-commands} : Create a new purchaseCommand.
@@ -244,5 +250,70 @@ public class PurchaseCommandResource {
         return ResponseEntity.noContent()
             .headers(HeaderUtil.createEntityDeletionAlert(applicationName, true, ENTITY_NAME, id.toString()))
             .build();
+    }
+
+    @PostMapping("/self-current-draft/add-command-line")
+    public ResponseEntity<PurchaseCommand> addCommandLineToCart(@Valid @RequestBody PurchaseCommandLine purchaseCommandLine) {
+        String userLogin = SecurityUtils.getCurrentUserLogin()
+            .orElseThrow(() -> new BadRequestAlertException("Current user login not found", "client", "loginnotfound"));
+        Optional<Client> clientOptional = this.clientRepository.findOneWithToOneRelationshipsByUserLogin(userLogin);
+        if (!clientOptional.isPresent()) {
+            throw new BadRequestAlertException("Client not found", "client", "clientnotfound");
+        }
+        Client client = clientOptional.get();
+
+        PurchaseCommand purchaseCommand = purchaseCommandService.addItemToCart(purchaseCommandLine, client);
+        return ResponseEntity.ok(purchaseCommand);
+    }
+
+    /**
+     * {@code DELETE  /self-current-draft/remove-command-line/:bookId} : Remove an item from the cart.
+     *
+     * @param bookId the ID of the book to remove from the cart.
+     * @return the {@link ResponseEntity} with status {@code 204 (No Content)}.
+     */
+    @DeleteMapping("/self-current-draft/remove-command-line/{bookId}")
+    public ResponseEntity<PurchaseCommand> removeItemFromCart(@PathVariable UUID bookId) {
+        String userLogin = SecurityUtils.getCurrentUserLogin()
+            .orElseThrow(() -> new BadRequestAlertException("User login not found", "user", "loginNotFound"));
+
+        Client client = clientRepository
+            .findOneWithToOneRelationshipsByUserLogin(userLogin)
+            .orElseThrow(() -> new BadRequestAlertException("Client not found", "client", "notFound"));
+
+        PurchaseCommand purchaseCommand = purchaseCommandService.removeItemFromCart(bookId, client);
+        return ResponseEntity.ok(purchaseCommand);
+    }
+
+    /**
+     * {@code DELETE  /self-current-draft/decrement-command-line/:bookId} : Decrease the quantity of an item in the cart.
+     *
+     * @param bookId the ID of the book to decrement.
+     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the updated purchaseCommand.
+     */
+    @DeleteMapping("/self-current-draft/decrement-command-line/{bookId}")
+    public ResponseEntity<PurchaseCommand> decrementItemInCart(@PathVariable UUID bookId) {
+        String userLogin = SecurityUtils.getCurrentUserLogin()
+            .orElseThrow(() -> new BadRequestAlertException("User login not found", "user", "loginNotFound"));
+
+        Client client = clientRepository
+            .findOneWithToOneRelationshipsByUserLogin(userLogin)
+            .orElseThrow(() -> new BadRequestAlertException("Client not found", "client", "notFound"));
+
+        PurchaseCommand purchaseCommand = purchaseCommandService.decrementItemInCart(bookId, client);
+        return ResponseEntity.ok(purchaseCommand);
+    }
+
+    @DeleteMapping("/self-current-draft/clear-cart")
+    public ResponseEntity<PurchaseCommand> clearCart() {
+        String userLogin = SecurityUtils.getCurrentUserLogin()
+            .orElseThrow(() -> new BadRequestAlertException("User login not found", "user", "loginNotFound"));
+
+        Client client = clientRepository
+            .findOneWithToOneRelationshipsByUserLogin(userLogin)
+            .orElseThrow(() -> new BadRequestAlertException("Client not found", "client", "notFound"));
+
+        PurchaseCommand purchaseCommand = purchaseCommandService.clearCart(client);
+        return ResponseEntity.ok(purchaseCommand);
     }
 }

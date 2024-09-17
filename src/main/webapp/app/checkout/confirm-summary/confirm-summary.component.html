@@ -39,11 +39,11 @@
 
 <p-fieldset legend="Mon panier">
   <div class="mb-3">
-    <div *ngFor="let line of localCartService.getAllLines(); let i = index">
-      {{ line.quantity }}x {{ line.book.title }} ({{ line.book.price | currency: 'EUR' }})
+    <div *ngFor="let line of cartService.getCart(); let i = index">
+      {{ line.quantity }}x {{ line.book?.title }} ({{ line.book?.price | currency: 'EUR' }})
     </div>
   </div>
   <div class="text-info">
-    Total ({{ localCartService.getCartTotalItems() }} articles) : {{ localCartService.getCartTotalPrice() | currency: 'EUR' }}
+    Total ({{ cartService.getCartTotalItems() }} articles) : {{ cartService.getCartTotalPrice() | currency: 'EUR' }}
   </div>
 </p-fieldset>

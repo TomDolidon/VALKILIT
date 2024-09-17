@@ -32,7 +32,7 @@ public class PurchaseCommandLine implements Serializable {
     @Column(name = "unit_price", nullable = false)
     private Float unitPrice;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JsonIgnoreProperties(value = { "awardBooks", "reviews", "publisher", "categories", "authors" }, allowSetters = true)
     private Book book;
 
