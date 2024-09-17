@@ -224,12 +224,14 @@ export class CheckoutComponent {
       const addressData = this.getAddressGroupForm().value;
       this.addressService.create({ ...addressData, id: null }).subscribe({
         next: () => this.validatePurchaseCommand(),
-        error: () =>
+        error: () => {
           this.messageService.add({
             severity: 'error',
             summary: 'Erreur',
             detail: "Erreur lors de la création de l'adresse.",
-          }),
+          });
+          this.isProceedingCheckout = false;
+        },
       });
     } else {
       this.validatePurchaseCommand();
@@ -248,12 +250,14 @@ export class CheckoutComponent {
         });
         this.router.navigate(['/']);
       },
-      error: () =>
+      error: () => {
         this.messageService.add({
           severity: 'error',
           summary: 'Erreur',
           detail: 'Erreur lors de la validation de la commande.',
-        }),
+        });
+        this.isProceedingCheckout = false;
+      },
     });
   }
 }
