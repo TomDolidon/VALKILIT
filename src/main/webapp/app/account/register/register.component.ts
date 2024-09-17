@@ -64,19 +64,29 @@ export default class RegisterComponent implements AfterViewInit {
     }),
     street: new FormControl('', {
       nonNullable: true,
-      validators: [Validators.required],
+      validators: [Validators.required, Validators.minLength(5), Validators.maxLength(254)],
     }),
     postalCode: new FormControl('', {
       nonNullable: true,
-      validators: [Validators.required],
+      validators: [Validators.required, Validators.minLength(5), Validators.maxLength(5)],
     }),
     city: new FormControl('', {
       nonNullable: true,
-      validators: [Validators.required],
+      validators: [
+        Validators.required,
+        Validators.minLength(2),
+        Validators.maxLength(254),
+        Validators.pattern("^[a-zA-ZàâäéèêëîïôöùûüÿçÀÂÄÉÈÊËÎÏÔÖÙÛÜŸÇ'’\\-\\s]+$"),
+      ],
     }),
     country: new FormControl('', {
       nonNullable: true,
-      validators: [Validators.required],
+      validators: [
+        Validators.required,
+        Validators.minLength(4),
+        Validators.maxLength(100),
+        Validators.pattern("^[a-zA-ZàâäéèêëîïôöùûüÿçÀÂÄÉÈÊËÎÏÔÖÙÛÜŸÇ'’\\-\\s]+$"),
+      ],
     }),
   });
 

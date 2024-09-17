@@ -24,7 +24,11 @@
               }
 
               @if (creditCardNumbersRef?.errors?.minlength || creditCardNumbersRef?.errors?.maxlength) {
-                <small class="form-text text-danger">Votre numéro de carte doit comporter 16 caractères.</small>
+                <small class="form-text text-danger">Votre numéro de carte doit comporter 16 chiffres.</small>
+              }
+
+              @if (creditCardNumbersRef?.errors?.pattern) {
+                <small class="form-text text-danger">Votre numéro de carte ne peut comporter que des chiffres.</small>
               }
             </div>
           }
@@ -40,6 +44,7 @@
             placeholder="Date d'expiration"
             formControlName="expirationDate"
             data-cy="expirationDate"
+            [min]="todayDate"
           />
 
           @let expirationDateRef = paymentForm.get('expirationDate')!;
@@ -72,7 +77,11 @@
               }
 
               @if (securityCodeRef?.errors?.minlength || securityCodeRef?.errors?.maxlength) {
-                <small class="form-text text-danger">Votre code de sécurité doit comporter 3 caractères.</small>
+                <small class="form-text text-danger">Votre code de sécurité doit comporter 3 chiffres.</small>
+              }
+
+              @if (securityCodeRef?.errors?.pattern) {
+                <small class="form-text text-danger">Votre code de sécurité ne peut comporter que des chiffres.</small>
               }
             </div>
           }

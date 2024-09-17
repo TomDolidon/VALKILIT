@@ -91,8 +91,24 @@ export class AddressComponent {
     this.addressForm = this.fb.group({
       street: [this.currentUserAddress.street, [Validators.required, Validators.minLength(5), Validators.maxLength(254)]],
       postalCode: [this.currentUserAddress.postalCode, [Validators.required, Validators.minLength(5), Validators.maxLength(5)]],
-      city: [this.currentUserAddress.city, [Validators.required, Validators.minLength(2), Validators.maxLength(254)]],
-      country: [this.currentUserAddress.country, [Validators.required, Validators.minLength(4), Validators.maxLength(100)]],
+      city: [
+        this.currentUserAddress.city,
+        [
+          Validators.required,
+          Validators.minLength(2),
+          Validators.maxLength(254),
+          Validators.pattern("^[a-zA-ZàâäéèêëîïôöùûüÿçÀÂÄÉÈÊËÎÏÔÖÙÛÜŸÇ'’\\-\\s]+$"),
+        ],
+      ],
+      country: [
+        this.currentUserAddress.country,
+        [
+          Validators.required,
+          Validators.minLength(4),
+          Validators.maxLength(100),
+          Validators.pattern("^[a-zA-ZàâäéèêëîïôöùûüÿçÀÂÄÉÈÊËÎÏÔÖÙÛÜŸÇ'’\\-\\s]+$"),
+        ],
+      ],
     });
   }
 }

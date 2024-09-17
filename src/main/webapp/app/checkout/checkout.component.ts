@@ -62,13 +62,29 @@ export class CheckoutComponent {
       address: this.fb.group({
         street: ['', [Validators.required, Validators.minLength(5), Validators.maxLength(254)]],
         postalCode: ['', [Validators.required, Validators.minLength(5), Validators.maxLength(5)]],
-        city: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(254)]],
-        country: ['', [Validators.required, Validators.minLength(4), Validators.maxLength(100)]],
+        city: [
+          '',
+          [
+            Validators.required,
+            Validators.minLength(2),
+            Validators.maxLength(254),
+            Validators.pattern("^[a-zA-ZàâäéèêëîïôöùûüÿçÀÂÄÉÈÊËÎÏÔÖÙÛÜŸÇ'’\\-\\s]+$"),
+          ],
+        ],
+        country: [
+          '',
+          [
+            Validators.required,
+            Validators.minLength(4),
+            Validators.maxLength(100),
+            Validators.pattern("^[a-zA-ZàâäéèêëîïôöùûüÿçÀÂÄÉÈÊËÎÏÔÖÙÛÜŸÇ'’\\-\\s]+$"),
+          ],
+        ],
       }),
       payment: this.fb.group({
-        creditCardNumbers: ['', [Validators.required, Validators.minLength(16), Validators.maxLength(16)]],
+        creditCardNumbers: ['', [Validators.required, Validators.minLength(16), Validators.maxLength(16), Validators.pattern(/^[0-9]+$/)]],
         expirationDate: ['', [Validators.required]],
-        securityCode: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(3)]],
+        securityCode: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(3), Validators.pattern(/^[0-9]+$/)]],
       }),
     });
 
