@@ -2,7 +2,7 @@
   <div class="row">
     <div class="col-3">
       <div class="book-image-container">
-        <p-image [preview]="true" alt="{{ book.title }}" src="{{ book.imageUri }}" />
+        <p-image [preview]="true" alt="{{ book.title }}" src="{{ book.imageUri | imageUrl }} " />
       </div>
     </div>
     <div class="col-9">

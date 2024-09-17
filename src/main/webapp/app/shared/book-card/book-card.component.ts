@@ -8,13 +8,14 @@ import { AnimateModule } from 'primeng/animate';
 import { ChipModule } from 'primeng/chip';
 import { LocalCartService } from 'app/core/cart/cart.service';
 import { RouterLink } from '@angular/router';
+import { ImageUrlPipe } from '../external-image/image-url.pipe';
 
 @Component({
   standalone: true,
   selector: 'jhi-book-card',
   templateUrl: './book-card.component.html',
   styleUrl: './book-card.component.scss',
-  imports: [CommonModule, ButtonModule, AnimateModule, ChipModule, RouterLink],
+  imports: [CommonModule, ButtonModule, AnimateModule, ChipModule, RouterLink, ImageUrlPipe],
 })
 export default class BookCard2Component {
   @Input() book: IBook = {

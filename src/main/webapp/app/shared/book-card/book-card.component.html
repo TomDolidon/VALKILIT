@@ -1,6 +1,6 @@
 <div class="book-card d-flex">
   <div class="book-image" routerLink="/details/{{ book.id }}">
-    <img [src]="book.imageUri" alt="{{ book.title }}" />
+    <img [src]="book.imageUri | imageUrl" alt="{{ book.title }}" />
   </div>
   <div class="book-content d-flex flex-column">
     <div class="d-flex justify-content-between">

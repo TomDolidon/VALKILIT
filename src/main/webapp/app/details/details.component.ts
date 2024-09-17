@@ -15,6 +15,7 @@ import { AuthorService } from '../entities/author/service/author.service';
 import { HttpResponse } from '@angular/common/http';
 import BookCard2Component from '../shared/book-card/book-card.component';
 import { CarouselModule } from 'primeng/carousel';
+import { ImageUrlPipe } from 'app/shared/external-image/image-url.pipe';
 
 @Component({
   selector: 'jhi-details',
@@ -32,6 +33,7 @@ import { CarouselModule } from 'primeng/carousel';
     ChipsModule,
     BookCard2Component,
     CarouselModule,
+    ImageUrlPipe,
   ],
   templateUrl: './details.component.html',
   styleUrl: './details.component.scss',
@@ -40,7 +42,6 @@ export default class DetailsComponent implements OnInit {
   bookId = '';
   book!: IBook;
   firstAuthorOthersBooks!: IBook[];
-
   constructor(
     private bookService: BookService,
     private authorService: AuthorService,
