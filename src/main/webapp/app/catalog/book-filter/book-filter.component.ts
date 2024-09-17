@@ -14,13 +14,24 @@ import { SliderModule } from 'primeng/slider';
 import { CheckboxModule } from 'primeng/checkbox';
 import { FloatLabelModule } from 'primeng/floatlabel';
 import { TranslateModule } from '@ngx-translate/core';
+import TranslateDirective from '../../shared/language/translate.directive';
 
 @Component({
   standalone: true,
   selector: 'jhi-book-filter',
   templateUrl: './book-filter.component.html',
   styleUrl: './book-filter.component.scss',
-  imports: [CommonModule, FormsModule, AutoCompleteModule, ChipsModule, SliderModule, CheckboxModule, FloatLabelModule, TranslateModule],
+  imports: [
+    CommonModule,
+    FormsModule,
+    AutoCompleteModule,
+    ChipsModule,
+    SliderModule,
+    CheckboxModule,
+    FloatLabelModule,
+    TranslateModule,
+    TranslateDirective,
+  ],
 })
 export class BookFilterComponent {
   authors: any[] = [];

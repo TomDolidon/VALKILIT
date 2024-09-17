@@ -8,9 +8,9 @@
 
       <div *ngIf="books.length" class="d-flex justify-content-end paginator-container">
         <p class="align-self-center mr-2 result-number">
-          Affichage de {{ page * itemsPerPage + 1 }} à
-          {{ page * itemsPerPage + itemsPerPage > totalRecords ? totalRecords : page * itemsPerPage + itemsPerPage }} sur
-          {{ totalRecords }} résultats
+          {{ 'catalog.showingFrom' | translate }} {{ page * itemsPerPage + 1 }} {{ 'catalog.toMin' | translate }}
+          {{ page * itemsPerPage + itemsPerPage > totalRecords ? totalRecords : page * itemsPerPage + itemsPerPage }}
+          {{ 'catalog.on' | translate }} {{ totalRecords }} {{ 'catalog.results' | translate }}
         </p>
         <p-paginator
           styleClass="paginator"
@@ -22,7 +22,9 @@
         ></p-paginator>
       </div>
 
-      <div *ngIf="!books.length" class="d-flex justify-content-center mt-3">Aucun livre ne correspond à votre recherche</div>
+      <div *ngIf="!books.length" class="d-flex justify-content-center mt-3" jhiTranslate="catalog.noBooksMatchYourSearch">
+        Aucun livre ne correspond à votre recherche
+      </div>
     </div>
   </div>
 </div>

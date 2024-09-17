@@ -1,0 +1,17 @@
+{
+  "catalog": {
+    "filters": {
+      "filterTheResults": "Filter the results",
+      "authors": "Authors",
+      "format": "Format",
+      "priceRange": "Price range"
+    },
+    "from": "From",
+    "to": "To",
+    "toMin": "to",
+    "showingFrom": "Showing from",
+    "on": "on",
+    "results": "results",
+    "noBooksMatchYourSearch": "No books match your search"
+  }
+}

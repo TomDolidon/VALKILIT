@@ -11,13 +11,15 @@ import BookListComponent from './book-list/book-list.component';
 import { BookFilterComponent } from './book-filter/book-filter.component';
 import IBookFilter from 'app/model/IBookFilter';
 import { ActivatedRoute } from '@angular/router';
+import { TranslateModule } from '@ngx-translate/core';
+import TranslateDirective from '../shared/language/translate.directive';
 
 @Component({
   standalone: true,
   selector: 'jhi-catalog',
   templateUrl: './catalog.component.html',
   styleUrl: './catalog.component.scss',
-  imports: [CommonModule, PaginatorModule, BookListComponent, BookFilterComponent],
+  imports: [CommonModule, PaginatorModule, BookListComponent, BookFilterComponent, TranslateModule, TranslateDirective],
 })
 export default class CatalogComponent implements OnInit {
   books: IBook[] = [];

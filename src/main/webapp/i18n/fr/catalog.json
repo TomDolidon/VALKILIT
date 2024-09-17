@@ -1,0 +1,17 @@
+{
+  "catalog": {
+    "filters": {
+      "filterTheResults": "Filtrer les résultats",
+      "authors": "Auteurs",
+      "format": "Format",
+      "priceRange": "Fourchette de prix"
+    },
+    "from": "De",
+    "to": "à",
+    "toMin": "à",
+    "showingFrom": "Affichage de",
+    "on": "sur",
+    "results": "résultats",
+    "noBooksMatchYourSearch": "Aucun livre ne correspond à votre recherche"
+  }
+}
