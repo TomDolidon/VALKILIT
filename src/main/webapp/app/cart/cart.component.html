@@ -56,7 +56,7 @@
           ></p-button>
         </div>
       </td>
-      <td>{{ line.sub_total | currency: 'EUR' }}</td>
+      <td>{{ line.quantity * line.book.price | currency: 'EUR' }}</td>
 
       <td><p-button outlined="true" icon="pi pi-trash" severity="danger" (onClick)="onBookTrashBTnClick(line)" /></td>
     </tr>

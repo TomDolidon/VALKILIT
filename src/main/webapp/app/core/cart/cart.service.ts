@@ -5,7 +5,7 @@ import { IBook } from 'app/entities/book/book.model';
 import { IPurchaseCommandLine, NewPurchaseCommandLine } from 'app/entities/purchase-command-line/purchase-command-line.model';
 import { AccountService } from '../auth/account.service';
 import { EntityResponseType } from 'app/entities/book/service/book.service';
-import { Observable, switchMap } from 'rxjs';
+import { BehaviorSubject, Observable, switchMap } from 'rxjs';
 import { HttpClient, HttpResponse } from '@angular/common/http';
 
 import { ApplicationConfigService } from '../config/application-config.service';
@@ -25,6 +25,11 @@ export class CartService {
   private accountService = inject(AccountService);
 
   private cart: (IPurchaseCommandLine | NewPurchaseCommandLine)[] = [];
+  private cartItemsCount = new BehaviorSubject<number>(0);
+
+  public getCartItemsCount(): Observable<number> {
+    return this.cartItemsCount.asObservable();
+  }
 
   public getCart() {
     return this.cart;
@@ -35,6 +40,7 @@ export class CartService {
       this.getDBCart();
     } else {
       this.cart = this.getLocalCart();
+      this.cartItemsCount.next(this.getCartTotalItems());
     }
   }
 
@@ -46,6 +52,7 @@ export class CartService {
     this.purchaseCommandService.getSelfCurrentDraftPurchaseCommand().subscribe({
       next: (res: HttpResponse<any>) => {
         this.cart = (res.body.purchaseCommandLines as (IPurchaseCommandLine | NewPurchaseCommandLine)[]) || [];
+        this.cartItemsCount.next(this.getCartTotalItems());
       },
       error: () => {},
     });
@@ -120,6 +127,7 @@ export class CartService {
     this.purchaseCommandService.addPurchaseCommandLineToCart(newItem).subscribe({
       next: (res: HttpResponse<any>) => {
         this.cart = (res.body.purchaseCommandLines as (IPurchaseCommandLine | NewPurchaseCommandLine)[]) || [];
+        this.cartItemsCount.next(this.getCartTotalItems());
       },
       error: err => {
         console.error('Error occurred:', err);
@@ -143,6 +151,7 @@ export class CartService {
       this.cart.push(newItem);
     }
     this.saveLocalCart(this.cart);
+    this.cartItemsCount.next(this.getCartTotalItems());
 
     this.getLocalCart();
   }
@@ -163,6 +172,7 @@ export class CartService {
     this.purchaseCommandService.removePurchaseCommandLineFromCart(bookId).subscribe({
       next: (res: HttpResponse<any>) => {
         this.cart = (res.body.purchaseCommandLines as (IPurchaseCommandLine | NewPurchaseCommandLine)[]) || [];
+        this.cartItemsCount.next(this.getCartTotalItems());
       },
       error: err => console.error('Error removing item from cart: ', err),
     });
@@ -171,6 +181,7 @@ export class CartService {
   removeBookOnLocalStorage(bookId: string) {
     this.cart = this.cart.filter(item => item.book?.id !== bookId);
     this.saveLocalCart(this.cart);
+    this.cartItemsCount.next(this.getCartTotalItems());
   }
 
   /**
@@ -189,6 +200,7 @@ export class CartService {
     this.purchaseCommandService.decrementPurchaseCommandLine(bookId).subscribe({
       next: (res: HttpResponse<any>) => {
         this.cart = (res.body.purchaseCommandLines as (IPurchaseCommandLine | NewPurchaseCommandLine)[]) || [];
+        this.cartItemsCount.next(this.getCartTotalItems());
       },
       error: err => console.error('Error removing item from cart: ', err),
     });
@@ -205,6 +217,7 @@ export class CartService {
         this.saveLocalCart(this.cart);
       }
     }
+    this.cartItemsCount.next(this.getCartTotalItems());
   }
 
   /**
@@ -216,6 +229,7 @@ export class CartService {
     } else {
       this.clearLocalStorageCart();
     }
+    this.cartItemsCount.next(0);
   }
 
   clearDBCart() {
