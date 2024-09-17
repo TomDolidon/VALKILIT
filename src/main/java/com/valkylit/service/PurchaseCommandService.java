@@ -2,8 +2,9 @@ package com.valkylit.service;
 
 import com.valkylit.domain.Book;
 import com.valkylit.domain.PurchaseCommand;
+import com.valkylit.domain.PurchaseCommandLineTransaction;
 import com.valkylit.domain.enumeration.PurchaseCommandStatus;
-import com.valkylit.repository.BookRepository;
+import com.valkylit.repository.PurchaseCommandLineRepository;
 import com.valkylit.repository.PurchaseCommandRepository;
 import com.valkylit.security.SecurityUtils;
 import com.valkylit.service.dto.PurchaseCommandInvalidLineDTO;
@@ -23,23 +24,18 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 public class PurchaseCommandService {
 
-    static final int PURCHASE_ATTEMPTS_COUNT = 3;
-
     @Autowired
     private PurchaseCommandRepository purchaseCommandRepository;
 
     @Autowired
-    private BookRepository bookRepository;
-
-    @Autowired
-    private BookService bookService;
+    private PurchaseCommandLineRepository purchaseCommandLineRepository;
 
     @PersistenceContext
     private EntityManager entityManager;
 
     public List<PurchaseCommandInvalidLineDTO> getInvalidBooksStockForSelfCurrentDraftPurchaseCommand() throws Exception {
         String userLogin = SecurityUtils.getCurrentUserLogin().orElseThrow(() -> new Exception("Current user login not found"));
-        Optional<PurchaseCommand> purchaseCommand = purchaseCommandRepository.findCurrentDraftByLogin(userLogin);
+        Optional<PurchaseCommand> purchaseCommand = purchaseCommandRepository.findCurrentDraftWithRelationshipsByLogin(userLogin);
 
         List<PurchaseCommandInvalidLineDTO> invalidLines = new ArrayList<>();
         purchaseCommand.ifPresent(pc ->
@@ -64,30 +60,30 @@ public class PurchaseCommandService {
     @Transactional
     public boolean validateSelfCurrentDraftPurchaseCommand() throws Exception {
         String userLogin = SecurityUtils.getCurrentUserLogin().orElseThrow(() -> new Exception("Current user login not found"));
+
+        // Check purchase command is existing.
         Optional<PurchaseCommand> purchaseCommandOptional = purchaseCommandRepository.findCurrentDraftByLogin(userLogin);
         PurchaseCommand purchaseCommand = purchaseCommandOptional.orElseThrow(() -> new NoSuchElementException("PurchaseCommand not found")
         );
 
-        for (int i = 0; i < PURCHASE_ATTEMPTS_COUNT; i++) {
-            try {
-                purchaseCommand
-                    .getPurchaseCommandLines()
-                    .forEach(pcl -> {
-                        Book book = entityManager.find(Book.class, pcl.getBook().getId(), LockModeType.PESSIMISTIC_WRITE);
-                        int futureStock = book.getStock() - pcl.getQuantity();
-                        if (futureStock < 0) {
-                            throw new RuntimeException("Insufficient stock");
-                        }
-                        book.setStock(futureStock);
-                    });
+        // Only get book id and the quantity needed by the customer.
+        List<PurchaseCommandLineTransaction> orderedPurchaseCommandLinesInfo =
+            purchaseCommandLineRepository.getPurchaseCommandLinesBookIdAndQuantity(purchaseCommand.getId());
 
-                purchaseCommand.setStatus(PurchaseCommandStatus.ORDERED);
-                return true;
-            } catch (PessimisticLockException | LockTimeoutException e) {
-                // Don't throw anything. Let's try on another attempt.
-            }
+        try {
+            orderedPurchaseCommandLinesInfo.forEach(lineEssentialInfo -> {
+                Book book = entityManager.find(Book.class, lineEssentialInfo.getBookId(), LockModeType.PESSIMISTIC_WRITE);
+                int futureStock = book.getStock() - lineEssentialInfo.getQuantity();
+                if (futureStock < 0) {
+                    throw new RuntimeException("Insufficient stock for book " + lineEssentialInfo.getBookId());
+                }
+                book.setStock(futureStock);
+            });
+
+            purchaseCommand.setStatus(PurchaseCommandStatus.ORDERED);
+            return true;
+        } catch (PessimisticLockException | LockTimeoutException e) {
+            throw new Exception("Locking issues, can't validate the purchase command", e);
         }
-
-        return false;
     }
 }

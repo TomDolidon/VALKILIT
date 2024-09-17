@@ -73,13 +73,12 @@ public class PurchaseCommandResource {
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the updated purchaseCommand,
      * or with status {@code 400 (Bad Request)} if the purchaseCommand is not valid,
      * or with status {@code 500 (Internal Server Error)} if the purchaseCommand couldn't be updated.
-     * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
     @PutMapping("/{id}")
     public ResponseEntity<PurchaseCommand> updatePurchaseCommand(
         @PathVariable(value = "id", required = false) final UUID id,
         @Valid @RequestBody PurchaseCommand purchaseCommand
-    ) throws URISyntaxException {
+    ) {
         LOG.debug("REST request to update PurchaseCommand : {}, {}", id, purchaseCommand);
         if (purchaseCommand.getId() == null) {
             throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
@@ -107,13 +106,12 @@ public class PurchaseCommandResource {
      * or with status {@code 400 (Bad Request)} if the purchaseCommand is not valid,
      * or with status {@code 404 (Not Found)} if the purchaseCommand is not found,
      * or with status {@code 500 (Internal Server Error)} if the purchaseCommand couldn't be updated.
-     * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
     @PatchMapping(value = "/{id}", consumes = { "application/json", "application/merge-patch+json" })
     public ResponseEntity<PurchaseCommand> partialUpdatePurchaseCommand(
         @PathVariable(value = "id", required = false) final UUID id,
         @NotNull @RequestBody PurchaseCommand purchaseCommand
-    ) throws URISyntaxException {
+    ) {
         LOG.debug("REST request to partial update PurchaseCommand partially : {}, {}", id, purchaseCommand);
         if (purchaseCommand.getId() == null) {
             throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
@@ -201,7 +199,7 @@ public class PurchaseCommandResource {
         LOG.debug("REST request to get the draft purchase command for authenticated user");
         String userLogin = SecurityUtils.getCurrentUserLogin()
             .orElseThrow(() -> new BadRequestAlertException("Current user login not found", "purchase-commands", "loginnotfound"));
-        Optional<PurchaseCommand> purchaseCommand = purchaseCommandRepository.findCurrentDraftByLogin(userLogin);
+        Optional<PurchaseCommand> purchaseCommand = purchaseCommandRepository.findCurrentDraftWithRelationshipsByLogin(userLogin);
         return ResponseUtil.wrapOrNotFound(purchaseCommand);
     }
 
@@ -209,7 +207,7 @@ public class PurchaseCommandResource {
      * {@code GET  /purchase-commands/self-current-draft/check-stock} : check current draft purchase command
      * of an authenticated user.
      *
-     * @return the {@link List< PurchaseCommandInvalidLineDTO >} with status {@code 200 (OK)} and with body the invalid stocks, or with status {@code 404 (Not Found)}.
+     * @return the {@link List<PurchaseCommandInvalidLineDTO>} with status {@code 200 (OK)} and with body the invalid stocks, or with status {@code 404 (Not Found)}.
      */
     @GetMapping("/self-current-draft/check-stock")
     public List<PurchaseCommandInvalidLineDTO> checkSelfCurrentPurchaseCommandStock() throws Exception {
@@ -221,7 +219,7 @@ public class PurchaseCommandResource {
      * {@code GET  /purchase-commands/self-current-draft/check-stock} : check current draft purchase command
      * of an authenticated user.
      *
-     * @return the {@link List< PurchaseCommandInvalidLineDTO >} with status {@code 200 (OK)} and with body the invalid stocks, or with status {@code 404 (Not Found)}.
+     * @return the {@link List<PurchaseCommandInvalidLineDTO>} with status {@code 200 (OK)} and with body the invalid stocks, or with status {@code 404 (Not Found)}.
      */
     @GetMapping("/self-current-draft/validate")
     public boolean validateSelfCurrentPurchaseCommandStock() throws Exception {
