@@ -10,7 +10,6 @@ import com.valkylit.repository.PurchaseCommandLineRepository;
 import com.valkylit.repository.PurchaseCommandRepository;
 import com.valkylit.security.SecurityUtils;
 import com.valkylit.service.dto.PurchaseCommandInvalidLineDTO;
-import com.valkylit.web.rest.errors.BadRequestAlertException;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.LockModeType;
 import jakarta.persistence.LockTimeoutException;
@@ -167,7 +166,7 @@ public class PurchaseCommandService {
             // Optionally: You might want to remove the line from the database
             purchaseCommandLineRepository.delete(line);
         } else {
-            throw new BadRequestAlertException("Item not found in the cart", "purchaseCommandLine", "itemNotFound");
+            throw new Error("Item not found in the cart");
         }
         return purchaseCommandRepository.save(purchaseCommand);
     }
@@ -192,7 +191,7 @@ public class PurchaseCommandService {
                 purchaseCommandLineRepository.delete(line);
             }
         } else {
-            throw new BadRequestAlertException("Item not found in the cart", "purchaseCommandLine", "itemNotFound");
+            throw new Error("Item not found in the cart");
         }
 
         // Save updated cart
