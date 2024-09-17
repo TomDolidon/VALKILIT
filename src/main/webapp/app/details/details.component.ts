@@ -16,6 +16,7 @@ import BookCard2Component from '../shared/book-card/book-card.component';
 import { CarouselModule } from 'primeng/carousel';
 import { CartService } from 'app/core/cart/cart.service';
 import { ImageUrlPipe } from 'app/shared/external-image/image-url.pipe';
+import ReviewsComponent from './review/reviews.component';
 
 @Component({
   selector: 'jhi-details',
@@ -34,6 +35,7 @@ import { ImageUrlPipe } from 'app/shared/external-image/image-url.pipe';
     BookCard2Component,
     CarouselModule,
     ImageUrlPipe,
+    ReviewsComponent,
   ],
   templateUrl: './details.component.html',
   styleUrl: './details.component.scss',
