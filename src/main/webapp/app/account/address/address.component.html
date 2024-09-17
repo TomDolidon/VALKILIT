@@ -1,0 +1,15 @@
+<div class="d-flex justify-content-center">
+  <div class="col-md-8">
+    <h2>Mon adresse</h2>
+  </div>
+</div>
+<jhi-confirm-address
+  [addressForm]="addressForm"
+  [currentUserAddress]="currentUserAddress"
+  [isShowingOptionalButtons]="false"
+></jhi-confirm-address>
+<div class="d-flex justify-content-center">
+  <div class="col-md-8">
+    <p-button (onClick)="save()" [disabled]="addressForm.invalid">Sauvegarder</p-button>
+  </div>
+</div>

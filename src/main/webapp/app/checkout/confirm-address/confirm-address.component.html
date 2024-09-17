@@ -111,10 +111,12 @@
         </div>
       </form>
 
-      <p-button *ngIf="this.currentUserAddress.id !== ''" (onClick)="hydrateFormWithUserCurrentAddress()"
-        >Compléter avec l'adresse liée à mon compte</p-button
-      >
-      <p-button (onClick)="emptyForm()">Vider le formulaire</p-button>
+      <div *ngIf="isShowingOptionalButtons">
+        <p-button *ngIf="this.currentUserAddress.id !== ''" (onClick)="hydrateFormWithUserCurrentAddress()"
+          >Compléter avec l'adresse liée à mon compte</p-button
+        >
+        <p-button (onClick)="emptyForm()">Vider le formulaire</p-button>
+      </div>
     </div>
   </div>
 </div>
