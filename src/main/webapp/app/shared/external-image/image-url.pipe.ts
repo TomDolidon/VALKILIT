@@ -5,12 +5,13 @@ import { Pipe, PipeTransform } from '@angular/core';
   standalone: true,
 })
 export class ImageUrlPipe implements PipeTransform {
-  private bucketUrl = 'https://valkylit-image-bucket.s3.eu-west-3.amazonaws.com/';
-  private noImageUrl = 'https://valkylit-image-bucket.s3.eu-west-3.amazonaws.com/No_Cover.jpg';
+  static readonly EXTERNAL_IMAGE_BASE_URL = 'https://valkylit-image-bucket.s3.eu-west-3.amazonaws.com/';
+  static readonly EXTERNAL_IMAGE_DEFAULT_URL = 'https://valkylit-image-bucket.s3.eu-west-3.amazonaws.com/No_Cover.jpg';
+
   transform(value?: string | null): string {
     if (value !== null && value !== undefined && value !== '') {
-      return `${this.bucketUrl}${value}`;
+      return `${ImageUrlPipe.EXTERNAL_IMAGE_BASE_URL}${value}`;
     }
-    return this.noImageUrl;
+    return ImageUrlPipe.EXTERNAL_IMAGE_DEFAULT_URL;
   }
 }
