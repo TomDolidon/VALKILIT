@@ -183,11 +183,15 @@ public class PurchaseCommandResource {
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the client, or with status {@code 404 (Not Found)}.
      */
     @GetMapping("/self")
-    public List<PurchaseCommand> getSelfPurchaseCommands() {
+    public List<PurchaseCommand> getSelfPurchaseCommands(@RequestParam(value = "showLines", defaultValue = "false") boolean showLines) {
         LOG.debug("REST request to get Purchase Commands for authenticated user");
+
         String userLogin = SecurityUtils.getCurrentUserLogin()
             .orElseThrow(() -> new BadRequestAlertException("Current user login not found", "purchase-commands", "loginnotfound"));
-        return purchaseCommandRepository.findAllByLogin(userLogin);
+
+        return (showLines)
+            ? purchaseCommandRepository.findAllWithEagerRelationshipsByLogin(userLogin)
+            : purchaseCommandRepository.findAllByLogin(userLogin);
     }
 
     /**

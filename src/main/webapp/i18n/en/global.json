@@ -29,7 +29,8 @@
         "login": "Sign in",
         "logout": "Sign out",
         "register": "Register",
-        "address": "My address"
+        "address": "My address",
+        "purchase-commands": "My commands"
       },
       "admin": {
         "main": "Administration",
@@ -99,7 +100,20 @@
     "ribbon": {
       "dev": "Development"
     },
-    "item-count": "Showing {{first}} - {{second}} of {{total}} items."
+    "item-count": "Showing {{first}} - {{second}} of {{total}} items.",
+    "purchaseCommand": {
+      "status": {
+        "DRAFT": "Draft order",
+        "ORDERED": "Order being prepared",
+        "SHIPPED": "Order being shipped",
+        "PREPARING": "Order being prepared",
+        "CANCELLED": "Order cancelled",
+        "RETURN_REQUESTED": "Return requested",
+        "RETURNED": "Order returned",
+        "REFUNDED": "Order refunded",
+        "FAILED_PAYMENT": "Order cancelled (payment failed)"
+      }
+    }
   },
   "entity": {
     "action": {

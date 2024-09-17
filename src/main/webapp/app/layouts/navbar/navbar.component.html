@@ -25,10 +25,9 @@
         <!-- TEMPORARY - add a cart button -->
         <li class="nav-item" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
           <a class="nav-link" routerLink="/cart" (click)="collapseNavbar()">
-            <span class="cart-text">
+            <span>
               <fa-icon icon="shopping-cart"></fa-icon>
               <span jhiTranslate="global.menu.cart">Panier</span>
-              <span *ngIf="onCartItemCount() > 0" class="badge badge-pill badge-danger cart-badge">{{ onCartItemCount() }}</span>
             </span>
           </a>
         </li>
@@ -319,6 +318,18 @@
                 >
                   <fa-icon icon="wrench" [fixedWidth]="true"></fa-icon>
                   <span jhiTranslate="global.menu.account.address">Mon adresse</span>
+                </a>
+              </li>
+              <li>
+                <a
+                  class="dropdown-item"
+                  routerLink="/account/purchase-commands"
+                  routerLinkActive="active"
+                  (click)="collapseNavbar()"
+                  data-cy="purchase-commands"
+                >
+                  <fa-icon icon="wrench" [fixedWidth]="true"></fa-icon>
+                  <span jhiTranslate="global.menu.account.purchase-commands">Mes commandes</span>
                 </a>
               </li>
               <li>
