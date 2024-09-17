@@ -29,7 +29,8 @@
         "login": "Se connecter",
         "logout": "Déconnexion",
         "register": "Créer un compte",
-        "address": "Mon adresse"
+        "address": "Mon adresse",
+        "purchase-commands": "Mes commandes"
       },
       "admin": {
         "main": "Administration",
@@ -99,7 +100,20 @@
     "ribbon": {
       "dev": "Développement"
     },
-    "item-count": "Affichage {{first}} - {{second}} de {{total}} items."
+    "item-count": "Affichage {{first}} - {{second}} de {{total}} items.",
+    "purchaseCommand": {
+      "status": {
+        "DRAFT": "Commande brouillon",
+        "ORDERED": "Commande en cours de préparation",
+        "SHIPPED": "Commande en cours de livraison",
+        "PREPARING": "Commande en cours de préparation",
+        "CANCELLED": "Commande annulée",
+        "RETURN_REQUESTED": "Commande en demande de retour",
+        "RETURNED": "Commande retournée",
+        "REFUNDED": "Commande remboursée",
+        "FAILED_PAYMENT": "Commande annulée (échec du paiement)"
+      }
+    }
   },
   "entity": {
     "action": {

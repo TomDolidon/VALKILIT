@@ -76,6 +76,11 @@ export class PurchaseCommandService {
     return purchaseCommand.id;
   }
 
+  getSelfPurchaseCommands(showLines = false): Observable<HttpResponse<{}>> {
+    const showLinesParam = showLines ? '?showLines=true' : '';
+    return this.http.get(`${this.resourceUrl}/self${showLinesParam}`, { observe: 'response' });
+  }
+
   getSelfCurrentDraftPurchaseCommand(): Observable<HttpResponse<{}>> {
     return this.http.get(`${this.resourceUrl}/self-current-draft`, { observe: 'response' });
   }

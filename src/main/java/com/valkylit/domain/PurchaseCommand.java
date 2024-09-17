@@ -3,7 +3,7 @@ package com.valkylit.domain;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.valkylit.domain.enumeration.PurchaseCommandStatus;
 import jakarta.persistence.*;
-import jakarta.validation.constraints.*;
+import jakarta.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.HashSet;
@@ -38,7 +38,7 @@ public class PurchaseCommand implements Serializable {
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "purchaseCommand")
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-    @JsonIgnoreProperties(value = { "book", "purchaseCommand" }, allowSetters = true)
+    @JsonIgnoreProperties(value = { "purchaseCommand" }, allowSetters = true)
     private Set<PurchaseCommandLine> purchaseCommandLines = new HashSet<>();
 
     @ManyToOne(fetch = FetchType.LAZY)

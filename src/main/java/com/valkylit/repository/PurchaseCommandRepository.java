@@ -6,7 +6,8 @@ import java.util.Optional;
 import java.util.UUID;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.jpa.repository.*;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
@@ -45,6 +46,11 @@ public interface PurchaseCommandRepository extends JpaRepository<PurchaseCommand
         "select purchaseCommand from PurchaseCommand purchaseCommand left join fetch purchaseCommand.deliveryAddress where purchaseCommand.client.internalUser.login =:login"
     )
     List<PurchaseCommand> findAllByLogin(@Param("login") String login);
+
+    @Query(
+        "select purchaseCommand from PurchaseCommand purchaseCommand left join fetch purchaseCommand.deliveryAddress left join fetch purchaseCommand.purchaseCommandLines purchaseCommandLine left join fetch purchaseCommandLine.book where purchaseCommand.client.internalUser.login =:login"
+    )
+    List<PurchaseCommand> findAllWithEagerRelationshipsByLogin(@Param("login") String login);
 
     @Query(
         "select purchaseCommand from PurchaseCommand purchaseCommand left join fetch purchaseCommand.deliveryAddress left join fetch purchaseCommand.purchaseCommandLines where purchaseCommand.client.internalUser.login =:login and purchaseCommand.status='DRAFT'"

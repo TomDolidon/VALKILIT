@@ -7,6 +7,7 @@ import passwordResetInitRoute from './password-reset/init/password-reset-init.ro
 import registerRoute from './register/register.route';
 import settingsRoute from './settings/settings.route';
 import addressRoute from './address/address.route';
+import purchaseCommandsRoute from './purchase-commands/purchase-commands.route';
 
 const accountRoutes: Routes = [
   activateRoute,
@@ -16,6 +17,7 @@ const accountRoutes: Routes = [
   registerRoute,
   settingsRoute,
   addressRoute,
+  purchaseCommandsRoute,
 ];
 
 export default accountRoutes;
