@@ -27,6 +27,10 @@ $primary-color: #9e573f;
     background-color: $dark;
   }
 
+  fa-icon {
+    margin-right: 4px;
+  }
+
   .search-bar-container {
     margin-left: 30px;
   }
@@ -52,19 +56,11 @@ $primary-color: #9e573f;
 }
 
 .cart-badge {
-  background-color: rgb(73, 73, 88); /* Badge background color */
-  color: white; /* Badge text color */
-  border-radius: 50%; /* Circular shape */
-  padding: 4px 8px;
-  font-size: 12px; /* Text size */
+  background-color: rgb(73, 73, 88);
+  color: white;
+  border-radius: 50%;
   font-weight: bold;
-  margin-left: 8px; /* Space between text and badge */
-  min-width: 20px;
-  height: 20px;
-  line-height: 1.2;
-  display: flex;
-  align-items: center;
-  justify-content: center; /* Center the number in the circle */
+  margin-left: 4px;
 }
 
 /* ==========================================================================
