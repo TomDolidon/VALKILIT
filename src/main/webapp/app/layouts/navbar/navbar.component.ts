@@ -1,4 +1,4 @@
-import { Component, OnInit, inject, signal } from '@angular/core';
+import { Component, OnInit, inject, signal, computed, input, Signal, AfterViewInit } from '@angular/core';
 import { Router, RouterModule } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 

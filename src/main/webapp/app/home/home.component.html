@@ -8,7 +8,7 @@
     <!-- <div class="books-image align-self-end"></div> -->
   </div>
 
-  <div class="section-2 d-flex flex-column">
+  <div class="section-2 d-flex flex-column mb-4">
     <h3 class="m-4 align-self-center">Mettez vous à la page avec nos ajouts récents</h3>
 
     <p-carousel [value]="recentBooks" [numVisible]="3" [numScroll]="3" [circular]="true">
@@ -19,26 +19,25 @@
   </div>
 
   <div class="section-3 d-flex flex-column">
-    <h3 class="m-4 align-self-center">Catégorie à l'affiche</h3>
-    <div class="category-card d-flex">
-      <div
-        class="category-img"
-        [ngStyle]="{
-          'background-image':
-            'url(https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjshT-sEaKYSOXtn0jq_pAHlRklOPGcctkOB_2SfibJIr7HSuZn-GIP-PNcbuDbn7BH29X2Dm7fXSd7aElhr7PDJGV5xIBq6QDoXTfqLztbraKOXXyFwuVRDjMT15rs30q_PqNUdW68VCkjK6WdfBQXUhmwMExRPNTLkDls5MlzzD473BkoIbeg1w/s320/eschwitz_science_fiction_magazine_b15f7418-effe-43b9-a51d-0f2589a2baf6-1.jpg)',
-        }"
-      ></div>
-      <div class="d-flex flex-column justify-content-betweens mx-4">
-        <h2 class="align-self-center">Science-Fiction</h2>
-        <span class="align-self-center description">
-          La science-fiction (parfois abrégée en sci-fi ou SF) est un genre de fiction spéculative ou de littérature de l’imaginaire qui
-          traite généralement de concepts imaginatifs et futuristes tels que la science et la technologie avancées, l’exploration spatiale,
-          le voyage dans le temps, les univers parallèles et la vie extraterrestre. Elle a été appelée la « littérature des idées » et
-          explore souvent les conséquences potentielles des innovations scientifiques, sociales et technologiques.
-        </span>
-        <p-button [routerLink]="['/catalog?category=science-fiction']" styleClass="catalog-btn m-4" size="large" class="align-self-center"
-          >Découvrir nos livres de science fiction</p-button
-        >
+    <div
+      class="category-img"
+      [ngStyle]="{
+        'background-image':
+          'url(https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjshT-sEaKYSOXtn0jq_pAHlRklOPGcctkOB_2SfibJIr7HSuZn-GIP-PNcbuDbn7BH29X2Dm7fXSd7aElhr7PDJGV5xIBq6QDoXTfqLztbraKOXXyFwuVRDjMT15rs30q_PqNUdW68VCkjK6WdfBQXUhmwMExRPNTLkDls5MlzzD473BkoIbeg1w/s320/eschwitz_science_fiction_magazine_b15f7418-effe-43b9-a51d-0f2589a2baf6-1.jpg)',
+      }"
+    ></div>
+
+    <div class="generic-page-container mb-4 mt-3">
+      <h3 class="mb-2"><i class="pi pi-megaphone mr-2"></i> Catégorie à l'affiche</h3>
+      <h2 class="bold">Science-Fiction</h2>
+      <div class="description mb-4">
+        La science-fiction (parfois abrégée en sci-fi ou SF) est un genre de fiction spéculative ou de littérature de l’imaginaire qui
+        traite généralement de concepts imaginatifs et futuristes tels que la science et la technologie avancées, l’exploration spatiale, le
+        voyage dans le temps, les univers parallèles et la vie extraterrestre. Elle a été appelée la « littérature des idées » et explore
+        souvent les conséquences potentielles des innovations scientifiques, sociales et technologiques.
+      </div>
+      <div class="align-self-end mb-2">
+        <p-button [routerLink]="['/catalog']" size="large"> Découvrir nos livres de science fiction </p-button>
       </div>
     </div>
   </div>

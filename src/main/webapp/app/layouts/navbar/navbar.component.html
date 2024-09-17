@@ -1,12 +1,8 @@
-<nav data-cy="navbar" class="navbar navbar-light navbar-expand-md">
+<nav data-cy="navbar" class="navbar navbar-light navbar-expand-lg">
   <div class="container-fluid">
     <a class="navbar-brand logo" routerLink="/" (click)="collapseNavbar()">
       <span class="logo-img"></span>
     </a>
-
-    <div class="search-bar-container">
-      <jhi-search-bar></jhi-search-bar>
-    </div>
 
     <a
       class="navbar-toggler d-lg-none"
@@ -22,7 +18,12 @@
     </a>
     <div class="navbar-collapse collapse" id="navbarResponsive" [ngbCollapse]="isNavbarCollapsed()">
       <ul class="navbar-nav ms-auto">
-        <!-- TEMPORARY - add a cart button -->
+        <li class="nav-item">
+          <div class="search-bar-container">
+            <jhi-search-bar></jhi-search-bar>
+          </div>
+        </li>
+
         <li class="nav-item" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
           <a class="nav-link" routerLink="/cart" (click)="collapseNavbar()">
             <span class="cart-text">
@@ -32,7 +33,6 @@
             </span>
           </a>
         </li>
-        <!-- jhipster-needle-add-element-to-menu - JHipster will add new menu items here -->
         @if (account() !== null) {
           <li
             ngbDropdown
@@ -180,7 +180,6 @@
                   <span jhiTranslate="global.menu.entities.review">Review</span>
                 </a>
               </li>
-              <!-- jhipster-needle-add-entity-to-menu - JHipster will add entities to the menu here -->
             </ul>
           </li>
         }
@@ -211,7 +210,6 @@
                 <span jhiTranslate="global.menu.entities.adminAuthority">Authority</span>
               </a>
             </li>
-            <!-- jhipster-needle-add-element-to-admin-menu - JHipster will add entities to the admin menu here -->
             <li>
               <a class="dropdown-item" routerLink="/admin/user-management" routerLinkActive="active" (click)="collapseNavbar()">
                 <fa-icon icon="users" [fixedWidth]="true"></fa-icon>

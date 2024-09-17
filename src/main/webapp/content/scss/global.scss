@@ -79,6 +79,22 @@ Generic styles
 
 .footer {
   border-top: 1px solid rgba(0, 0, 0, 0.125);
+  overflow: hidden;
+
+  @media screen and (max-width: 900px) {
+    .d-flex {
+      display: block !important;
+      padding-left: 1rem;
+      padding-right: 1rem;
+
+      div,
+      a {
+        display: block;
+        width: 100%;
+        margin-bottom: 5px;
+      }
+    }
+  }
 }
 
 .hand,
@@ -204,6 +220,7 @@ angular-cli removes postcss-rtl processed inline css, processed rules must be ad
   ul.navbar-nav {
     .nav-item {
       margin-left: 0.5em;
+      align-content: center;
     }
   }
 }

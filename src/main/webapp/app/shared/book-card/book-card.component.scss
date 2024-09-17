@@ -103,3 +103,16 @@ p {
   font-weight: bold;
   color: $primary-color;
 }
+
+@media screen and (max-width: 700px) {
+  .book-image {
+    display: none !important;
+  }
+}
+
+@media screen and (max-width: 1000px) {
+  .book-card {
+    margin: 0.5rem 0;
+    max-width: 100%;
+  }
+}
