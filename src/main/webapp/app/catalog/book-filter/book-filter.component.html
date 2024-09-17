@@ -26,7 +26,7 @@
         class="my-2"
         id="format"
         [(ngModel)]="filter.formats"
-        [label]="enum.value"
+        [label]="'valkylitApp.BookFormat.' + enum.value | translate"
         name="group"
         [value]="enum.value"
         (onChange)="applyFilter()"
