@@ -4,6 +4,7 @@ import com.valkylit.domain.Book;
 import com.valkylit.domain.Client;
 import com.valkylit.domain.PurchaseCommand;
 import com.valkylit.domain.PurchaseCommandLine;
+import com.valkylit.domain.PurchaseCommandLineTransaction;
 import com.valkylit.domain.enumeration.PurchaseCommandStatus;
 import com.valkylit.repository.BookRepository;
 import com.valkylit.repository.PurchaseCommandLineRepository;
@@ -17,6 +18,7 @@ import jakarta.persistence.LockTimeoutException;
 import jakarta.persistence.PersistenceContext;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Optional;
 import java.util.UUID;
 import org.hibernate.PessimisticLockException;
@@ -36,39 +38,12 @@ public class PurchaseCommandService {
     @Autowired
     private PurchaseCommandLineRepository purchaseCommandLineRepository;
 
-    @Autowired
-    private BookRepository bookRepository;
-
-    @Autowired
-    private BookService bookService;
-
     @PersistenceContext
     private EntityManager entityManager;
 
-    @Transactional
-    public boolean validateSelfCurrentDraftPurchaseCommand(UUID purchaseCommandId) {
-        try {
-            PurchaseCommand pc = this.entityManager.find(PurchaseCommand.class, purchaseCommandId, LockModeType.READ);
-            pc
-                .getPurchaseCommandLines()
-                .forEach(purchaseCommandLine -> {
-                    Book book = this.entityManager.find(Book.class, purchaseCommandLine.getBook().getId(), LockModeType.WRITE);
-                    int futureStock = book.getStock() - purchaseCommandLine.getQuantity();
-                    if (futureStock >= 0) {
-                        book.setStock(futureStock);
-                        this.bookRepository.save(book);
-                    }
-                });
-            return true;
-        } catch (OptimisticEntityLockException | LockTimeoutException e) {
-            // doing something
-            return false;
-        }
-    }
-
     public List<PurchaseCommandInvalidLineDTO> getInvalidBooksStockForSelfCurrentDraftPurchaseCommand() throws Exception {
         String userLogin = SecurityUtils.getCurrentUserLogin().orElseThrow(() -> new Exception("Current user login not found"));
-        Optional<PurchaseCommand> purchaseCommand = purchaseCommandRepository.findCurrentDraftByLogin(userLogin);
+        Optional<PurchaseCommand> purchaseCommand = purchaseCommandRepository.findCurrentDraftWithRelationshipsByLogin(userLogin);
 
         List<PurchaseCommandInvalidLineDTO> invalidLines = new ArrayList<>();
         purchaseCommand.ifPresent(pc ->
@@ -91,39 +66,33 @@ public class PurchaseCommandService {
     }
 
     @Transactional
-    public boolean validateSelfCurrentDraftPurchaseCommand() throws Exception {
+    public PurchaseCommand validateSelfCurrentDraftPurchaseCommand() throws Exception {
         String userLogin = SecurityUtils.getCurrentUserLogin().orElseThrow(() -> new Exception("Current user login not found"));
-        Optional<PurchaseCommand> purchaseCommand = purchaseCommandRepository.findCurrentDraftByLogin(userLogin);
-        if (purchaseCommand.isEmpty()) {
-            throw new Exception("No purchase command found");
-        }
 
-        for (int i = 0; i < PURCHASE_ATTEMPTS_COUNT; i++) {
-            try {
-                purchaseCommand
-                    .get()
-                    .getPurchaseCommandLines()
-                    .forEach(pcl -> {
-                        Book book = entityManager.find(Book.class, pcl.getBook().getId(), LockModeType.PESSIMISTIC_WRITE);
-                        int futureStock = book.getStock() - pcl.getQuantity();
-                        if (futureStock < 0) {
-                            try {
-                                throw new Exception("Insufficient stock");
-                            } catch (Exception e) {
-                                throw new RuntimeException(e);
-                            }
-                        }
-                        book.setStock(futureStock);
-                    });
-                purchaseCommand.get().setStatus(PurchaseCommandStatus.ORDERED);
-                return true;
-            } catch (PessimisticLockException | LockTimeoutException e) {
-                // Don't throw anything. Let's try on another attempt.
-            }
-        }
+        // Check purchase command is existing.
+        Optional<PurchaseCommand> purchaseCommandOptional = purchaseCommandRepository.findCurrentDraftByLogin(userLogin);
+        PurchaseCommand purchaseCommand = purchaseCommandOptional.orElseThrow(() -> new NoSuchElementException("PurchaseCommand not found")
+        );
 
-        System.out.println();
-        return false;
+        // Only get book id and the quantity needed by the customer.
+        List<PurchaseCommandLineTransaction> orderedPurchaseCommandLinesInfo =
+            purchaseCommandLineRepository.getPurchaseCommandLinesBookIdAndQuantity(purchaseCommand.getId());
+
+        try {
+            orderedPurchaseCommandLinesInfo.forEach(lineEssentialInfo -> {
+                Book book = entityManager.find(Book.class, lineEssentialInfo.getBookId(), LockModeType.PESSIMISTIC_WRITE);
+                int futureStock = book.getStock() - lineEssentialInfo.getQuantity();
+                if (futureStock < 0) {
+                    throw new RuntimeException("Insufficient stock for book " + lineEssentialInfo.getBookId());
+                }
+                book.setStock(futureStock);
+            });
+
+            purchaseCommand.setStatus(PurchaseCommandStatus.ORDERED);
+            return purchaseCommand;
+        } catch (PessimisticLockException | LockTimeoutException e) {
+            throw new Exception("Locking issues, can't validate the purchase command", e);
+        }
     }
 
     /**

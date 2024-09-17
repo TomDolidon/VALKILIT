@@ -56,4 +56,9 @@ public interface PurchaseCommandLineRepository extends JpaRepository<PurchaseCom
         @Param("purchaseCommand") PurchaseCommand purchaseCommand,
         @Param("bookId") UUID bookId
     );
+
+    @Query(
+        "select new com.valkylit.domain.PurchaseCommandLineTransaction(purchaseCommandLine.book.id, purchaseCommandLine.quantity) from PurchaseCommandLine purchaseCommandLine where purchaseCommandLine.purchaseCommand.id =:purchaseCommandId order by purchaseCommandLine.book.id ASC"
+    )
+    List<PurchaseCommandLineTransaction> getPurchaseCommandLinesBookIdAndQuantity(@Param("purchaseCommandId") UUID purchaseCommandId);
 }
