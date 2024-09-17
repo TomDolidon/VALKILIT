@@ -3,10 +3,13 @@ package com.valkylit.web.rest;
 import com.valkylit.domain.Client;
 import com.valkylit.domain.PurchaseCommand;
 import com.valkylit.domain.PurchaseCommandLine;
+import com.valkylit.domain.User;
 import com.valkylit.repository.ClientRepository;
 import com.valkylit.repository.PurchaseCommandRepository;
 import com.valkylit.security.SecurityUtils;
+import com.valkylit.service.MailService;
 import com.valkylit.service.PurchaseCommandService;
+import com.valkylit.service.UserService;
 import com.valkylit.service.dto.PurchaseCommandInvalidLineDTO;
 import com.valkylit.web.rest.errors.BadRequestAlertException;
 import jakarta.validation.Valid;
@@ -50,6 +53,12 @@ public class PurchaseCommandResource {
 
     @Autowired
     private ClientRepository clientRepository;
+
+    @Autowired
+    private MailService mailService;
+
+    @Autowired
+    private UserService userService;
 
     /**
      * {@code POST  /purchase-commands} : Create a new purchaseCommand.
@@ -234,7 +243,16 @@ public class PurchaseCommandResource {
     @GetMapping("/self-current-draft/validate")
     public boolean validateSelfCurrentPurchaseCommandStock() throws Exception {
         LOG.debug("REST request to check stock of the draft purchase command for authenticated user");
-        return this.purchaseCommandService.validateSelfCurrentDraftPurchaseCommand();
+
+        PurchaseCommand purchaseCommand = this.purchaseCommandService.validateSelfCurrentDraftPurchaseCommand();
+
+        User user =
+            this.userService.getUserWithAuthorities()
+                .orElseThrow(() -> new BadRequestAlertException("Current user login not found", "client", "loginnotfound"));
+
+        this.mailService.sendCommandOrderedMail(user, purchaseCommand);
+
+        return true;
     }
 
     /**

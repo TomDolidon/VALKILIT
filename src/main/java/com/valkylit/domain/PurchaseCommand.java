@@ -174,4 +174,17 @@ public class PurchaseCommand implements Serializable {
             ", status='" + getStatus() + "'" +
             "}";
     }
+
+    /**
+     * @return total price of the command
+     */
+    public double getTotal() {
+        double total = 0;
+
+        for (PurchaseCommandLine line : purchaseCommandLines) {
+            total += line.getQuantity() * line.getUnitPrice();
+        }
+
+        return total;
+    }
 }
