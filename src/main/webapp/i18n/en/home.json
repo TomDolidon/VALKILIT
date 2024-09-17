@@ -1,19 +1,11 @@
 {
   "home": {
-    "title": "Welcome, Java Hipster!",
-    "subtitle": "This is your homepage",
-    "logged": {
-      "message": "You are logged in as user \"{{username}}\"."
-    },
-    "question": "If you have any question on JHipster:",
-    "link": {
-      "homepage": "JHipster homepage",
-      "stackoverflow": "JHipster on Stack Overflow",
-      "bugtracker": "JHipster bug tracker",
-      "chat": "JHipster public chat room",
-      "follow": "follow @jhipster on Twitter"
-    },
-    "like": "If you like JHipster, don't forget to give us a star on",
-    "github": "GitHub"
+    "title": "Find the book you need",
+    "subtitle": "ValkyLit is THE reference for online book sales with over {{count}} products",
+    "exploreOurCatalog": "Explore our catalog",
+    "latestBooksSentence": "Stay updated with our latest additions",
+    "featuredCategory": "Featured category",
+    "featuredCategoryDescription": "Science fiction (sometimes abbreviated as sci-fi or SF) is a genre of speculative fiction or imaginative literature that generally deals with imaginative and futuristic concepts such as advanced science and technology, space exploration, time travel, parallel universes, and extraterrestrial life. It has been called the 'literature of ideas' and often explores the potential consequences of scientific, social, and technological innovations.",
+    "featuredCategoryCatalogButton": "Discover our Science Fiction books"
   }
 }

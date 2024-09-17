@@ -1,15 +1,14 @@
 <div class="home">
   <div class="section-1 d-flex justify-content-between">
     <div class="d-flex flex-column justify-content-center content-text">
-      <h1 class="h1-main">Trouvez le livre qu'il vous faut</h1>
-      <h2>ValkyLit, c'est LA réference de vente de livre en ligne avec plus de 78 produits</h2>
-      <p-button [routerLink]="['/catalog']" class="catalog-btn" size="large">Explorer notre catalogue</p-button>
+      <h1 class="h1-main" jhiTranslate="home.title">Trouvez le livre qu'il vous faut</h1>
+      <h2 jhiTranslate="home.subtitle" [translateValues]="{count: 78}">ValkyLit, c'est LA réference de vente de livre en ligne avec plus de 78 produits</h2>
+      <p-button [routerLink]="['/catalog']" class="catalog-btn" size="large">{{ 'home.exploreOurCatalog' | translate }}</p-button>
     </div>
-    <!-- <div class="books-image align-self-end"></div> -->
   </div>
 
   <div class="section-2 d-flex flex-column mb-4">
-    <h3 class="m-4 align-self-center">Mettez vous à la page avec nos ajouts récents</h3>
+    <h3 class="m-4 align-self-center" jhiTranslate="home.latestBooksSentence">Mettez vous à la page avec nos ajouts récents</h3>
 
     <p-carousel [value]="recentBooks" [numVisible]="3" [numScroll]="3" [circular]="true">
       <ng-template pTemplate="item" let-book>
@@ -28,101 +27,17 @@
     ></div>
 
     <div class="generic-page-container mb-4 mt-3">
-      <h3 class="mb-2"><i class="pi pi-megaphone mr-2"></i> Catégorie à l'affiche</h3>
+      <h3 class="mb-2"><i class="pi pi-megaphone mr-2"></i> <span jhiTranslate="home.featuredCategory">Catégorie à l'affiche</span></h3>
       <h2 class="bold">Science-Fiction</h2>
-      <div class="description mb-4">
+      <div class="description mb-4" jhiTranslate="home.featuredCategoryDescription">
         La science-fiction (parfois abrégée en sci-fi ou SF) est un genre de fiction spéculative ou de littérature de l’imaginaire qui
         traite généralement de concepts imaginatifs et futuristes tels que la science et la technologie avancées, l’exploration spatiale, le
         voyage dans le temps, les univers parallèles et la vie extraterrestre. Elle a été appelée la « littérature des idées » et explore
         souvent les conséquences potentielles des innovations scientifiques, sociales et technologiques.
       </div>
       <div class="align-self-end mb-2">
-        <p-button [routerLink]="['/catalog']" size="large"> Découvrir nos livres de science fiction </p-button>
+        <p-button [routerLink]="['/catalog']" size="large">{{ 'home.featuredCategoryCatalogButton' | translate }}</p-button>
       </div>
     </div>
   </div>
 </div>
-
-<!-- <div class="row">
-  <div class="col-md-3">
-    <span class="hipster img-fluid rounded"></span>
-  </div>
-
-  <div class="col-md-9">
-    <h1 class="display-4"><span jhiTranslate="home.title">Bienvenue, Java Hipster !</span> (Valkylit)</h1>
-
-    <p class="lead" jhiTranslate="home.subtitle">Ceci est votre page d&apos;accueil</p>
-
-    <div>
-      @if (account() !== null) {
-        <div class="alert alert-success">
-          @if (account(); as accountRef) {
-            <span id="home-logged-message" jhiTranslate="home.logged.message" [translateValues]="{ username: accountRef.login }"
-              >Vous êtes connecté en tant que &quot;{{ accountRef.login }}&quot;.</span
-            >
-          }
-        </div>
-      } @else {
-        <div class="alert alert-warning">
-          <span jhiTranslate="global.messages.info.authenticated.prefix">Si vous voulez vous </span>
-          <a class="alert-link" (click)="login()" jhiTranslate="global.messages.info.authenticated.link">connecter</a
-          ><span jhiTranslate="global.messages.info.authenticated.suffix"
-            >, vous pouvez utiliser les comptes par défaut : <br />
-            - Administrateur (nom d&apos;utilisateur=&quot;admin&quot; et mot de passe =&quot;admin&quot;) <br />
-            - Utilisateur (nom d&apos;utilisateur=&quot;user&quot; et mot de passe =&quot;user&quot;).</span
-          >
-        </div>
-
-        <div class="alert alert-warning">
-          <span jhiTranslate="global.messages.info.register.noaccount">Vous n&apos;avez pas encore de compte ?</span>&nbsp;
-          <a class="alert-link" routerLink="/account/register" jhiTranslate="global.messages.info.register.link">Créer un compte</a>
-        </div>
-      }
-    </div>
-
-    <p jhiTranslate="home.question">Si vous avez des questions à propos de JHipster :</p>
-
-    <ul>
-      <li>
-        <a href="https://www.jhipster.tech/" target="_blank" rel="noopener noreferrer" jhiTranslate="home.link.homepage"
-          >Page d&apos;accueil de JHipster</a
-        >
-      </li>
-      <li>
-        <a
-          href="https://stackoverflow.com/tags/jhipster/info"
-          target="_blank"
-          rel="noopener noreferrer"
-          jhiTranslate="home.link.stackoverflow"
-          >JHipster sur Stack Overflow</a
-        >
-      </li>
-      <li>
-        <a
-          href="https://github.com/jhipster/generator-jhipster/issues?state=open"
-          target="_blank"
-          rel="noopener noreferrer"
-          jhiTranslate="home.link.bugtracker"
-          >JHipster bug tracker</a
-        >
-      </li>
-      <li>
-        <a href="https://gitter.im/jhipster/generator-jhipster" target="_blank" rel="noopener noreferrer" jhiTranslate="home.link.chat"
-          >JHipster public chat room</a
-        >
-      </li>
-      <li>
-        <a href="https://twitter.com/jhipster" target="_blank" rel="noopener noreferrer" jhiTranslate="home.link.follow"
-          >Suivez &#64;jhipster sur Twitter</a
-        >
-      </li>
-    </ul>
-
-    <p>
-      <span jhiTranslate="home.like">Si vous aimez JHipster, donnez nous une étoile sur</span>
-      <a href="https://github.com/jhipster/generator-jhipster" target="_blank" rel="noopener noreferrer" jhiTranslate="home.github"
-        >GitHub </a
-      >!
-    </p>
-  </div>
-</div> -->
