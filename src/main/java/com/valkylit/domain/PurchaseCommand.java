@@ -36,7 +36,7 @@ public class PurchaseCommand implements Serializable {
     @Column(name = "status", nullable = false)
     private PurchaseCommandStatus status;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "purchaseCommand")
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "purchaseCommand", cascade = CascadeType.ALL)
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
     @JsonIgnoreProperties(value = { "purchaseCommand" }, allowSetters = true)
     private Set<PurchaseCommandLine> purchaseCommandLines = new HashSet<>();

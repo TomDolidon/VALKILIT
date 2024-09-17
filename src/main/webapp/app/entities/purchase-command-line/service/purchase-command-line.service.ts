@@ -1,3 +1,5 @@
+/* eslint-disable */
+
 import { Injectable, inject } from '@angular/core';
 import { HttpClient, HttpResponse } from '@angular/common/http';
 import { Observable } from 'rxjs';
@@ -20,6 +22,7 @@ export class PurchaseCommandLineService {
   protected resourceUrl = this.applicationConfigService.getEndpointFor('api/purchase-command-lines');
 
   create(purchaseCommandLine: NewPurchaseCommandLine): Observable<EntityResponseType> {
+    console.log('🔊 ~ PurchaseCommandLineService ~ create ~ purchaseCommandLine:', purchaseCommandLine);
     return this.http.post<IPurchaseCommandLine>(this.resourceUrl, purchaseCommandLine, { observe: 'response' });
   }
 

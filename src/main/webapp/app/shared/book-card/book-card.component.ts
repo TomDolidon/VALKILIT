@@ -6,8 +6,8 @@ import { IBook } from 'app/entities/book/book.model';
 import { ButtonModule } from 'primeng/button';
 import { AnimateModule } from 'primeng/animate';
 import { ChipModule } from 'primeng/chip';
-import { LocalCartService } from 'app/core/cart/cart.service';
 import { RouterLink } from '@angular/router';
+import { CartService } from 'app/core/cart/cart.service';
 import { ImageUrlPipe } from '../external-image/image-url.pipe';
 
 @Component({
@@ -27,11 +27,10 @@ export default class BookCard2Component {
   maxVisibleAuthors: number = 2;
   maxVisibleCategories: number = 2;
 
-  private cartService = inject(LocalCartService);
+  private cartService = inject(CartService);
 
   // Limiter les auteurs affichés
   get limitedAuthors() {
-    console.log('🔊 ~ BookCard2Component ~ getlimitedAuthors ~ limitedAuthors:', this.book);
     return this.book?.authors?.slice(0, this.maxVisibleAuthors);
   }
 
@@ -40,13 +39,9 @@ export default class BookCard2Component {
     return this.book?.categories?.slice(0, this.maxVisibleCategories);
   }
 
-  // TODO
   onBuyBookBtnClick(): void {
     if (this.book) {
-      this.cartService.saveCart(
-        this.book.id,
-        JSON.stringify({ id: this.book.id, book: this.book, quantity: 1, sub_total: this.book.price }),
-      );
+      this.cartService.addToCart(this.book);
     }
   }
 }
