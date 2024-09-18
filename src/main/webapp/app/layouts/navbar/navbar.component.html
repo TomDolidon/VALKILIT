@@ -35,6 +35,7 @@
         </li>
         @if (account() !== null) {
           <li
+            *ngIf="isAdmin()"
             ngbDropdown
             class="nav-item dropdown pointer"
             display="dynamic"

@@ -35,7 +35,7 @@
       <td>
         <div class="book-title-cov d-flex justify-content-between align-items-center">
           <a routerLink="/details/{{ line.book!.id }}">{{ line.book?.title }}</a>
-          <img [src]="line.book.imageUri | imageUrl" alt="{{ line.book.title }}" width="100%" height="90%" />
+          <img [src]="line.book.imageUri | imageUrl" alt="{{ line.book.title }}" width="90%" height="80%" />
         </div>
       </td>
       <td>{{ line.book?.price | currency: 'EUR' }}</td>

@@ -31,6 +31,10 @@ export default class NavbarComponent implements OnInit {
   version = '';
   account = inject(AccountService).trackCurrentAccount();
   entitiesNavbarItems: NavbarItem[] = [];
+  isAdmin = computed(() => {
+    const currentAccount = this.account(); // Récupérer la valeur actuelle du signal
+    return currentAccount?.authorities.includes('ROLE_ADMIN');
+  });
 
   private loginService = inject(LoginService);
   private translateService = inject(TranslateService);
