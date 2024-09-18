@@ -1,12 +1,7 @@
 package com.valkylit.service;
 
-import com.valkylit.domain.Book;
-import com.valkylit.domain.Client;
-import com.valkylit.domain.PurchaseCommand;
-import com.valkylit.domain.PurchaseCommandLine;
-import com.valkylit.domain.PurchaseCommandLineTransaction;
+import com.valkylit.domain.*;
 import com.valkylit.domain.enumeration.PurchaseCommandStatus;
-import com.valkylit.repository.BookRepository;
 import com.valkylit.repository.PurchaseCommandLineRepository;
 import com.valkylit.repository.PurchaseCommandRepository;
 import com.valkylit.security.SecurityUtils;
@@ -15,13 +10,11 @@ import jakarta.persistence.EntityManager;
 import jakarta.persistence.LockModeType;
 import jakarta.persistence.LockTimeoutException;
 import jakarta.persistence.PersistenceContext;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.NoSuchElementException;
-import java.util.Optional;
-import java.util.UUID;
+import java.time.Instant;
+import java.time.LocalDate;
+import java.time.ZoneId;
+import java.util.*;
 import org.hibernate.PessimisticLockException;
-import org.hibernate.dialect.lock.OptimisticEntityLockException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -88,6 +81,7 @@ public class PurchaseCommandService {
             });
 
             purchaseCommand.setStatus(PurchaseCommandStatus.ORDERED);
+            purchaseCommand.setExpeditionDate(LocalDate.ofInstant(Instant.now(), ZoneId.systemDefault()));
             return purchaseCommand;
         } catch (PessimisticLockException | LockTimeoutException e) {
             throw new Exception("Locking issues, can't validate the purchase command", e);
