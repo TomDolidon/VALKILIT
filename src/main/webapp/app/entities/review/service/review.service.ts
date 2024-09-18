@@ -71,4 +71,16 @@ export class ReviewService {
     }
     return reviewCollection;
   }
+
+  createReview(bookId: string, review: IReview): Observable<EntityResponseType> {
+    return this.http.post<IReview>(`${this.resourceUrl}/book/${bookId}`, review, { observe: 'response' });
+  }
+
+  getReviewsByBookId(bookId: string): Observable<EntityArrayResponseType> {
+    return this.http.get<IReview[]>(`${this.resourceUrl}/book/${bookId}`, { observe: 'response' });
+  }
+
+  getSelfReviewForBook(bookId: string): Observable<EntityArrayResponseType> {
+    return this.http.get<IReview[]>(`${this.resourceUrl}/book/${bookId}/self`, { observe: 'response' });
+  }
 }

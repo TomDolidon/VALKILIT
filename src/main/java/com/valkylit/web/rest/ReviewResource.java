@@ -1,7 +1,12 @@
 package com.valkylit.web.rest;
 
+import com.valkylit.domain.Client;
 import com.valkylit.domain.Review;
+import com.valkylit.repository.ClientRepository;
 import com.valkylit.repository.ReviewRepository;
+import com.valkylit.security.SecurityUtils;
+import com.valkylit.service.ReviewService;
+import com.valkylit.service.dto.ReviewDTO;
 import com.valkylit.web.rest.errors.BadRequestAlertException;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
@@ -13,6 +18,7 @@ import java.util.Optional;
 import java.util.UUID;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
@@ -34,6 +40,12 @@ public class ReviewResource {
 
     @Value("${jhipster.clientApp.name}")
     private String applicationName;
+
+    @Autowired
+    private ClientRepository clientRepository;
+
+    @Autowired
+    private ReviewService reviewService;
 
     private final ReviewRepository reviewRepository;
 
@@ -178,5 +190,53 @@ public class ReviewResource {
         return ResponseEntity.noContent()
             .headers(HeaderUtil.createEntityDeletionAlert(applicationName, true, ENTITY_NAME, id.toString()))
             .build();
+    }
+
+    @PostMapping("/book/{bookId}")
+    public ResponseEntity<Review> createReview(@PathVariable UUID bookId, @RequestBody ReviewDTO reviewDTO) {
+        String userLogin = SecurityUtils.getCurrentUserLogin()
+            .orElseThrow(() -> new BadRequestAlertException("Current user login not found", "client", "loginnotfound"));
+        Optional<Client> clientOptional = this.clientRepository.findOneWithToOneRelationshipsByUserLogin(userLogin);
+        if (!clientOptional.isPresent()) {
+            throw new BadRequestAlertException("Client not found", "client", "clientnotfound");
+        }
+        Client client = clientOptional.get();
+
+        if (client == null) {
+            throw new BadRequestAlertException("Client not found", "client", "clientNotFound");
+        }
+
+        // Créer la review
+        Review review = reviewService.createReview(client, bookId, reviewDTO);
+
+        return ResponseEntity.ok(review);
+    }
+
+    @GetMapping("/book/{bookId}")
+    public List<Review> getReviewsByBookId(@PathVariable UUID bookId) {
+        return reviewRepository.findByBookId(bookId);
+    }
+
+    @GetMapping("/book/{bookId}/self")
+    public List<Review> getReviewForBookAndClient(@PathVariable UUID bookId) {
+        System.out.println("BONJOUR");
+        System.out.println("BONJOUR");
+        System.out.println("BONJOUR");
+        System.out.println("BONJOUR");
+        System.out.println("BONJOUR");
+
+        String userLogin = SecurityUtils.getCurrentUserLogin()
+            .orElseThrow(() -> new BadRequestAlertException("Current user login not found", "client", "loginnotfound"));
+        Optional<Client> clientOptional = this.clientRepository.findOneWithToOneRelationshipsByUserLogin(userLogin);
+        if (!clientOptional.isPresent()) {
+            throw new BadRequestAlertException("Client not found", "client", "clientnotfound");
+        }
+        Client client = clientOptional.get();
+
+        if (client == null) {
+            throw new BadRequestAlertException("Client not found", "client", "clientNotFound");
+        }
+
+        return reviewService.getReviewForBookAndClient(bookId, client.getId());
     }
 }
