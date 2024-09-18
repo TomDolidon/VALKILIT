@@ -4,21 +4,18 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { IBook } from '../entities/book/book.model';
 import { BookFilterComponent } from '../catalog/book-filter/book-filter.component';
 import BookListComponent from '../catalog/book-list/book-list.component';
-import { CurrencyPipe, DatePipe, NgForOf, NgIf } from '@angular/common';
-import { Button } from 'primeng/button';
+import { CurrencyPipe, DatePipe, Location, NgForOf, NgIf } from '@angular/common';
+import { Button, ButtonModule } from 'primeng/button';
 import { ImageModule } from 'primeng/image';
 import { ChipModule } from 'primeng/chip';
 import { ChipsModule } from 'primeng/chips';
 import { IAuthor } from '../entities/author/author.model';
-import { AuthorService } from '../entities/author/service/author.service';
 import { HttpResponse } from '@angular/common/http';
 import BookCard2Component from '../shared/book-card/book-card.component';
 import { CarouselModule } from 'primeng/carousel';
 import { CartService } from 'app/core/cart/cart.service';
 import { ImageUrlPipe } from 'app/shared/external-image/image-url.pipe';
 import ReviewsComponent from './review/reviews.component';
-import { Location } from '@angular/common';
-import { ButtonModule } from 'primeng/button';
 
 @Component({
   selector: 'jhi-details',
@@ -47,9 +44,9 @@ export default class DetailsComponent implements OnInit {
   bookId = '';
   book!: IBook;
   firstAuthorOthersBooks!: IBook[];
+
   constructor(
     private bookService: BookService,
-    private authorService: AuthorService,
     private route: ActivatedRoute,
     private router: Router,
     private cartService: CartService,

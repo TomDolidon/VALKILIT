@@ -19,14 +19,12 @@ export default class ReviewsComponent implements OnInit {
   @Input() bookId: string | null = null;
   reviews: IReview[] = [];
   selfReview: IReview | null = null;
+  reviewForm: FormGroup;
 
   ngOnInit(): void {
-    console.log('🔊 ~ ReviewsComponent ~ ngOnInit ~ ngOnInit:');
     this.getReviewsForBook();
     this.getSelfReviewForBook();
   }
-
-  reviewForm: FormGroup;
 
   constructor(
     private fb: FormBuilder,
@@ -50,7 +48,7 @@ export default class ReviewsComponent implements OnInit {
           }
         },
         error: error => {
-          console.error('Error subitting reviews', error);
+          console.error('Error submitting reviews', error);
         },
       });
     }
@@ -63,7 +61,7 @@ export default class ReviewsComponent implements OnInit {
           this.reviews = response.body || [];
         },
         error: error => {
-          console.error('Error retriving reviews', error);
+          console.error('Error retrieving reviews', error);
         },
       });
     }
@@ -78,7 +76,7 @@ export default class ReviewsComponent implements OnInit {
           }
         },
         error: error => {
-          console.error('Error retriving self review', error);
+          console.error('Error retrieving self review', error);
         },
       });
     }
