@@ -285,7 +285,8 @@
             @if (!accountRef?.imageUrl) {
               <span>
                 <fa-icon icon="user"></fa-icon>
-                <span jhiTranslate="global.menu.account.main">Compte</span>
+                <span *ngIf="accountRef !== null">{{ accountRef.firstName }}</span>
+                <span jhiTranslate="global.menu.account.main" *ngIf="accountRef == null">Compte</span>
               </span>
             } @else {
               <span>
@@ -315,7 +316,7 @@
                   (click)="collapseNavbar()"
                   data-cy="address"
                 >
-                  <fa-icon icon="wrench" [fixedWidth]="true"></fa-icon>
+                  <fa-icon icon="book" [fixedWidth]="true"></fa-icon>
                   <span jhiTranslate="global.menu.account.address">Mon adresse</span>
                 </a>
               </li>
@@ -327,7 +328,7 @@
                   (click)="collapseNavbar()"
                   data-cy="purchase-commands"
                 >
-                  <fa-icon icon="wrench" [fixedWidth]="true"></fa-icon>
+                  <fa-icon icon="tasks" [fixedWidth]="true"></fa-icon>
                   <span jhiTranslate="global.menu.account.purchase-commands">Mes commandes</span>
                 </a>
               </li>
