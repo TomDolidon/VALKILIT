@@ -18,6 +18,10 @@ import TranslateDirective from '../../shared/language/translate.directive';
 import { IBookCategory } from 'app/entities/book-category/book-category.model';
 import { BookCategoryService } from 'app/entities/book-category/service/book-category.service';
 import { ButtonModule } from 'primeng/button';
+import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
+import { InputGroupModule } from 'primeng/inputgroup';
+import { IconFieldModule } from 'primeng/iconfield';
+import { InputIconModule } from 'primeng/inputicon';
 
 @Component({
   standalone: true,
@@ -35,6 +39,10 @@ import { ButtonModule } from 'primeng/button';
     TranslateModule,
     TranslateDirective,
     ButtonModule,
+    InputGroupAddonModule,
+    InputGroupModule,
+    InputIconModule,
+    IconFieldModule,
   ],
 })
 export class BookFilterComponent {
@@ -67,7 +75,7 @@ export class BookFilterComponent {
   ) {}
 
   /**
-   * On component mount, retrieve authors to fill autocomplete
+   * On component mount, retrieve authors and categories to fill autocomplete
    */
   ngOnInit() {
     this.loadAuthors();
@@ -121,7 +129,6 @@ export class BookFilterComponent {
       priceRange: [this.minPrice, this.maxPrice],
     };
 
-    // Émet un événement pour signaler que les filtres ont été réinitialisés
     this.applyFilter();
   }
 }
