@@ -2,12 +2,14 @@
   <div class="section-1 d-flex justify-content-between">
     <div class="d-flex flex-column justify-content-center content-text">
       <h1 class="h1-main" jhiTranslate="home.title">Trouvez le livre qu'il vous faut</h1>
-      <h2 jhiTranslate="home.subtitle" [translateValues]="{count: 78}">ValkyLit, c'est LA réference de vente de livre en ligne avec plus de 78 produits</h2>
+      <h2 jhiTranslate="home.subtitle" [translateValues]="{ count: 78 }">
+        ValkyLit, c'est LA réference de vente de livre en ligne avec plus de 78 produits
+      </h2>
       <p-button [routerLink]="['/catalog']" class="catalog-btn" size="large">{{ 'home.exploreOurCatalog' | translate }}</p-button>
     </div>
   </div>
 
-  <div class="section-2 d-flex flex-column mb-4">
+  <div class="section-2 section-recent-books d-flex flex-column mb-4">
     <h3 class="m-4 align-self-center" jhiTranslate="home.latestBooksSentence">Mettez vous à la page avec nos ajouts récents</h3>
 
     <p-carousel [value]="recentBooks" [numVisible]="3" [numScroll]="3" [circular]="true">

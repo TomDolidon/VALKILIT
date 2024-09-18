@@ -345,3 +345,12 @@ body {
   margin-bottom: 1rem;
   overflow: hidden;
 }
+
+@media screen and (max-width: 769px) {
+  .generic-page-container,
+  .generic-page-container-transparent {
+    margin-left: 4%;
+    margin-right: 4%;
+    padding: 0.2rem 1rem 0.8rem 1rem !important;
+  }
+}
