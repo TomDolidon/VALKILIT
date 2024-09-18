@@ -7,6 +7,7 @@ import { Footer } from 'primeng/api';
   standalone: true,
   selector: 'jhi-footer',
   templateUrl: './footer.component.html',
+  styleUrl: './footer.component.scss',
   imports: [TranslateDirective, RouterLink, Footer],
 })
 export default class FooterComponent {}

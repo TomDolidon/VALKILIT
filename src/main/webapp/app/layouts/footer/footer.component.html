@@ -1,9 +1,45 @@
-<p-footer class="footer">
-  <div class="footer-content d-flex justify-content-center gap-3">
-    <div>© 2024 ValkyLit</div>
-    <a jhiTranslate="footer.tos" routerLink="/tos">Conditions Générales d'Utilisation</a>
-    <a jhiTranslate="footer.privacypolicy" routerLink="/privacy">Politique de Confidentialité</a>
-    <a jhiTranslate="footer.mentions" routerLink="/mentions">Mentions Légales</a>
-    <a jhiTranslate="footer.contact" routerLink="/contact">Contact</a>
+<!-- Footer Section -->
+<footer class="footer bg-dark text-white pb-2">
+  <div class="container">
+    <div class="row">
+      <!-- About Us -->
+      <div class="col-md-4 mb-3 mb-md-0 text-center">
+        <h5>À Propos de Nous</h5>
+        <p>
+          Bienvenue sur Valkylit, votre destination en ligne pour tous vos besoins en livres. Nous nous engageons à offrir une large
+          sélection de livres, allant des best-sellers aux classiques, avec un service client exceptionnel.
+        </p>
+      </div>
+
+      <!-- Quick Links -->
+      <div class="col-md-4 mb-3 mb-md-0 text-center">
+        <h5>Chapitres</h5>
+        <ul class="list-unstyled">
+          <li><a routerLink="/" class="text-white">Accueil</a></li>
+          <li><a routerLink="/catalog" class="text-white">Catalogue</a></li>
+          <li><a routerLink="/contact" class="text-white">Contact</a></li>
+          <li><a routerLink="/faq" class="text-white">Foire aux questions</a></li>
+          <li><a routerLink="/terms-of-use" class="text-white">Conditions d'Utilisation</a></li>
+          <li><a routerLink="/privacy-policy" class="text-white">Politique de Confidentialité</a></li>
+        </ul>
+      </div>
+
+      <!-- Contact Us -->
+      <div class="col-md-4 text-center">
+        <h5>Contactez-Nous</h5>
+        <p>
+          <strong>Email:</strong> <a href="mailto:support@valkylit.com" class="text-white">support&#64;valkylit.com</a><br />
+          <strong>Téléphone:</strong> +33 1 23 45 67 89<br />
+          <strong>Adresse:</strong> 123 Rue des Livres, 75001 Paris, France
+        </p>
+      </div>
+    </div>
+
+    <!-- Footer Bottom -->
+    <div class="row">
+      <div class="col-md-12 text-center">
+        <p class="mb-0">&copy; 2024 Valkylit. Tous droits réservés.</p>
+      </div>
+    </div>
   </div>
-</p-footer>
+</footer>
