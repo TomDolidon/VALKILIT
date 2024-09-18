@@ -17,6 +17,41 @@ Navbar
 }
 
 $primary-color: #9e573f;
+$primary-color-hover: #c17d65;
+
+::ng-deep {
+  .p-menubar {
+    background-color: $primary-color;
+
+    .p-menuitem:not(.p-highlight):not(.p-disabled).p-focus > .p-menuitem-content {
+      background: $primary-color-hover;
+    }
+
+    :not(.p-menubar-mobile-active) .p-menubar-root-list {
+      .p-menuitem-content,
+      .p-menuitem-link {
+        color: $white;
+      }
+    }
+
+    .p-menuitem-content:hover {
+      background-color: $primary-color-hover;
+    }
+  }
+
+  .p-menubar .p-menubar-button {
+    color: $white;
+  }
+
+  .p-badge {
+    background: $white;
+    margin-left: 4px;
+    color: $black;
+    min-width: 1.2rem;
+    height: 1.2rem;
+    line-height: 1.2rem;
+  }
+}
 
 .navbar {
   background-color: $primary-color;
@@ -31,12 +66,10 @@ $primary-color: #9e573f;
     margin-right: 4px;
   }
 
-  .search-bar-container {
-    margin-left: 30px;
-  }
   .navbar-nav {
     margin-bottom: revert;
   }
+
   a.nav-link {
     color: white;
     font-weight: 400;
@@ -52,7 +85,6 @@ $primary-color: #9e573f;
 .cart-text {
   display: inline-flex;
   align-items: center;
-  margin-left: 8px; /* Space between icon and text */
 }
 
 .cart-badge {

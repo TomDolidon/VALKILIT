@@ -2,9 +2,9 @@
   "valkylitApp": {
     "BookFormat": {
       "null": "",
-      "POCKET": "POCKET",
-      "PAPERBACK": "PAPERBACK",
-      "HARDCOVER": "HARDCOVER"
+      "POCKET": "Poche",
+      "PAPERBACK": "Papier",
+      "HARDCOVER": "Reliure"
     }
   }
 }

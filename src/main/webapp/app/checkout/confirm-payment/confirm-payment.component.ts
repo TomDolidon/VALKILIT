@@ -11,5 +11,11 @@ import { InputMaskModule } from 'primeng/inputmask';
   styleUrl: './confirm-payment.component.scss',
 })
 export class ConfirmPaymentComponent {
+  todayDate: string;
   @Input() paymentForm!: FormGroup;
+
+  constructor() {
+    const currentDate = new Date();
+    this.todayDate = currentDate.toISOString().split('T')[0];
+  }
 }

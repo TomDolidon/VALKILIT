@@ -3,8 +3,32 @@ $light-color: #e8e9e1;
 .result-number {
   color: #333;
 }
+
 :host {
   ::ng-deep .p-paginator {
     background-color: $light-color;
+  }
+}
+
+@media screen and (max-width: 1000px) {
+  .row {
+    display: block;
+  }
+  .col-3,
+  .col-9 {
+    width: 100%;
+  }
+  .paginator-container {
+    display: block !important;
+    justify-content: unset !important;
+  }
+}
+
+::ng-deep {
+  @media screen and (max-width: 1000px) {
+    .row > * {
+      padding-right: 0 !important;
+      padding-left: 0 !important;
+    }
   }
 }

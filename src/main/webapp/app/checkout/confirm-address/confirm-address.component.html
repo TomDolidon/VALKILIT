@@ -52,7 +52,7 @@
               }
 
               @if (postalCodeRef?.errors?.minlength || postalCodeRef?.errors?.maxlength) {
-                <small class="form-text text-danger">Votre code postal doit comporter 6 caractère.</small>
+                <small class="form-text text-danger">Votre code postal doit comporter 5 caractères.</small>
               }
             </div>
           }
@@ -75,6 +75,10 @@
 
               @if (cityRef?.errors?.maxlength) {
                 <small class="form-text text-danger">Le nom de votre ville doit comporter au maximum 254 caractères.</small>
+              }
+
+              @if (cityRef?.errors?.pattern) {
+                <small class="form-text text-danger">Le nom de votre ville contient des caractères invalides.</small>
               }
             </div>
           }
@@ -105,6 +109,10 @@
 
               @if (countryRef?.errors?.maxlength) {
                 <small class="form-text text-danger">Le nom du pays doit comporter au maximum 100 caractères.</small>
+              }
+
+              @if (countryRef?.errors?.pattern) {
+                <small class="form-text text-danger">Le nom du pays contient des caractères invalides.</small>
               }
             </div>
           }

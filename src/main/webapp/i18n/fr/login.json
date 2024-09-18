@@ -14,6 +14,7 @@
     },
     "password": {
       "forgot": "Avez-vous oublié votre mot de passe ?"
-    }
+    },
+    "orElse": "ou bien"
   }
 }

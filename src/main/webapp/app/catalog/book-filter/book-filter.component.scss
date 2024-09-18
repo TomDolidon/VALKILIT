@@ -4,3 +4,9 @@
   margin-top: 1rem;
   border-radius: 8px;
 }
+
+@media screen and (max-width: 1000px) {
+  .book-filter {
+    margin-bottom: 0.8rem;
+  }
+}
