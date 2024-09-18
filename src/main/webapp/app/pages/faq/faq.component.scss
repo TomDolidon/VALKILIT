@@ -1,16 +1,28 @@
 .faq-section {
-  padding: 60px 0;
-}
+  // background-color: #e8e9e1;
+  // padding: 2rem;
 
-.faq-question {
-  cursor: pointer;
-}
+  h1 {
+    color: #9e573f;
+  }
 
-.faq-answer {
-  display: none;
-  margin-top: 10px;
-}
+  p {
+    color: #30333b;
+    line-height: 1.6;
+  }
 
-.faq-answer.show {
-  display: block;
+  p-accordionTab {
+    background-color: #e8e9e1;
+    color: #30333b;
+
+    a {
+      color: #bd607d;
+      text-decoration: underline;
+    }
+  }
+
+  .container {
+    max-width: 800px;
+    margin: 0 auto;
+  }
 }

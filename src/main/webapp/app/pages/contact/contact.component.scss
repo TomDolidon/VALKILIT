@@ -1,0 +1,89 @@
+// Palette de couleurs
+$primary-color: #9e573f;
+$secondary-color: #85868a;
+$light-color: #e8e9e1;
+$accent-color: #bd607d;
+$dark-color: #30333b;
+
+// Styles généraux pour la section de contact
+.contact {
+  padding: 2rem;
+  border-radius: 8px;
+
+  .container {
+    max-width: 800px;
+    margin: 0 auto;
+  }
+
+  .title {
+    color: $primary-color;
+    font-size: 2rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .form-group {
+    margin-bottom: 1rem;
+
+    label {
+      display: block;
+      margin-bottom: 0.5rem;
+      font-weight: bold;
+      color: $dark-color;
+    }
+
+    .form-control {
+      width: 100%;
+      padding: 0.75rem;
+      border: 1px solid $secondary-color;
+      border-radius: 4px;
+      font-size: 1rem;
+      box-sizing: border-box;
+
+      &:focus {
+        border-color: $primary-color;
+        outline: none;
+        box-shadow: 0 0 0 0.2rem rgba($primary-color, 0.25);
+      }
+    }
+
+    textarea.form-control {
+      resize: vertical;
+      min-height: 150px;
+    }
+
+    .error-message {
+      color: #f44336;
+      font-size: 0.875rem;
+      margin-top: 10px;
+    }
+
+    .success-message {
+      color: $primary-color;
+      font-size: 1rem;
+      margin-top: 1rem;
+    }
+  }
+
+  .btn {
+    display: inline-block;
+    padding: 0.75rem 1.5rem;
+    border: none;
+    border-radius: 4px;
+    font-size: 1rem;
+    font-weight: bold;
+    text-align: center;
+    color: #fff;
+    background-color: $primary-color;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+
+    &:hover {
+      background-color: darken($primary-color, 10%);
+    }
+
+    &:disabled {
+      background-color: $secondary-color;
+      cursor: not-allowed;
+    }
+  }
+}

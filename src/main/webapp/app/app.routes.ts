@@ -56,8 +56,8 @@ const routes: Routes = [
     loadComponent: () => import(`./cart/cart.component`),
   },
   {
-    path: 'about',
-    loadComponent: () => import(`./pages/about/about.component`),
+    path: 'contact',
+    loadComponent: () => import(`./pages/contact/contact.component`),
   },
   {
     path: 'faq',
