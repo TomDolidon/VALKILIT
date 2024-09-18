@@ -19,7 +19,7 @@
     </p-carousel>
   </div>
 
-  <div class="section-3 d-flex flex-column">
+  <div class="section-3 d-flex flex-column m-4">
     <div
       class="category-img"
       [ngStyle]="{
@@ -41,6 +41,21 @@
         <p-button [routerLink]="['/catalog']" [queryParams]="{ category: 'Science-Fiction' }" size="large">{{
           'home.featuredCategoryCatalogButton' | translate
         }}</p-button>
+      </div>
+    </div>
+  </div>
+
+  <div *ngIf="topBooks.length > 0">
+    <h3 class="m-4 text-center" jhiTranslate="home.topRatedBooksSentence">
+      Niveau idées cadeaux, vous faites page blanche ? Retrouvez ici nos livres les plus aimés de nos lecteurs
+    </h3>
+
+    <div class="d-flex justify-content-around mb-4">
+      <div *ngFor="let book of topBooks" class="d-flex flex-column align-items-center">
+        <div class="m-2">
+          <p-rating [(ngModel)]="book[1]" [readonly]="true" [cancel]="false" severity="warn" />
+        </div>
+        <jhi-book-card [book]="book[0]"></jhi-book-card>
       </div>
     </div>
   </div>

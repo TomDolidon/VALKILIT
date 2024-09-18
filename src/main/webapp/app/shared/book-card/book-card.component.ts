@@ -17,7 +17,7 @@ import { ImageUrlPipe } from '../external-image/image-url.pipe';
   styleUrl: './book-card.component.scss',
   imports: [CommonModule, ButtonModule, AnimateModule, ChipModule, RouterLink, ImageUrlPipe],
 })
-export default class BookCard2Component {
+export default class BookCardComponent {
   @Input() book: IBook = {
     authors: [],
     categories: [],

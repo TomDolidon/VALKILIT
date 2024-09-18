@@ -43,4 +43,7 @@ public interface BookRepository extends BookRepositoryWithBagRelationships, JpaR
 
     @Query("select book from Book book left join fetch book.publisher where book.id =:id")
     Optional<Book> findOneWithToOneRelationships(@Param("id") UUID id);
+
+    @Query("SELECT b, AVG(r.rating) as avgRating " + "FROM Book b JOIN b.reviews r " + "GROUP BY b " + "ORDER BY avgRating DESC")
+    List<Object[]> findTopBooksByAverageRating(Pageable pageable);
 }
