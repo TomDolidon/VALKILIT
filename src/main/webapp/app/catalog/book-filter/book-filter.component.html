@@ -14,7 +14,7 @@
           (completeMethod)="filterAuthors($event)"
           (onSelect)="applyFilter()"
         ></p-autoComplete>
-        <label for="author" jhiTranslate="catalog.filters.authors">Auteurs</label>
+        <label for="author" jhiTranslate="catalog.filters.author">Auteur</label>
       </p-floatLabel>
     </div>
   </div>
@@ -61,5 +61,9 @@
       ><span jhiTranslate="catalog.from">De</span> {{ filter.priceRange[0] }} € <span jhiTranslate="catalog.toMin">à</span>
       {{ filter.priceRange[1] }} €</span
     >
+  </div>
+
+  <div class="mt-4">
+    <p-button (click)="resetFilters()" label="Vider les filtres" class="p-button-danger"></p-button>
   </div>
 </div>

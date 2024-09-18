@@ -17,6 +17,7 @@ import { TranslateModule } from '@ngx-translate/core';
 import TranslateDirective from '../../shared/language/translate.directive';
 import { IBookCategory } from 'app/entities/book-category/book-category.model';
 import { BookCategoryService } from 'app/entities/book-category/service/book-category.service';
+import { ButtonModule } from 'primeng/button';
 
 @Component({
   standalone: true,
@@ -33,6 +34,7 @@ import { BookCategoryService } from 'app/entities/book-category/service/book-cat
     FloatLabelModule,
     TranslateModule,
     TranslateDirective,
+    ButtonModule,
   ],
 })
 export class BookFilterComponent {
@@ -109,5 +111,17 @@ export class BookFilterComponent {
    */
   applyFilter(): void {
     this.filterChanged.emit(this.filter);
+  }
+
+  resetFilters(): void {
+    this.filter = {
+      authors: [] as IAuthor[],
+      categories: [] as IBookCategory[],
+      formats: [] as BookFormat[],
+      priceRange: [this.minPrice, this.maxPrice],
+    };
+
+    // Émet un événement pour signaler que les filtres ont été réinitialisés
+    this.applyFilter();
   }
 }
