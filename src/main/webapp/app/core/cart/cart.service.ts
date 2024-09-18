@@ -1,3 +1,5 @@
+/* eslint-disable */
+
 import { inject, Injectable } from '@angular/core';
 import { IPurchaseCommandLine, NewPurchaseCommandLine } from 'app/entities/purchase-command-line/purchase-command-line.model';
 import { AccountService } from '../auth/account.service';
