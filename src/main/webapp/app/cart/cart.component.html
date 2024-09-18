@@ -3,7 +3,6 @@
 
   <p-button
     class="align-self-center"
-    outlined="true"
     icon="pi pi-trash"
     severity="danger"
     [label]="'cart.emptyTheCart' | translate"
@@ -33,37 +32,25 @@
   <ng-template pTemplate="body" let-line>
     <tr>
       <td>
-        <div class="book-title-cov d-flex justify-content-between align-items-center">
+        <div class="book-title-cov d-flex align-items-center">
+          <img [src]="line.book.imageUri | imageUrl" alt="{{ line.book.title }}" routerLink="/details/{{ line.book!.id }}" />
           <a routerLink="/details/{{ line.book!.id }}">{{ line.book?.title }}</a>
-          <img [src]="line.book.imageUri | imageUrl" alt="{{ line.book.title }}" width="100%" height="90%" />
         </div>
       </td>
       <td>{{ line.book?.price | currency: 'EUR' }}</td>
       <td>
-        <div class="quantity-control d-flex">
+        <div class="d-flex">
           <!-- Minus button -->
-          <p-button
-            size="small"
-            outlined="true"
-            icon="pi pi-minus"
-            class="p-button-rounded p-button-text"
-            (onClick)="onDecreaseQuantity(line.book)"
-          ></p-button>
+          <p-button size="small" icon="pi pi-minus" class="button-sm" (onClick)="onDecreaseQuantity(line.book)"></p-button>
           <!-- Quantity display -->
           <span class="quantity-display mx-2 align-self-center">{{ line.quantity }}</span>
           <!-- Plus button -->
-          <p-button
-            size="small"
-            outlined="true"
-            icon="pi pi-plus"
-            class="p-button-rounded p-button-text"
-            (onClick)="onIncreaseQuantity(line.book)"
-          ></p-button>
+          <p-button size="small" icon="pi pi-plus" class="button-sm" (onClick)="onIncreaseQuantity(line.book)"></p-button>
         </div>
       </td>
       <td>{{ line.quantity * line.book.price | currency: 'EUR' }}</td>
 
-      <td><p-button outlined="true" icon="pi pi-trash" severity="danger" (onClick)="onBookTrashBTnClick(line)" /></td>
+      <td><p-button (onClick)="onBookTrashBTnClick(line)" class="button-sm" icon="pi pi-trash" severity="danger" /></td>
     </tr>
   </ng-template>
   <ng-template pTemplate="summary">

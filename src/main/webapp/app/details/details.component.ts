@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { BookService } from '../entities/book/service/book.service';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { IBook } from '../entities/book/book.model';
 import { BookFilterComponent } from '../catalog/book-filter/book-filter.component';
 import BookListComponent from '../catalog/book-list/book-list.component';
@@ -36,6 +36,7 @@ import ReviewsComponent from './review/reviews.component';
     ImageUrlPipe,
     ReviewsComponent,
     ButtonModule,
+    RouterLink,
   ],
   templateUrl: './details.component.html',
   styleUrl: './details.component.scss',

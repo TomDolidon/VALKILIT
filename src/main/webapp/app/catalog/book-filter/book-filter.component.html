@@ -34,7 +34,7 @@
           (onSelect)="applyFilter()"
           (onUnselect)="applyFilter()"
         ></p-autoComplete>
-        <label for="author" jhiTranslate="catalog.filters.categories">Categories</label>
+        <label for="author" jhiTranslate="catalog.filters.categories">Catégories</label>
       </p-floatLabel>
     </div>
   </div>
@@ -57,7 +57,14 @@
   <div>
     <label for="priceRange" class="my-2" jhiTranslate="catalog.filters.priceRange">Fourchette de prix</label>
     <div class="my-4">
-      <p-slider [(ngModel)]="filter.priceRange" [range]="true" [min]="minPrice" [max]="maxPrice" (onSlideEnd)="applyFilter()"></p-slider>
+      <p-slider
+        (onSlideEnd)="applyFilter()"
+        [(ngModel)]="filter.priceRange"
+        [max]="maxPrice"
+        [min]="minPrice"
+        [range]="true"
+        id="priceRange"
+      ></p-slider>
     </div>
     <span class="my-2"
       ><span jhiTranslate="catalog.from">De</span> {{ filter.priceRange[0] }} € <span jhiTranslate="catalog.toMin">à</span>

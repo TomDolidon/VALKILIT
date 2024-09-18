@@ -3,8 +3,24 @@
 }
 
 .book-title-cov {
-  display: flex;
-  justify-content: space-between; /* Space between the title and image */
-  align-items: center; /* Vertical centering */
-  gap: 10px; /* Optional: add space between text and image */
+  img {
+    width: 70px;
+    margin-right: 1rem;
+
+    &:hover {
+      cursor: pointer;
+    }
+  }
+}
+
+::ng-deep {
+  .button-sm {
+    padding: 4px !important;
+
+    button {
+      padding: 14px !important;
+      height: 8px;
+      width: 8px;
+    }
+  }
 }

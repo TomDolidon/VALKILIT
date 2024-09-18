@@ -19,7 +19,7 @@
       </tr>
     </table>
   </div>
-  <div class="m-0 text-info">Votre commande sera expédiée dans un délai de 24 heures.</div>
+  <div class="m-0 text-secondary bold">Votre commande sera expédiée dans un délai de 24 heures.</div>
 </p-fieldset>
 
 <p-fieldset legend="Moyen de paiement">
@@ -43,7 +43,7 @@
       {{ line.quantity }}x {{ line.book?.title }} ({{ line.book?.price | currency: 'EUR' }})
     </div>
   </div>
-  <div class="text-info">
+  <div class="text-secondary bold">
     Total ({{ cartService.getCartTotalItems() }} articles) : {{ cartService.getCartTotalPrice() | currency: 'EUR' }}
   </div>
 </p-fieldset>
