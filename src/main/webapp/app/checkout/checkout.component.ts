@@ -264,7 +264,7 @@ export class CheckoutComponent {
           detail: 'Votre commande a été validée. Son expédition se fera dans un délai de 24 heures.',
           life: 6000,
         });
-        this.router.navigate(['/']);
+        this.router.navigate(['/account/purchase-commands']);
       },
       error: () => {
         this.messageService.add({
