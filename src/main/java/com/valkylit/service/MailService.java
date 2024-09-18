@@ -1,5 +1,6 @@
 package com.valkylit.service;
 
+import com.valkylit.domain.PurchaseCommand;
 import com.valkylit.domain.User;
 import jakarta.mail.MessagingException;
 import jakarta.mail.internet.MimeMessage;
@@ -30,6 +31,8 @@ public class MailService {
     private static final String USER = "user";
 
     private static final String BASE_URL = "baseUrl";
+
+    private static final String PURCHASE_COMMAND = "purchaseCommand";
 
     private final JHipsterProperties jHipsterProperties;
 
@@ -116,5 +119,28 @@ public class MailService {
     public void sendPasswordResetMail(User user) {
         LOG.debug("Sending password reset email to '{}'", user.getEmail());
         this.sendEmailFromTemplateSync(user, "mail/passwordResetEmail", "email.reset.title");
+    }
+
+    @Async
+    public void sendCommandOrderedMail(User user, PurchaseCommand purchaseCommand) {
+        LOG.debug("Sending command orderd reset email to '{}'", user.getEmail());
+
+        if (user.getEmail() == null) {
+            LOG.debug("Email doesn't exist for user '{}'", user.getLogin());
+            return;
+        }
+        Locale locale = Locale.forLanguageTag(user.getLangKey());
+        Context context = new Context(locale);
+        context.setVariable(USER, user);
+        context.setVariable(PURCHASE_COMMAND, purchaseCommand);
+
+        double total = purchaseCommand.getTotal();
+        String formattedTotal = String.format("%.2f", total);
+        context.setVariable("formattedTotal", formattedTotal);
+
+        context.setVariable(BASE_URL, jHipsterProperties.getMail().getBaseUrl());
+        String content = templateEngine.process("mail/purchaseCommandOrdered", context);
+        String subject = messageSource.getMessage("email.commandOrder.title", null, locale);
+        this.sendEmailSync(user.getEmail(), subject, content, false, true);
     }
 }

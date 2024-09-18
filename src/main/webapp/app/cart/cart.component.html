@@ -8,12 +8,12 @@
     severity="danger"
     [label]="'cart.emptyTheCart' | translate"
     (onClick)="isEmptyCartDialogVisible = true"
-    [disabled]="!purchaseLines.length"
+    [disabled]="!getCommandLines().length"
   />
 </div>
 
 <p-table
-  [value]="purchaseLines"
+  [value]="getCommandLines()"
   sortField="book.title"
   [sortOrder]="1"
   styleClass="p-datatable-striped"
@@ -42,7 +42,7 @@
             outlined="true"
             icon="pi pi-minus"
             class="p-button-rounded p-button-text"
-            (onClick)="onDecreaseQuantity(line)"
+            (onClick)="onDecreaseQuantity(line.book)"
           ></p-button>
           <!-- Quantity display -->
           <span class="quantity-display mx-2 align-self-center">{{ line.quantity }}</span>
@@ -52,11 +52,11 @@
             outlined="true"
             icon="pi pi-plus"
             class="p-button-rounded p-button-text"
-            (onClick)="onIncreaseQuantity(line)"
+            (onClick)="onIncreaseQuantity(line.book)"
           ></p-button>
         </div>
       </td>
-      <td>{{ line.sub_total | currency: 'EUR' }}</td>
+      <td>{{ line.quantity * line.book.price | currency: 'EUR' }}</td>
 
       <td><p-button outlined="true" icon="pi pi-trash" severity="danger" (onClick)="onBookTrashBTnClick(line)" /></td>
     </tr>
@@ -64,7 +64,7 @@
   <ng-template pTemplate="summary">
     <div style="display: grid; justify-items: end; row-gap: 0.5rem">
       <div jhiTranslate="cart.total" [translateValues]="{ count: onTotalItems(), count2: onTotalPrice() | currency: 'EUR' }"></div>
-      <div *ngIf="purchaseLines.length">
+      <div *ngIf="getCommandLines().length">
         <jhi-cart-validation-btn />
       </div>
     </div>
@@ -72,7 +72,9 @@
 </p-table>
 
 <p-dialog header="Confirmation" [modal]="true" [(visible)]="isEmptyCartDialogVisible" [style]="{ width: '25rem' }">
-  <div class="p-text-secondary block mb-4" jhiTranslate="cart.emptyTheCartConfirmationMessage">Êtes-vous sûr de vouloir vider le panier ?</div>
+  <div class="p-text-secondary block mb-4" jhiTranslate="cart.emptyTheCartConfirmationMessage">
+    Êtes-vous sûr de vouloir vider le panier ?
+  </div>
   <div class="d-flex justify-content-end gap-2 m-2">
     <p-button label="{{ 'entity.action.cancel' | translate }}" severity="secondary" (onClick)="isEmptyCartDialogVisible = false" />
     <p-button label="{{ 'entity.action.empty' | translate }}" (onClick)="onEmptyCart()" />
@@ -80,9 +82,11 @@
 </p-dialog>
 
 <p-dialog header="Confirmation" [modal]="true" [(visible)]="isRemoveItemDialogVisible" [style]="{ width: '25rem' }">
-  <div class="p-text-secondary block mb-4" jhiTranslate="cart.removeItemFromCartConfirmationMessage"
-        [translateValues]="{ title: itemToDelete?.book?.title }"></div
-  >
+  <div
+    class="p-text-secondary block mb-4"
+    jhiTranslate="cart.removeItemFromCartConfirmationMessage"
+    [translateValues]="{ title: itemToDelete?.book?.title }"
+  ></div>
   <div class="d-flex justify-content-end gap-2 m-2">
     <p-button label="Annuler" severity="secondary" (onClick)="isRemoveItemDialogVisible = false" />
     <p-button label="Retirer" (onClick)="onRemoveCartItemClick()" />

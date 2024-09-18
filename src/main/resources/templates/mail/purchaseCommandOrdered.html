@@ -1,0 +1,135 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title th:text="#{email.command.title}">Command validation</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        background-color: #e8e9e1; /* light-color */
+        margin: 0;
+        padding: 0;
+      }
+      .container {
+        width: 100%;
+        max-width: 600px;
+        margin: 0 auto;
+        background-color: #ffffff;
+        padding: 20px;
+        border: 1px solid #dddddd;
+      }
+      .header {
+        background-color: #9e573f; /* primary-color */
+        color: #ffffff;
+        padding: 20px;
+        text-align: center;
+      }
+      .header img {
+        max-width: 150px;
+        margin-bottom: 10px;
+      }
+      .header h1 {
+        margin: 0;
+        font-size: 24px;
+      }
+      .content {
+        margin: 20px 0;
+      }
+      .content p {
+        font-size: 16px;
+        color: #30333b; /* dark-color */
+      }
+      .order-details {
+        margin-top: 20px;
+      }
+      .order-details h2 {
+        font-size: 18px;
+        color: #30333b; /* dark-color */
+      }
+      .order-details table {
+        width: 100%;
+        border-collapse: collapse;
+      }
+      .order-details table th,
+      .order-details table td {
+        border: 1px solid #dddddd;
+        padding: 10px;
+        text-align: left;
+      }
+      .order-details table th {
+        background-color: #9e573f; /* primary-color */
+        color: #ffffff;
+      }
+      .order-details table td {
+        color: #30333b; /* dark-color */
+      }
+      .order-details table tfoot td {
+        background-color: #e8e9e1; /* light-color */
+        color: #30333b; /* dark-color */
+      }
+      .footer {
+        text-align: center;
+        margin-top: 20px;
+        font-size: 14px;
+        color: #85868a; /* secondary-color */
+      }
+      .footer a {
+        color: #bd607d; /* accent-color */
+        text-decoration: none;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <!-- Header -->
+      <div class="header">
+        <!-- Company Logo -->
+        <h1>Merci pour votre commande !</h1>
+      </div>
+
+      <!-- Content -->
+      <div class="content">
+        <p th:text="#{email.command.greeting(${user.login})}"></p>
+
+        <p>Nous vous remercions pour votre commande sur <strong>ValkyLit</strong>. Voici le récapitulatif de votre commande :</p>
+
+        <div class="order-details">
+          <h2>Détails de la commande</h2>
+          <table>
+            <thead>
+              <tr>
+                <th>Produit</th>
+                <th>Quantité</th>
+                <th>Prix Unitaire</th>
+                <th>Total</th>
+              </tr>
+            </thead>
+            <tbody>
+              <!-- Boucle pour chaque ligne de commande -->
+              <tr th:each="line : ${purchaseCommand.purchaseCommandLines}">
+                <td th:text="${line.book.title}">Nom du produit</td>
+                <td th:text="${line.quantity}">Quantité</td>
+                <td th:text="${line.unitPrice}">Prix Unitaire</td>
+                <td th:text="${line.unitPrice * line.quantity}">Total</td>
+              </tr>
+            </tbody>
+            <tfoot>
+              <tr>
+                <td colspan="3" style="text-align: right"><strong>Total :</strong></td>
+                <td><strong th:text="${formattedTotal}">Total de la commande</strong></td>
+              </tr>
+            </tfoot>
+          </table>
+        </div>
+      </div>
+
+      <!-- Footer -->
+      <div class="footer">
+        <p>Merci d'avoir choisi <strong>Valkylit</strong>.</p>
+        <p>Si vous avez des questions, n'hésitez pas à <a href="mailto:valkylit.contact@gmail.com">nous contacter</a>.</p>
+      </div>
+    </div>
+  </body>
+</html>

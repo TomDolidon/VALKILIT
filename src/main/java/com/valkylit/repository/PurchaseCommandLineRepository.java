@@ -1,5 +1,7 @@
 package com.valkylit.repository;
 
+import com.valkylit.domain.Book;
+import com.valkylit.domain.PurchaseCommand;
 import com.valkylit.domain.PurchaseCommandLine;
 import com.valkylit.domain.PurchaseCommandLineTransaction;
 import java.util.List;
@@ -42,6 +44,18 @@ public interface PurchaseCommandLineRepository extends JpaRepository<PurchaseCom
         "select purchaseCommandLine from PurchaseCommandLine purchaseCommandLine left join fetch purchaseCommandLine.book where purchaseCommandLine.id =:id"
     )
     Optional<PurchaseCommandLine> findOneWithToOneRelationships(@Param("id") UUID id);
+
+    @Query("SELECT pcl FROM PurchaseCommandLine pcl WHERE pcl.purchaseCommand = :purchaseCommand AND pcl.book = :book")
+    Optional<PurchaseCommandLine> findByPurchaseCommandAndBook(
+        @Param("purchaseCommand") PurchaseCommand purchaseCommand,
+        @Param("book") Book book
+    );
+
+    @Query("SELECT pcl FROM PurchaseCommandLine pcl WHERE pcl.purchaseCommand = :purchaseCommand AND pcl.book.id = :bookId")
+    Optional<PurchaseCommandLine> findByPurchaseCommandAndBookId(
+        @Param("purchaseCommand") PurchaseCommand purchaseCommand,
+        @Param("bookId") UUID bookId
+    );
 
     @Query(
         "select new com.valkylit.domain.PurchaseCommandLineTransaction(purchaseCommandLine.book.id, purchaseCommandLine.quantity) from PurchaseCommandLine purchaseCommandLine where purchaseCommandLine.purchaseCommand.id =:purchaseCommandId order by purchaseCommandLine.book.id ASC"

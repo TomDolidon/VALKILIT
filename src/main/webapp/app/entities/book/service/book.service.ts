@@ -79,6 +79,12 @@ export class BookService {
       });
     }
 
+    if (filter?.categories) {
+      filter.categories.forEach(author => {
+        if (author.name) params = params.append('categories', author.name);
+      });
+    }
+
     if (filter?.formats && filter.formats.length > 0) {
       filter.formats.forEach(format => {
         params = params.append('formats', format);

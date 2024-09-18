@@ -9,6 +9,7 @@ import { DATE_FORMAT } from 'app/config/input.constants';
 import { ApplicationConfigService } from 'app/core/config/application-config.service';
 import { createRequestOption } from 'app/core/request/request-util';
 import { IPurchaseCommand, NewPurchaseCommand } from '../purchase-command.model';
+import { IPurchaseCommandLine, NewPurchaseCommandLine } from 'app/entities/purchase-command-line/purchase-command-line.model';
 
 export type PartialUpdatePurchaseCommand = Partial<IPurchaseCommand> & Pick<IPurchaseCommand, 'id'>;
 
@@ -117,6 +118,39 @@ export class PurchaseCommandService {
       return [...purchaseCommandsToAdd, ...purchaseCommandCollection];
     }
     return purchaseCommandCollection;
+  }
+
+  addPurchaseCommandLineToCart(purchaseCommandLine: NewPurchaseCommandLine): Observable<EntityResponseType> {
+    return this.http
+      .post<RestPurchaseCommand>(`${this.resourceUrl}/self-current-draft/add-command-line`, purchaseCommandLine, { observe: 'response' })
+      .pipe(map(res => this.convertResponseFromServer(res)));
+  }
+
+  removePurchaseCommandLineFromCart(bookId: string): Observable<EntityResponseType> {
+    return this.http
+      .delete<RestPurchaseCommand>(`${this.resourceUrl}/self-current-draft/remove-command-line/${bookId}`, { observe: 'response' })
+      .pipe(map(res => this.convertResponseFromServer(res)));
+  }
+
+  /**
+   * Clear all items from the cart.
+   * @returns an Observable with the updated PurchaseCommand.
+   */
+  clearCart(): Observable<EntityResponseType> {
+    return this.http
+      .delete<RestPurchaseCommand>(`${this.resourceUrl}/self-current-draft/clear-cart`, { observe: 'response' })
+      .pipe(map(res => this.convertResponseFromServer(res)));
+  }
+
+  /**
+   * Decrease the quantity of an item in the cart.
+   * @param bookId the ID of the book to decrement.
+   * @returns an Observable with the updated PurchaseCommand.
+   */
+  decrementPurchaseCommandLine(bookId: string): Observable<EntityResponseType> {
+    return this.http
+      .delete<RestPurchaseCommand>(`${this.resourceUrl}/self-current-draft/decrement-command-line/${bookId}`, { observe: 'response' })
+      .pipe(map(res => this.convertResponseFromServer(res)));
   }
 
   protected convertDateFromClient<T extends IPurchaseCommand | NewPurchaseCommand | PartialUpdatePurchaseCommand>(

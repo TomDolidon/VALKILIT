@@ -36,7 +36,7 @@ public class PurchaseCommand implements Serializable {
     @Column(name = "status", nullable = false)
     private PurchaseCommandStatus status;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "purchaseCommand")
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "purchaseCommand", cascade = CascadeType.ALL)
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
     @JsonIgnoreProperties(value = { "purchaseCommand" }, allowSetters = true)
     private Set<PurchaseCommandLine> purchaseCommandLines = new HashSet<>();
@@ -173,5 +173,18 @@ public class PurchaseCommand implements Serializable {
             ", expeditionDate='" + getExpeditionDate() + "'" +
             ", status='" + getStatus() + "'" +
             "}";
+    }
+
+    /**
+     * @return total price of the command
+     */
+    public double getTotal() {
+        double total = 0;
+
+        for (PurchaseCommandLine line : purchaseCommandLines) {
+            total += line.getQuantity() * line.getUnitPrice();
+        }
+
+        return total;
     }
 }

@@ -1,5 +1,7 @@
 package com.valkylit.web.rest;
 
+import com.valkylit.domain.Book;
+import com.valkylit.domain.PurchaseCommand;
 import com.valkylit.domain.PurchaseCommandLine;
 import com.valkylit.repository.PurchaseCommandLineRepository;
 import com.valkylit.web.rest.errors.BadRequestAlertException;

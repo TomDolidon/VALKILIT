@@ -1,6 +1,10 @@
 ::ng-deep .book-image-container {
   margin-block-start: 1.7em;
 
+  .p-button.p-button-text {
+    padding-left: 0;
+  }
+
   .p-image,
   img,
   .p-image-preview-indicator {

@@ -3,8 +3,10 @@
     "filters": {
       "filterTheResults": "Filter the results",
       "authors": "Authors",
+      "categories": "Categories",
       "format": "Format",
-      "priceRange": "Price range"
+      "priceRange": "Price range",
+      "emptyFiltersBtn": "Reset filters"
     },
     "from": "From",
     "to": "To",

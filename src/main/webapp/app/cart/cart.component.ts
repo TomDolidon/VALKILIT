@@ -1,3 +1,5 @@
+/* eslint-disable */
+
 import { Component, OnDestroy, OnInit, inject, signal } from '@angular/core';
 import { Router, RouterModule } from '@angular/router';
 import { Subject } from 'rxjs';
@@ -6,11 +8,12 @@ import { TableModule } from 'primeng/table';
 import { ButtonModule } from 'primeng/button';
 import SharedModule from 'app/shared/shared.module';
 import { Account } from 'app/core/auth/account.model';
-import { LocalCartService } from 'app/core/cart/cart.service';
 import { CartValidationButtonComponent } from './cart-validation-btn/cart-validation-btn.component';
 import IBookCart from 'app/model/IBookCart';
 import { DialogModule } from 'primeng/dialog';
 import { IBook } from 'app/entities/book/book.model';
+import { CartService } from 'app/core/cart/cart.service';
+import { IPurchaseCommandLine, NewPurchaseCommandLine } from 'app/entities/purchase-command-line/purchase-command-line.model';
 
 @Component({
   selector: 'jhi-cart',
@@ -24,16 +27,19 @@ export default class CartComponent implements OnInit, OnDestroy {
   isEmptyCartDialogVisible = false;
   isRemoveItemDialogVisible = false;
   itemToDelete: IBookCart | null = null;
-  public purchaseLines: IBookCart[] = [];
 
   private readonly destroy$ = new Subject<void>();
 
   private router = inject(Router);
-  private localCartStorage = inject(LocalCartService);
+  private cartService = inject(CartService);
 
   // Method to load cart data from local storage
   loadCart(): void {
-    this.purchaseLines = this.localCartStorage.getAllLines();
+    this.cartService.loadCart();
+  }
+
+  getCommandLines(): (IPurchaseCommandLine | NewPurchaseCommandLine)[] {
+    return this.cartService.getCart();
   }
 
   ngOnInit(): void {
@@ -45,39 +51,33 @@ export default class CartComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    // TODO : user logged -> order DRAFT en BD
     this.destroy$.next();
     this.destroy$.complete();
   }
 
+  // TODO get total
   public onTotalItems(): number {
-    return this.localCartStorage.getCartTotalItems();
+    return this.cartService.getCartTotalItems();
   }
 
   public onTotalPrice(): number {
-    return this.localCartStorage.getCartTotalPrice();
+    return this.cartService.getCartTotalPrice();
   }
 
-  public onIncreaseQuantity(item: IBookCart): void {
-    item.quantity = 1;
-    this.localCartStorage.saveCart(item.id, JSON.stringify(item));
-    // Trigger change detection to update the table
-    this.loadCart();
+  public onIncreaseQuantity(book: IBook): void {
+    this.cartService.addToCart(book);
   }
 
-  public onDecreaseQuantity(item: IBookCart): void {
-    item.quantity = -1;
-    this.localCartStorage.saveCart(item.id, JSON.stringify(item));
-    // Trigger change detection to update the table
-    this.loadCart();
+  public onDecreaseQuantity(book: IBook): void {
+    this.cartService.decreaseQuantity(book.id);
   }
 
   public onEmptyCart(): void {
-    this.localCartStorage.clearCart();
+    this.cartService.clearCart();
     this.isEmptyCartDialogVisible = false;
-    this.loadCart();
   }
 
+  // TODO
   public onBookTrashBTnClick(item: IBookCart): void {
     this.itemToDelete = item;
     this.isRemoveItemDialogVisible = true;
@@ -85,9 +85,8 @@ export default class CartComponent implements OnInit, OnDestroy {
 
   public onRemoveCartItemClick(): void {
     if (this.itemToDelete) {
-      this.localCartStorage.deleteCart(this.itemToDelete.id);
+      this.cartService.removeFromCart(this.itemToDelete.book.id);
       this.isRemoveItemDialogVisible = false;
-      this.loadCart();
     }
   }
 }

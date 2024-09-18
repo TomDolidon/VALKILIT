@@ -5,7 +5,8 @@ import java.util.List;
 
 public class BookCriteriaDTO {
 
-    private List<String> authors; // Liste des noms d'auteurs
+    private List<String> authors;
+    private List<String> categories;
     private List<BookFormat> formats;
     private Float minPrice;
     private Float maxPrice;
@@ -17,6 +18,14 @@ public class BookCriteriaDTO {
 
     public void setAuthors(List<String> authors) {
         this.authors = authors;
+    }
+
+    public List<String> getCategories() {
+        return categories;
+    }
+
+    public void setCategories(List<String> categories) {
+        this.categories = categories;
     }
 
     public List<BookFormat> getFormats() {

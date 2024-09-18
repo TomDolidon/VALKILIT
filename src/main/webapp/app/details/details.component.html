@@ -1,4 +1,5 @@
 <div class="generic-page-container mb-3">
+  <p-button (click)="goBack()" label="Retour" [text]="true" icon="pi pi-angle-left" />
   <div class="row">
     <div class="col-3">
       <div class="book-image-container">
@@ -74,3 +75,5 @@
     </p-carousel>
   </div>
 </div>
+
+<jhi-reviews [bookId]="book.id"></jhi-reviews>

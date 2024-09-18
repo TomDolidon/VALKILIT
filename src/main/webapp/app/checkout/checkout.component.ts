@@ -7,7 +7,7 @@ import { ConfirmSummaryComponent } from './confirm-summary/confirm-summary.compo
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { DialogModule } from 'primeng/dialog';
-import { LocalCartService } from '../core/cart/cart.service';
+import { CartService } from '../core/cart/cart.service';
 import { AddressService } from '../entities/address/service/address.service';
 import { PurchaseCommandService } from '../entities/purchase-command/service/purchase-command.service';
 import { IPurchaseCommandWithLines } from '../entities/purchase-command/purchase-command.model';
@@ -50,7 +50,7 @@ export class CheckoutComponent {
 
   constructor(
     private fb: FormBuilder,
-    private localCartService: LocalCartService,
+    private cartService: CartService,
     private addressService: AddressService,
     private purchaseCommandService: PurchaseCommandService,
     private purchaseCommandLineService: PurchaseCommandLineService,
@@ -182,7 +182,7 @@ export class CheckoutComponent {
   }
 
   clearCartAndGoToCatalog(): void {
-    this.localCartService.clearCart();
+    this.cartService.clearCart();
     this.router.navigate(['/catalog']);
   }
 
@@ -257,7 +257,7 @@ export class CheckoutComponent {
   private validatePurchaseCommand(): void {
     this.purchaseCommandService.validateSelfCurrentDraftPurchaseCommand().subscribe({
       next: () => {
-        this.localCartService.clearCart();
+        this.cartService.clearCart();
         this.messageService.add({
           severity: 'success',
           summary: 'Confirmation',

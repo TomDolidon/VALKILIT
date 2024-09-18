@@ -1,0 +1,50 @@
+$primary-color: #9e573f;
+$secondary-color: #85868a;
+$light-color: #e8e9e1;
+$accent-color: #bd607d;
+$dark-color: #30333b;
+
+:host ::ng-deep .p-rating .p-rating-icon {
+  font-size: 2em; /* Ajustez la taille selon vos besoins */
+  color: #c19312;
+}
+
+.reviews {
+  .gold-book-img {
+    height: 40px;
+    width: 40px;
+    display: inline-block;
+    vertical-align: middle;
+    background: url('/content/images/gold-book.png') no-repeat center center;
+    background-size: contain;
+  }
+
+  .review-form {
+    border-radius: 8px;
+    background-color: #fff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+
+  .review-card {
+    transition:
+      transform 0.3s ease,
+      box-shadow 0.3s ease;
+
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    max-width: 600px;
+    background-color: #fff;
+
+    .title {
+      font-weight: 700;
+      font-size: 17px;
+      margin: 0;
+      transition-duration: 0.3s;
+    }
+
+    &:hover {
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }
+  }
+}

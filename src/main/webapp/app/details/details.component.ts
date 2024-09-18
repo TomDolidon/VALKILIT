@@ -6,7 +6,6 @@ import { BookFilterComponent } from '../catalog/book-filter/book-filter.componen
 import BookListComponent from '../catalog/book-list/book-list.component';
 import { CurrencyPipe, DatePipe, NgForOf, NgIf } from '@angular/common';
 import { Button } from 'primeng/button';
-import { LocalCartService } from '../core/cart/cart.service';
 import { ImageModule } from 'primeng/image';
 import { ChipModule } from 'primeng/chip';
 import { ChipsModule } from 'primeng/chips';
@@ -15,7 +14,11 @@ import { AuthorService } from '../entities/author/service/author.service';
 import { HttpResponse } from '@angular/common/http';
 import BookCard2Component from '../shared/book-card/book-card.component';
 import { CarouselModule } from 'primeng/carousel';
+import { CartService } from 'app/core/cart/cart.service';
 import { ImageUrlPipe } from 'app/shared/external-image/image-url.pipe';
+import ReviewsComponent from './review/reviews.component';
+import { Location } from '@angular/common';
+import { ButtonModule } from 'primeng/button';
 
 @Component({
   selector: 'jhi-details',
@@ -34,6 +37,8 @@ import { ImageUrlPipe } from 'app/shared/external-image/image-url.pipe';
     BookCard2Component,
     CarouselModule,
     ImageUrlPipe,
+    ReviewsComponent,
+    ButtonModule,
   ],
   templateUrl: './details.component.html',
   styleUrl: './details.component.scss',
@@ -47,7 +52,8 @@ export default class DetailsComponent implements OnInit {
     private authorService: AuthorService,
     private route: ActivatedRoute,
     private router: Router,
-    private cartService: LocalCartService,
+    private cartService: CartService,
+    private location: Location,
   ) {}
 
   ngOnInit(): void {
@@ -110,10 +116,7 @@ export default class DetailsComponent implements OnInit {
 
   onBuyBookBtnClick(): void {
     if (this.book.id) {
-      this.cartService.saveCart(
-        this.book.id,
-        JSON.stringify({ id: this.book.id, book: this.book, quantity: 1, sub_total: this.book.price }),
-      );
+      this.cartService.addToCart(this.book);
     }
   }
 
@@ -129,5 +132,9 @@ export default class DetailsComponent implements OnInit {
 
   getFirstAuthor(): IAuthor | null {
     return this.book.authors?.length ? this.book.authors[0] : null;
+  }
+
+  goBack(): void {
+    this.location.back();
   }
 }

@@ -55,6 +55,22 @@ const routes: Routes = [
     path: 'cart',
     loadComponent: () => import(`./cart/cart.component`),
   },
+  {
+    path: 'about',
+    loadComponent: () => import(`./pages/about/about.component`),
+  },
+  {
+    path: 'faq',
+    loadComponent: () => import(`./pages/faq/faq.component`),
+  },
+  {
+    path: 'privacy-policy',
+    loadComponent: () => import(`./pages/privacy-policy/privacy-policy.component`),
+  },
+  {
+    path: 'terms-of-use',
+    loadComponent: () => import(`./pages/terms-of-use/terms-of-use.component`),
+  },
   ...errorRoute,
 ];
 
