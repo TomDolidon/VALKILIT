@@ -193,7 +193,7 @@ public class ReviewResource {
     }
 
     @PostMapping("/book/{bookId}")
-    public ResponseEntity<Review> createReview(@PathVariable UUID bookId, @RequestBody ReviewDTO reviewDTO) {
+    public ResponseEntity<Review> createReview(@PathVariable UUID bookId, @RequestBody ReviewDTO reviewDTO) throws Exception {
         String userLogin = SecurityUtils.getCurrentUserLogin()
             .orElseThrow(() -> new BadRequestAlertException("Current user login not found", "client", "loginnotfound"));
         Optional<Client> clientOptional = this.clientRepository.findOneWithToOneRelationshipsByUserLogin(userLogin);
