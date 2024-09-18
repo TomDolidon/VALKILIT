@@ -1,0 +1,16 @@
+.faq-section {
+  padding: 60px 0;
+}
+
+.faq-question {
+  cursor: pointer;
+}
+
+.faq-answer {
+  display: none;
+  margin-top: 10px;
+}
+
+.faq-answer.show {
+  display: block;
+}
