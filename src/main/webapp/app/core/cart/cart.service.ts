@@ -1,8 +1,7 @@
 import { inject, Injectable } from '@angular/core';
 import { IPurchaseCommandLine, NewPurchaseCommandLine } from 'app/entities/purchase-command-line/purchase-command-line.model';
 import { AccountService } from '../auth/account.service';
-import { EntityResponseType } from 'app/entities/book/service/book.service';
-import { BehaviorSubject, Observable, of, switchMap } from 'rxjs';
+import { BehaviorSubject, Observable, of } from 'rxjs';
 import { HttpClient, HttpResponse } from '@angular/common/http';
 
 import { catchError, map } from 'rxjs/operators'; // Ensure these are imported
@@ -12,6 +11,7 @@ import { PurchaseCommandService } from 'app/entities/purchase-command/service/pu
 import { IPurchaseCommand } from 'app/entities/purchase-command/purchase-command.model';
 import { MessageService } from 'primeng/api';
 import { IBook } from 'app/entities/book/book.model';
+import { CartSynchMessageService } from './cart-synch-message.service';
 
 @Injectable({
   providedIn: 'root',
@@ -24,12 +24,10 @@ export class CartService {
 
   private purchaseCommandService = inject(PurchaseCommandService);
   private accountService = inject(AccountService);
-  // private messageService = inject(MessageService);
+  private cartSynchMessageService = inject(CartSynchMessageService);
 
   private cart: (IPurchaseCommandLine | NewPurchaseCommandLine)[] = [];
   private cartItemsCount = new BehaviorSubject<number>(0);
-
-  // constructor(private messageService: MessageService) {}
 
   public getCartItemsCount(): Observable<number> {
     return this.cartItemsCount.asObservable();
@@ -263,16 +261,14 @@ export class CartService {
   }
 
   handleLogin(): void {
-    // Récupérer le panier local
+    // Récupérer local cart
     const localCart = this.getLocalCart();
 
-    // Vérifier si l'utilisateur est authentifié
-    // Récupérer le panier de la base de données
+    // Retrieve cart from db
     this.getDBCart().subscribe({
       next: dbCommandLines => {
         if (localCart.length > 0 && dbCommandLines.length > 0) {
-          console.log('🔊 ~ CartService ~ UN LOCAL ET UNE COMMANDE');
-          // Fusionner les paniers : ajouter les articles locaux au panier DB
+          // merge local and db cart
           const mergedCart = [...dbCommandLines];
 
           localCart.forEach(localItem => {
@@ -286,76 +282,62 @@ export class CartService {
           });
 
           // TODO HANDLE THIS SERVER SIDE
-          // Supprimer les identifiants de toutes les lignes dans mergedCart
           const mergedCartWithoutIds = mergedCart.map(item => {
-            return { ...item, id: null }; // Réinitialiser l'id pour toutes les lignes
+            return { ...item, id: null }; // Remove ids
           });
 
-          console.log('🔊 ~ CartService ~ this.getDBCart ~ mergedCart:', mergedCart);
-
-          // Envoyer le panier fusionné à la base de données
+          // Send DB cart
           this.purchaseCommandService.updateCart(mergedCartWithoutIds).subscribe({
             next: () => {
               this.getDBCart().subscribe({
                 next: updatedCart => {
-                  // Mise à jour du panier local avec le panier actualisé de la base de données
                   this.cart = updatedCart;
                   this.cartItemsCount.next(this.getCartTotalItems());
-                  console.log('Cart updated from DB after merge:', updatedCart);
+
+                  this.cartSynchMessageService.sendMessage({
+                    severity: 'info',
+                    summary: 'Fusion des paniers',
+                    detail: 'Votre panier courant a été fusionné avec le panier de votre compte',
+                  });
                 },
                 error: err => {
                   console.error('Error fetching updated cart from DB:', err);
                 },
               });
-
-              // this.messageService.add({
-              //   severity: 'info',
-              //   summary: 'Fusion des paniers',
-              //   detail: 'Votre panier courant a été fusionné avec le panier de votre compte',
-              // });
             },
             error: err => console.error('Error updating cart in DB:', err),
           });
         } else if (localCart.length > 0) {
-          console.log('🔊 ~ CartService ~ UNIQUEMENT DU LOCAL');
-
-          // Panier local uniquement, ajouter au panier DB
           this.purchaseCommandService.updateCart(localCart).subscribe({
             next: () => {
               this.getDBCart().subscribe({
                 next: updatedCart => {
-                  // Mise à jour du panier local avec le panier actualisé de la base de données
                   this.cart = updatedCart;
                   this.cartItemsCount.next(this.getCartTotalItems());
-                  console.log('Cart updated on DB from local', updatedCart);
+                  this.cartSynchMessageService.sendMessage({
+                    severity: 'info',
+                    summary: 'Association du panier',
+                    detail: 'Votre panier courrant a été associé à votre compte',
+                  });
                 },
                 error: err => {
                   console.error('Error fetching updated cart from DB:', err);
                 },
               });
-
-              // Réinitialiser le panier local après ajout
-
-              // this.messageService.add({
-              //   severity: 'info',
-              //   summary: 'Association du panier',
-              //   detail: 'Votre panier courrant a été associé à votre compte',
-              // });
             },
             error: err => console.error('Error adding local cart to DB:', err),
           });
         } else if (dbCommandLines.length > 0) {
           console.log('🔊 ~ CartService ~ PAS DE LOCAL ET UNE DB');
 
-          // Panier DB uniquement, mettre à jour le panier local
           this.cart = dbCommandLines;
           this.cartItemsCount.next(this.getCartTotalItems());
 
-          // this.messageService.add({
-          //   severity: 'info',
-          //   summary: 'Récupération du panier',
-          //   detail: 'Le panier associé à votre compte a été récupéré',
-          // });
+          this.cartSynchMessageService.sendMessage({
+            severity: 'info',
+            summary: 'Récupération du panier',
+            detail: 'Le panier associé à votre compte a été récupéré',
+          });
         }
       },
       error: err => console.error('Error retrieving DB cart:', err),
