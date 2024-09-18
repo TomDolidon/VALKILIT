@@ -6,6 +6,9 @@
     "quantity": "Quantity",
     "sub-total": "Sub Total",
     "total": "Total ({{count}} books in your cart) : {{count2}}",
-    "empty-cart": "Empty my cart"
+    "emptyTheCart": "Empty the cart",
+    "validateTheCart": "Validate the cart",
+    "emptyTheCartConfirmationMessage": "Are you sure you want to empty the cart?",
+    "removeItemFromCartConfirmationMessage": "Are you sure you want to remove the book \"{{title}}\" from your cart?"
   }
 }

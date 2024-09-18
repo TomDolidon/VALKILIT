@@ -7,18 +7,19 @@ import { DialogModule } from 'primeng/dialog';
 import { LoginService } from 'app/login/login.service';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { FormsModule } from '@angular/forms';
-import { TranslateService } from '@ngx-translate/core';
+import { TranslateModule } from '@ngx-translate/core';
+import TranslateDirective from '../../shared/language/translate.directive';
+
 @Component({
   selector: 'jhi-cart-validation-btn',
   standalone: true,
-  imports: [ButtonModule, DialogModule, FormsModule, ReactiveFormsModule],
+  imports: [ButtonModule, DialogModule, FormsModule, ReactiveFormsModule, TranslateModule, TranslateDirective],
   templateUrl: './cart-validation-btn.component.html',
   styleUrl: './cart-validation-btn.component.scss',
   animations: [],
 })
 export class CartValidationButtonComponent {
   authenticationError = signal(false);
-  label = 'Valider le panier';
   account = false;
   visible = false;
   loginForm = new FormGroup({
@@ -26,19 +27,21 @@ export class CartValidationButtonComponent {
     password: new FormControl('', { nonNullable: true, validators: [Validators.required] }),
     rememberMe: new FormControl(false, { nonNullable: true, validators: [Validators.required] }),
   });
+
   private router = inject(Router);
   private accountService = inject(AccountService);
   private stageStorageService = inject(StateStorageService);
-  private translate = inject(TranslateService);
   private loginService = inject(LoginService);
 
   showDialog(): void {
     this.visible = true;
   }
+
   goToRegister(): void {
     this.stageStorageService.storeUrl('/cart');
     this.router.navigate(['account/register']);
   }
+
   identify(): void {
     this.loginService.login(this.loginForm.getRawValue()).subscribe({
       next: () => {
@@ -51,9 +54,9 @@ export class CartValidationButtonComponent {
       error: () => this.authenticationError.set(true),
     });
   }
+
   validate(): void {
     if (this.accountService.isAuthenticated()) {
-      // TODO METTRE LA BONE ROUTE ICI ET ENVOYER LE PANIER VERS LA BDD
       this.router.navigate(['/checkout']);
     } else {
       this.showDialog();

@@ -6,6 +6,9 @@
     "quantity": "Quantité",
     "sub-total": "Sous Total",
     "total": "Total ({{count}} livres dans votre panier) : {{count2}}",
-    "empty-cart": "Vider mon panier"
+    "emptyTheCart": "Vider le panier",
+    "validateTheCart": "Valider le panier",
+    "emptyTheCartConfirmationMessage": "Êtes-vous sûr de vouloir vider le panier ?",
+    "removeItemFromCartConfirmationMessage": "Êtes-vous sûr de vouloir retirer le livre \"{{title}}\" de votre panier ?"
   }
 }

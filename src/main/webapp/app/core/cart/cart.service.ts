@@ -1,8 +1,6 @@
-import { Injectable, signal } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import IBookCart from 'app/model/IBookCart';
-import { IPurchaseCommandLine } from 'app/entities/purchase-command-line/purchase-command-line.model';
-import { IPurchaseCommand } from 'app/entities/purchase-command/purchase-command.model';
 
 @Injectable({
   providedIn: 'root',

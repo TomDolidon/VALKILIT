@@ -1,15 +1,21 @@
 <div class="card flex justify-content-center">
-  <p-button (onClick)="validate()" label="Valider le panier" icon="pi pi-check" iconPos="right" />
-  <p-dialog [(visible)]="visible" [modal]="true" [style]="{ width: '25rem' }" header="Connectez-vous pour continuer">
+  <p-button (onClick)="validate()" label="{{ 'cart.validateTheCart' | translate }}" icon="pi pi-check" />
+  <p-dialog [(visible)]="visible" [modal]="true" [style]="{ width: '25rem' }" header="{{ 'login.signInToContinue' | translate }}">
     <form class="form" (ngSubmit)="identify()" [formGroup]="loginForm">
+      @if (authenticationError()) {
+        <div class="alert alert-danger" data-cy="loginError" jhiTranslate="login.messages.error.authentication">
+          <strong>Erreur d&apos;authentification !</strong> Veuillez vérifier vos identifiants de connexion.
+        </div>
+      }
+
       <div class="mb-3">
-        <label class="username-label" for="username">Nom d'utilisateur</label>
+        <label class="username-label" for="username" jhiTranslate="global.form.username.label">Nom d'utilisateur</label>
         <input
           type="text"
           class="form-control"
           name="username"
           id="username"
-          placeholder="Nom d'utilisateur"
+          placeholder="{{ 'global.form.username.placeholder' | translate }}"
           formControlName="username"
           #username
           data-cy="username"
@@ -17,13 +23,13 @@
       </div>
 
       <div class="mb-3">
-        <label for="password">Mot de passe</label>
+        <label for="password" jhiTranslate="global.form.password.label">Mot de passe</label>
         <input
           type="password"
           class="form-control"
           name="password"
           id="password"
-          placeholder="Mot de passe"
+          placeholder="{{ 'global.form.password.placeholder' | translate }}"
           formControlName="password"
           data-cy="password"
         />
@@ -37,15 +43,15 @@
       </div>
     </form>
     <div class="flex justify-content-end gap-2 mt-2">
-      <p-button (onClick)="identify()" label="Se connecter" styleClass="w-100" />
+      <p-button (onClick)="identify()" label="{{ 'login.form.button' | translate }}" styleClass="w-100" />
     </div>
     <div class="m-3">
       <div class="hr-with-text">
         <hr />
-        <span>ou bien</span>
+        <span jhiTranslate="login.orElse">ou bien</span>
         <hr />
       </div>
     </div>
-    <p-button (onClick)="goToRegister()" label="Créer un compte" severity="secondary" styleClass="w-100" />
+    <p-button (onClick)="goToRegister()" label="{{ 'login.createAnAccount' | translate }}" severity="secondary" styleClass="w-100" />
   </p-dialog>
 </div>
