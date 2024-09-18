@@ -6,6 +6,7 @@ import com.valkylit.repository.PurchaseCommandLineRepository;
 import com.valkylit.repository.PurchaseCommandRepository;
 import com.valkylit.security.SecurityUtils;
 import com.valkylit.service.dto.PurchaseCommandInvalidLineDTO;
+import com.valkylit.web.rest.errors.BadRequestAlertException;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.LockModeType;
 import jakarta.persistence.LockTimeoutException;
@@ -14,6 +15,12 @@ import java.time.Instant;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.*;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.NoSuchElementException;
+import java.util.Optional;
+import java.util.UUID;
 import org.hibernate.PessimisticLockException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -161,6 +168,25 @@ public class PurchaseCommandService {
         return purchaseCommandRepository.save(purchaseCommand);
     }
 
+    @Transactional
+    public PurchaseCommand updateCommandLineInCart(List<PurchaseCommandLine> purchaseCommandLines, Client client) {
+        PurchaseCommand purchaseCommand = findOrCreateCartForClient(client);
+
+        // remove all associated command lines
+        purchaseCommandLineRepository.deleteAllByPurchaseCommand(purchaseCommand);
+        List<PurchaseCommandLine> updatedLines = new ArrayList<>();
+        for (PurchaseCommandLine line : purchaseCommandLines) {
+            line.setPurchaseCommand(purchaseCommand);
+            // Ajouter la ligne de commande à une liste pour enregistrer ensuite
+            updatedLines.add(line);
+        }
+
+        // Enregistrer les lignes de commande mises à jour
+        purchaseCommandLineRepository.saveAll(updatedLines);
+
+        return purchaseCommandRepository.save(purchaseCommand);
+    }
+
     /**
      * Clear all items from the cart.
      * @param client the client whose cart needs to be cleared.
@@ -175,7 +201,7 @@ public class PurchaseCommandService {
         return purchaseCommandRepository.save(purchaseCommand);
     }
 
-    private PurchaseCommand findOrCreateCartForClient(Client client) {
+    public PurchaseCommand findOrCreateCartForClient(Client client) {
         // Check if a draft cart exists for the client
         return purchaseCommandRepository.findByClientAndStatus(client, PurchaseCommandStatus.DRAFT).orElseGet(() -> createNewCart(client));
     }

@@ -153,6 +153,12 @@ export class PurchaseCommandService {
       .pipe(map(res => this.convertResponseFromServer(res)));
   }
 
+  updateCart(purchaseCommandsLines: (IPurchaseCommandLine | NewPurchaseCommandLine)[]): Observable<HttpResponse<IPurchaseCommand>> {
+    return this.http.put<IPurchaseCommand>(`${this.resourceUrl}/self-current-draft/update-command-line`, purchaseCommandsLines, {
+      observe: 'response',
+    });
+  }
+
   protected convertDateFromClient<T extends IPurchaseCommand | NewPurchaseCommand | PartialUpdatePurchaseCommand>(
     purchaseCommand: T,
   ): RestOf<T> {

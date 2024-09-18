@@ -1,11 +1,17 @@
 import { inject, Injectable } from '@angular/core';
-import { BehaviorSubject, Observable } from 'rxjs';
 import { IPurchaseCommandLine, NewPurchaseCommandLine } from 'app/entities/purchase-command-line/purchase-command-line.model';
-import { HttpClient, HttpResponse } from '@angular/common/http';
 import { AccountService } from '../auth/account.service';
-import { PurchaseCommandService } from '../../entities/purchase-command/service/purchase-command.service';
+import { EntityResponseType } from 'app/entities/book/service/book.service';
+import { BehaviorSubject, Observable, of, switchMap } from 'rxjs';
+import { HttpClient, HttpResponse } from '@angular/common/http';
+
+import { catchError, map } from 'rxjs/operators'; // Ensure these are imported
+
 import { ApplicationConfigService } from '../config/application-config.service';
-import { IBook } from '../../entities/book/book.model';
+import { PurchaseCommandService } from 'app/entities/purchase-command/service/purchase-command.service';
+import { IPurchaseCommand } from 'app/entities/purchase-command/purchase-command.model';
+import { MessageService } from 'primeng/api';
+import { IBook } from 'app/entities/book/book.model';
 
 @Injectable({
   providedIn: 'root',
@@ -18,9 +24,12 @@ export class CartService {
 
   private purchaseCommandService = inject(PurchaseCommandService);
   private accountService = inject(AccountService);
+  // private messageService = inject(MessageService);
 
   private cart: (IPurchaseCommandLine | NewPurchaseCommandLine)[] = [];
   private cartItemsCount = new BehaviorSubject<number>(0);
+
+  // constructor(private messageService: MessageService) {}
 
   public getCartItemsCount(): Observable<number> {
     return this.cartItemsCount.asObservable();
@@ -32,7 +41,16 @@ export class CartService {
 
   public loadCart(): void {
     if (this.accountService.isAuthenticated()) {
-      this.getDBCart();
+      this.getDBCart().subscribe({
+        next: cartLines => {
+          // Update the cart property after getting data from the database
+          this.cart = cartLines;
+          this.cartItemsCount.next(this.getCartTotalItems());
+        },
+        error: () => {
+          // Handle error if needed
+        },
+      });
     } else {
       this.cart = this.getLocalCart();
       this.cartItemsCount.next(this.getCartTotalItems());
@@ -40,16 +58,20 @@ export class CartService {
   }
 
   /**
-   * Retrieve cart from localstorage
-   * @returns IPurchaseCommandLine
+   * Retrieve cart from the database
+   * @returns Observable<IPurchaseCommandLine[]>
    */
-  getDBCart(): void {
-    this.purchaseCommandService.getSelfCurrentDraftPurchaseCommand().subscribe({
-      next: (res: HttpResponse<any>) => {
-        this.cart = res.body.purchaseCommandLines as (IPurchaseCommandLine | NewPurchaseCommandLine)[];
-        this.cartItemsCount.next(this.getCartTotalItems());
-      },
-    });
+  getDBCart(): Observable<(IPurchaseCommandLine | NewPurchaseCommandLine)[]> {
+    return this.purchaseCommandService.getSelfCurrentDraftPurchaseCommand().pipe(
+      // Ensure that we return an array of IPurchaseCommandLine
+      map((res: HttpResponse<any>) => {
+        return (res.body.purchaseCommandLines as (IPurchaseCommandLine | NewPurchaseCommandLine)[]) || [];
+      }),
+      catchError(() => {
+        // Handle errors if needed
+        return of([]); // Return an empty array in case of error
+      }),
+    );
   }
 
   getLocalCart(): (IPurchaseCommandLine | NewPurchaseCommandLine)[] {
@@ -238,5 +260,110 @@ export class CartService {
   clearLocalStorageCart(): void {
     localStorage.removeItem(this.storageKey);
     this.cart = [];
+  }
+
+  handleLogin(): void {
+    // Récupérer le panier local
+    const localCart = this.getLocalCart();
+
+    // Vérifier si l'utilisateur est authentifié
+    // Récupérer le panier de la base de données
+    this.getDBCart().subscribe({
+      next: dbCommandLines => {
+        if (localCart.length > 0 && dbCommandLines.length > 0) {
+          console.log('🔊 ~ CartService ~ UN LOCAL ET UNE COMMANDE');
+          // Fusionner les paniers : ajouter les articles locaux au panier DB
+          const mergedCart = [...dbCommandLines];
+
+          localCart.forEach(localItem => {
+            const existingItem = mergedCart.find(item => item.book?.id === localItem.book?.id);
+
+            if (existingItem && existingItem.quantity && localItem.quantity) {
+              existingItem.quantity += localItem.quantity;
+            } else {
+              mergedCart.push(localItem);
+            }
+          });
+
+          // TODO HANDLE THIS SERVER SIDE
+          // Supprimer les identifiants de toutes les lignes dans mergedCart
+          const mergedCartWithoutIds = mergedCart.map(item => {
+            return { ...item, id: null }; // Réinitialiser l'id pour toutes les lignes
+          });
+
+          console.log('🔊 ~ CartService ~ this.getDBCart ~ mergedCart:', mergedCart);
+
+          // Envoyer le panier fusionné à la base de données
+          this.purchaseCommandService.updateCart(mergedCartWithoutIds).subscribe({
+            next: () => {
+              this.getDBCart().subscribe({
+                next: updatedCart => {
+                  // Mise à jour du panier local avec le panier actualisé de la base de données
+                  this.cart = updatedCart;
+                  this.cartItemsCount.next(this.getCartTotalItems());
+                  console.log('Cart updated from DB after merge:', updatedCart);
+                },
+                error: err => {
+                  console.error('Error fetching updated cart from DB:', err);
+                },
+              });
+
+              // this.messageService.add({
+              //   severity: 'info',
+              //   summary: 'Fusion des paniers',
+              //   detail: 'Votre panier courant a été fusionné avec le panier de votre compte',
+              // });
+            },
+            error: err => console.error('Error updating cart in DB:', err),
+          });
+        } else if (localCart.length > 0) {
+          console.log('🔊 ~ CartService ~ UNIQUEMENT DU LOCAL');
+
+          // Panier local uniquement, ajouter au panier DB
+          this.purchaseCommandService.updateCart(localCart).subscribe({
+            next: () => {
+              this.getDBCart().subscribe({
+                next: updatedCart => {
+                  // Mise à jour du panier local avec le panier actualisé de la base de données
+                  this.cart = updatedCart;
+                  this.cartItemsCount.next(this.getCartTotalItems());
+                  console.log('Cart updated on DB from local', updatedCart);
+                },
+                error: err => {
+                  console.error('Error fetching updated cart from DB:', err);
+                },
+              });
+
+              // Réinitialiser le panier local après ajout
+
+              // this.messageService.add({
+              //   severity: 'info',
+              //   summary: 'Association du panier',
+              //   detail: 'Votre panier courrant a été associé à votre compte',
+              // });
+            },
+            error: err => console.error('Error adding local cart to DB:', err),
+          });
+        } else if (dbCommandLines.length > 0) {
+          console.log('🔊 ~ CartService ~ PAS DE LOCAL ET UNE DB');
+
+          // Panier DB uniquement, mettre à jour le panier local
+          this.cart = dbCommandLines;
+          this.cartItemsCount.next(this.getCartTotalItems());
+
+          // this.messageService.add({
+          //   severity: 'info',
+          //   summary: 'Récupération du panier',
+          //   detail: 'Le panier associé à votre compte a été récupéré',
+          // });
+        }
+      },
+      error: err => console.error('Error retrieving DB cart:', err),
+    });
+  }
+
+  handleLogout() {
+    this.clearLocalStorageCart();
+    this.cartItemsCount.next(0);
   }
 }
