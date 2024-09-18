@@ -1,3 +1,10 @@
 .centered {
   text-align: center;
 }
+
+::ng-deep {
+  .p-stepper .p-stepper-header.p-highlight .p-stepper-number {
+    color: #fff;
+    border: 1px solid #fff;
+  }
+}
