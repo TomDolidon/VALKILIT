@@ -283,7 +283,6 @@ export class CartService {
             }
           });
 
-          // TODO HANDLE THIS SERVER SIDE
           const mergedCartWithoutIds = mergedCart.map(item => {
             return { ...item, id: null }; // Remove ids
           });
