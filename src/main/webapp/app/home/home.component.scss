@@ -91,6 +91,20 @@ $dark-color: #30333b;
   }
 }
 
+@media screen and (max-width: 426px) {
+  .h1-main {
+    font-size: 1.5em !important;
+  }
+
+  .content-text {
+    margin-left: 2% !important;
+  }
+
+  .section-recent-books {
+    display: none !important;
+  }
+}
+
 ::ng-deep {
   .p-carousel .p-carousel-content .p-carousel-prev,
   .p-carousel .p-carousel-content .p-carousel-next {

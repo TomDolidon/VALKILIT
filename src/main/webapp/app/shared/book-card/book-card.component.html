@@ -3,12 +3,12 @@
     <img [src]="book.imageUri | imageUrl" alt="{{ book.title }}" />
   </div>
   <div class="book-content d-flex flex-column">
-    <div class="d-flex justify-content-between">
+    <div class="book-content-flex d-flex justify-content-between mb-2">
       <h2 class="title" routerLink="/details/{{ book.id }}">{{ book.title }}</h2>
       <span class="price"> {{ book!.price }} €</span>
     </div>
 
-    <div class="book-categories d-flex align-items-center">
+    <div class="book-categories d-flex align-items-center mb-2">
       <p-chip *ngFor="let category of limitedCategories" [label]="category.name || ''" />
       <span *ngIf="book!.categories!.length > maxVisibleCategories">...</span>
     </div>
@@ -20,10 +20,10 @@
       <span *ngIf="book!.authors && book!.authors!.length > (maxVisibleAuthors || 0)">...</span>
     </div>
 
-    <div class="d-flex justify-content-end m-2">
+    <div class="d-flex justify-content-end mt-3">
       <div>
         <div *ngIf="!book.stock" class="text-danger text-sm bold m-1">Rupture de stock</div>
-        <p-button (onClick)="onBuyBookBtnClick()" [disabled]="!book.stock" icon="pi pi-cart-plus" label="Acheter" size="small" />
+        <p-button (onClick)="onBuyBookBtnClick()" [disabled]="!book.stock" icon="pi pi-cart-plus" label="Ajouter au panier" size="small" />
       </div>
     </div>
   </div>

@@ -12,10 +12,33 @@
     max-width: 95%;
     margin-right: 5%;
   }
+
+  @media screen and (max-width: 426px) {
+    .p-image,
+    img,
+    .p-image-preview-indicator {
+      margin-right: 0;
+      width: 100%;
+      max-width: 100%;
+    }
+  }
 }
 
 .p-carousel-container {
   .p-link:disabled .p-icon-wrapper {
     display: none;
+  }
+}
+
+::ng-deep {
+  @media screen and (max-width: 426px) {
+    .row {
+      flex-direction: column;
+    }
+
+    .col-9,
+    .col-3 {
+      width: 100%;
+    }
   }
 }

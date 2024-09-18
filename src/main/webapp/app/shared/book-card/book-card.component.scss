@@ -29,9 +29,34 @@ $dark-color: #30333b;
     align-items: center;
     justify-content: center;
 
+    @media screen and (min-width: 1001px) and (max-width: 1199px) {
+      flex: 0 0 50px;
+    }
+
+    @media screen and (max-width: 426px) {
+      flex: 0 0 50px;
+    }
+
+    ::ng-deep {
+      @media screen and (max-width: 769px) {
+        .generic-page-container,
+        .generic-page-container-transparent {
+          margin-left: 4%;
+          margin-right: 4%;
+          padding: 0.2rem 1rem 0.8rem 1rem !important;
+        }
+
+        .p-carousel-item {
+          .book-image {
+            display: none !important;
+          }
+        }
+      }
+    }
+
     img {
       width: 100%;
-      height: auto;
+      height: -webkit-fill-available;
       object-fit: cover;
       transition-duration: 0.3s;
 
@@ -47,6 +72,9 @@ $dark-color: #30333b;
     font-size: 17px;
     margin: 0;
     transition-duration: 0.3s;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 
     &:hover {
       cursor: pointer;
@@ -58,6 +86,10 @@ $dark-color: #30333b;
     font-size: 14px;
     color: #666;
     margin-top: 4px;
+    white-space: nowrap; /* Prevent the text from wrapping to the next line */
+    overflow: hidden; /* Hide the overflowing text */
+    text-overflow: ellipsis; /* Show the ellipsis (...) for the hidden text */
+    width: 100%;
   }
 
   .book-authors {
@@ -102,17 +134,25 @@ p {
 .price {
   font-weight: bold;
   color: $primary-color;
-}
-
-@media screen and (max-width: 700px) {
-  .book-image {
-    display: none !important;
-  }
+  white-space: nowrap;
+  word-wrap: normal;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 @media screen and (max-width: 1000px) {
-  .book-card {
+  :not(.p-carousel-item) .book-card {
     margin: 0.5rem 0;
     max-width: 100%;
+  }
+}
+
+::ng-deep {
+  @media screen and (max-width: 769px) {
+    .p-carousel-item {
+      .book-image {
+        display: none !important;
+      }
+    }
   }
 }
