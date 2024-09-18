@@ -27,7 +27,7 @@ export class PurchaseCommandsComponent {
     this.purchaseCommandsService.getSelfPurchaseCommands(true).subscribe({
       next: response => {
         this.purchaseCommands = response.body as IPurchaseCommandWithLines[];
-        this.purchaseCommands.reverse().filter(command => command.status !== 'DRAFT');
+        this.purchaseCommands = this.purchaseCommands.filter(command => command.status !== 'DRAFT').reverse();
       },
     });
   }
