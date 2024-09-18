@@ -20,6 +20,11 @@ public class BookSpecification {
                 predicates.add(authors.get("name").in(criteria.getAuthors()));
             }
 
+            if (criteria.getCategories() != null && !criteria.getCategories().isEmpty()) {
+                Join<Book, Author> authors = root.join("categories");
+                predicates.add(authors.get("name").in(criteria.getCategories()));
+            }
+
             if (criteria.getFormats() != null && !criteria.getFormats().isEmpty()) {
                 predicates.add(root.get("format").in(criteria.getFormats()));
             }

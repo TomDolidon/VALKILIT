@@ -3,6 +3,7 @@
     "filters": {
       "filterTheResults": "Filtrer les résultats",
       "authors": "Auteurs",
+      "categories": "Categories",
       "format": "Format",
       "priceRange": "Fourchette de prix"
     },

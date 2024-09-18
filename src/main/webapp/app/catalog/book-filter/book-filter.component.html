@@ -19,6 +19,24 @@
     </div>
   </div>
 
+  <div class="my-2 mt-4">
+    <div class="mt-4">
+      <p-floatLabel>
+        <p-autoComplete
+          id="category"
+          [dropdown]="true"
+          [multiple]="true"
+          [(ngModel)]="filter.categories"
+          field="name"
+          [suggestions]="filteredCategories"
+          (completeMethod)="filterCategories($event)"
+          (onSelect)="applyFilter()"
+        ></p-autoComplete>
+        <label for="author" jhiTranslate="catalog.filters.categories">Categories</label>
+      </p-floatLabel>
+    </div>
+  </div>
+
   <div class="my-4">
     <label for="format" class="mb-2" jhiTranslate="catalog.filters.format">Format</label>
     <div *ngFor="let enum of BookFormat | keyvalue" class="field-checkbox">

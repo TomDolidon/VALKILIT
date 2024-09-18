@@ -3,6 +3,7 @@
     "filters": {
       "filterTheResults": "Filter the results",
       "authors": "Authors",
+      "categories": "Categories",
       "format": "Format",
       "priceRange": "Price range"
     },
