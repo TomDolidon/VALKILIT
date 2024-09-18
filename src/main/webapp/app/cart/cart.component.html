@@ -23,17 +23,20 @@
 >
   <ng-template pTemplate="header">
     <tr>
-      <th pSortableColumn="book.title" style="width: 20%" jhiTranslate="cart.book">Livre <p-sortIcon field="book.title" /></th>
+      <th pSortableColumn="book.title" style="width: 25%" jhiTranslate="cart.book">Livre <p-sortIcon field="book.title" /></th>
       <th pSortableColumn="book.price" style="width: 20%" jhiTranslate="cart.price">Prix <p-sortIcon field="book.price" /></th>
       <th pSortableColumn="quantity" style="width: 20%" jhiTranslate="cart.quantity">Quantité <p-sortIcon field="quantity" /></th>
-      <th pSortableColumn="sub_total" style="width: 20%" jhiTranslate="cart.sub-total">Sous Total <p-sortIcon field="sub_total" /></th>
+      <th style="width: 20%" jhiTranslate="cart.sub-total">Sous Total</th>
       <th style="width: 5%"></th>
     </tr>
   </ng-template>
   <ng-template pTemplate="body" let-line>
     <tr>
       <td>
-        <a routerLink="/details/{{ line.book!.id }}">{{ line.book?.title }}</a>
+        <div class="book-title-cov d-flex justify-content-between align-items-center">
+          <a routerLink="/details/{{ line.book!.id }}">{{ line.book?.title }}</a>
+          <img [src]="line.book.imageUri | imageUrl" alt="{{ line.book.title }}" width="100%" height="90%" />
+        </div>
       </td>
       <td>{{ line.book?.price | currency: 'EUR' }}</td>
       <td>
