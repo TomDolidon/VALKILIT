@@ -1,6 +1,7 @@
 @import 'bootstrap/scss/functions';
 @import 'bootswatch/dist/zephyr/variables';
 @import 'bootstrap/scss/variables';
+@import '../../../content/scss/variables';
 
 /* ==========================================================================
 Navbar
@@ -16,15 +17,15 @@ Navbar
   width: 1.75em;
 }
 
-$primary-color: #9e573f;
-$primary-color-hover: #c17d65;
+// $primary: #9e573f;
+$primary-hover: #c17d65;
 
 ::ng-deep {
   .p-menubar {
-    background-color: $primary-color;
+    background-color: $primary;
 
     .p-menuitem:not(.p-highlight):not(.p-disabled).p-focus > .p-menuitem-content {
-      background: $primary-color-hover;
+      background: $primary-hover;
     }
 
     :not(.p-menubar-mobile-active) .p-menubar-root-list {
@@ -35,7 +36,7 @@ $primary-color-hover: #c17d65;
     }
 
     .p-menuitem-content:hover {
-      background-color: $primary-color-hover;
+      background-color: $primary-hover;
     }
   }
 
@@ -54,7 +55,7 @@ $primary-color-hover: #c17d65;
 }
 
 .navbar {
-  background-color: $primary-color;
+  background-color: $primary;
   padding: 0.2rem 1rem;
   .dropdown-item.active,
   .dropdown-item.active:focus,
@@ -88,7 +89,7 @@ $primary-color-hover: #c17d65;
 }
 
 .cart-badge {
-  background-color: rgb(73, 73, 88);
+  background-color: $dark;
   color: white;
   border-radius: 50%;
   font-weight: bold;

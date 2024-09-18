@@ -1,9 +1,4 @@
-// Palette de couleurs
-$primary-color: #9e573f;
-$secondary-color: #85868a;
-$light-color: #e8e9e1;
-$accent-color: #bd607d;
-$dark-color: #30333b;
+@import '../../../content/scss/variables';
 
 // Styles généraux pour la section de contact
 .contact {
@@ -16,7 +11,7 @@ $dark-color: #30333b;
   }
 
   .title {
-    color: $primary-color;
+    color: $primary;
     font-size: 2rem;
     margin-bottom: 1.5rem;
   }
@@ -28,21 +23,21 @@ $dark-color: #30333b;
       display: block;
       margin-bottom: 0.5rem;
       font-weight: bold;
-      color: $dark-color;
+      color: $dark;
     }
 
     .form-control {
       width: 100%;
       padding: 0.75rem;
-      border: 1px solid $secondary-color;
+      border: 1px solid $secondary;
       border-radius: 4px;
       font-size: 1rem;
       box-sizing: border-box;
 
       &:focus {
-        border-color: $primary-color;
+        border-color: $primary;
         outline: none;
-        box-shadow: 0 0 0 0.2rem rgba($primary-color, 0.25);
+        box-shadow: 0 0 0 0.2rem rgba($primary, 0.25);
       }
     }
 
@@ -52,13 +47,13 @@ $dark-color: #30333b;
     }
 
     .error-message {
-      color: #f44336;
+      color: $danger;
       font-size: 0.875rem;
       margin-top: 10px;
     }
 
     .success-message {
-      color: $primary-color;
+      color: $primary;
       font-size: 1rem;
       margin-top: 1rem;
     }
@@ -73,16 +68,16 @@ $dark-color: #30333b;
     font-weight: bold;
     text-align: center;
     color: #fff;
-    background-color: $primary-color;
+    background-color: $primary;
     cursor: pointer;
     transition: background-color 0.3s ease;
 
     &:hover {
-      background-color: darken($primary-color, 10%);
+      background-color: darken($primary, 10%);
     }
 
     &:disabled {
-      background-color: $secondary-color;
+      background-color: $secondary;
       cursor: not-allowed;
     }
   }

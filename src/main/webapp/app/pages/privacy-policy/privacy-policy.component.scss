@@ -1,9 +1,4 @@
-// Variables
-$primary-color: #9e573f;
-$secondary-color: #85868a;
-$light-color: #e8e9e1;
-$accent-color: #bd607d;
-$dark-color: #30333b;
+@import '../../../content/scss/variables';
 
 .privacy-policy {
   padding: 4rem;
@@ -17,25 +12,25 @@ $dark-color: #30333b;
   }
 
   .title {
-    color: $primary-color;
+    color: $primary;
     font-size: 2.5em;
     margin-bottom: 10px;
   }
 
   .subtitle {
-    color: $dark-color;
+    color: $dark;
     font-size: 1.2em;
     margin-bottom: 30px;
   }
 
   h2 {
-    color: $primary-color;
+    color: $primary;
     margin-top: 30px;
     font-size: 1.5em;
   }
 
   p {
-    color: $dark-color;
+    color: $dark;
     line-height: 1.6;
     margin-bottom: 15px;
   }
@@ -62,6 +57,6 @@ $dark-color: #30333b;
     display: block;
     text-align: center;
     margin-top: 20px;
-    color: $secondary-color;
+    color: $secondary;
   }
 }

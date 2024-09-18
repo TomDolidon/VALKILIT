@@ -1,8 +1,4 @@
-$primary-color: #9e573f;
-$secondary-color: #85868a;
-$light-color: #e8e9e1;
-$accent-color: #bd607d;
-$dark-color: #30333b;
+@import '../../../content/scss/variables';
 
 :host {
   ::ng-deep .p-chip {
@@ -133,7 +129,7 @@ p {
 
 .price {
   font-weight: bold;
-  color: $primary-color;
+  color: $primary;
   white-space: nowrap;
   word-wrap: normal;
   overflow: hidden;

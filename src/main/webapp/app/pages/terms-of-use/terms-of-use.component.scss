@@ -1,8 +1,4 @@
-$primary-color: #9e573f;
-$secondary-color: #85868a;
-$light-color: #e8e9e1;
-$accent-color: #bd607d;
-$dark-color: #30333b;
+@import '../../../content/scss/variables';
 
 body {
   font-family: Arial, sans-serif;
@@ -20,13 +16,13 @@ body {
   }
 
   .title {
-    color: $primary-color;
+    color: $primary;
     font-size: 2.5em;
     margin-bottom: 20px;
   }
 
   h2 {
-    color: $primary-color;
+    color: $primary;
     margin-top: 30px;
   }
 
@@ -40,13 +36,13 @@ body {
   }
 
   p {
-    color: $dark-color;
+    color: $dark;
     line-height: 1.6;
     margin-bottom: 15px;
   }
 
   strong {
-    color: $primary-color;
+    color: $primary;
   }
 
   ul {
@@ -55,11 +51,11 @@ body {
     margin-bottom: 20px;
 
     li {
-      color: $dark-color;
+      color: $dark;
     }
   }
 
   small {
-    color: $secondary-color;
+    color: $secondary;
   }
 }
