@@ -32,7 +32,9 @@
   </ng-template>
   <ng-template pTemplate="body" let-line>
     <tr>
-      <td>{{ line.book?.title }}</td>
+      <td>
+        <a routerLink="/details/{{ line.book!.id }}">{{ line.book?.title }}</a>
+      </td>
       <td>{{ line.book?.price | currency: 'EUR' }}</td>
       <td>
         <div class="quantity-control d-flex">
