@@ -2,7 +2,7 @@
   "catalog": {
     "filters": {
       "filterTheResults": "Filter the results",
-      "author": "Author",
+      "authors": "Authors",
       "categories": "Categories",
       "format": "Format",
       "priceRange": "Price range",

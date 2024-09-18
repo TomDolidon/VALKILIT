@@ -22,6 +22,7 @@ import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
 import { InputGroupModule } from 'primeng/inputgroup';
 import { IconFieldModule } from 'primeng/iconfield';
 import { InputIconModule } from 'primeng/inputicon';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   standalone: true,
@@ -72,6 +73,7 @@ export class BookFilterComponent {
   constructor(
     private authorService: AuthorService,
     private categoryService: BookCategoryService,
+    private route: ActivatedRoute,
   ) {}
 
   /**
@@ -95,13 +97,32 @@ export class BookFilterComponent {
 
   private loadCategories(): void {
     this.categoryService.query().subscribe({
-      next: (res: HttpResponse<IAuthor[]>) => {
+      next: (res: HttpResponse<IBookCategory[]>) => {
         this.categories = res.body || [];
+        this.route.queryParams.subscribe(params => {
+          const categoryName = params['category'];
+          if (categoryName) {
+            this.applyCategoryFilter(categoryName);
+          }
+        });
       },
       error: () => {
-        console.error('Error loading authors');
+        console.error('Erreur lors du chargement des catégories');
       },
     });
+  }
+
+  /**
+   * Apply category filter by searching by name.
+   */
+  private applyCategoryFilter(categoryName: string): void {
+    const matchedCategory = this.categories.find(category => category.name.toLowerCase() === categoryName.toLowerCase());
+    if (matchedCategory) {
+      this.filter.categories = [matchedCategory];
+      this.applyFilter();
+    } else {
+      console.warn('Aucune catégorie correspondante trouvée pour:', categoryName);
+    }
   }
 
   filterAuthors(event: any): void {
