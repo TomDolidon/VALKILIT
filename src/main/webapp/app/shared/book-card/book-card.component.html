@@ -9,7 +9,12 @@
     </div>
 
     <div class="book-categories d-flex align-items-center mb-2">
-      <p-chip *ngFor="let category of limitedCategories" [label]="category.name || ''" />
+      <p-chip
+        *ngFor="let category of limitedCategories"
+        [label]="category.name || ''"
+        [queryParams]="{ category: category.name }"
+        routerLink="/catalog"
+      />
       <span *ngIf="book!.categories!.length > maxVisibleCategories">...</span>
     </div>
 

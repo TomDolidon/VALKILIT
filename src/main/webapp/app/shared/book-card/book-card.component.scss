@@ -8,6 +8,10 @@ $dark-color: #30333b;
   ::ng-deep .p-chip {
     font-size: 12px;
     margin-right: 0.5em;
+
+    &:hover {
+      cursor: pointer;
+    }
   }
 }
 

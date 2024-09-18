@@ -10,7 +10,13 @@
       <h1 class="mb-1">{{ book.title }}</h1>
       <h3 class="mt-0 mb-2">{{ book.subtitle }} • {{ getAuthorNames() }}</h3>
       <div class="book-categories mb-4">
-        <p-chip *ngFor="let category of book.categories" [label]="category.name || ''" routerLink="/catalog/" styleClass="mt-1 mr-1 mb-1" />
+        <p-chip
+          *ngFor="let category of book.categories"
+          [label]="category.name || ''"
+          [queryParams]="{ category: category.name }"
+          routerLink="/catalog"
+          styleClass="mt-1 mr-1 mb-1"
+        />
       </div>
 
       <div class="text-bold mt-2 mb-2">Résumé</div>
