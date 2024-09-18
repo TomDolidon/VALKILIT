@@ -13,7 +13,7 @@
     <div class="mt-2">Total : {{ getPurchaseCommandTotal(purchaseCommand) | currency: 'EUR' }}</div>
 
     <h4 class="bold mb-2">Adresse de livraison</h4>
-    <table>
+    <table *ngIf="purchaseCommand.deliveryAddress">
       <tr>
         <td class="pr-2">Adresse :</td>
         <td>{{ purchaseCommand.deliveryAddress?.street }}</td>
@@ -31,6 +31,7 @@
         <td>{{ purchaseCommand.deliveryAddress?.country }}</td>
       </tr>
     </table>
+    <div *ngIf="!purchaseCommand.deliveryAddress" class="text-danger">Informations indisponibles</div>
 
     <div class="mt-3">
       <p-tag icon="pi pi-info-circle" value="{{ 'global.purchaseCommand.status.' + purchaseCommand.status | translate }}"></p-tag>
@@ -38,4 +39,4 @@
   </p-accordionTab>
 </p-accordion>
 
-<div *ngIf="!purchaseCommands.length">Aucune commande à afficher pour le moment.</div>
+<div *ngIf="!purchaseCommands || !purchaseCommands.length" class="mb-4">Aucune commande à afficher pour le moment.</div>
