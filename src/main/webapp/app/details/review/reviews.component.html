@@ -5,7 +5,7 @@
     <span class="gold-book-img"></span>
   </div>
 
-  <div *ngIf="!selfReview" class="review-form p-4 d-flex flex-column align-items-center">
+  <div *ngIf="isAuthenticated && !selfReview" class="review-form p-4 d-flex flex-column align-items-center">
     <div>Ajoutez un commentaire pour ce livre</div>
     <form [formGroup]="reviewForm" (ngSubmit)="onSubmit()" class="mt-2 d-flex flex-column align-items-center">
       <div class="form-group d-flex flex-column align-items-center">
@@ -27,6 +27,8 @@
       <!-- <button type="submit" class="btn btn-primary" [disabled]="reviewForm.invalid">Submit Review</button> -->
     </form>
   </div>
+
+  <div *ngIf="!isAuthenticated">Connectez-vous pour ajouter un avis sur ce livre</div>
 
   <div *ngIf="selfReview">Merci pour votre commentaire !</div>
 
