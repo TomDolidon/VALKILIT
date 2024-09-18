@@ -1,0 +1,67 @@
+// Variables
+$primary-color: #9e573f;
+$secondary-color: #85868a;
+$light-color: #e8e9e1;
+$accent-color: #bd607d;
+$dark-color: #30333b;
+
+.privacy-policy {
+  padding: 4rem;
+
+  .container {
+    background-color: #fff;
+    padding: 20px;
+    max-width: 800px;
+    margin: 0 auto;
+    border-radius: 8px;
+  }
+
+  .title {
+    color: $primary-color;
+    font-size: 2.5em;
+    margin-bottom: 10px;
+  }
+
+  .subtitle {
+    color: $dark-color;
+    font-size: 1.2em;
+    margin-bottom: 30px;
+  }
+
+  h2 {
+    color: $primary-color;
+    margin-top: 30px;
+    font-size: 1.5em;
+  }
+
+  p {
+    color: $dark-color;
+    line-height: 1.6;
+    margin-bottom: 15px;
+  }
+
+  a {
+    color: $accent-color;
+    text-decoration: none;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+
+  ul {
+    margin: 10px 0;
+    padding-left: 20px;
+
+    li {
+      margin-bottom: 5px;
+    }
+  }
+
+  small {
+    display: block;
+    text-align: center;
+    margin-top: 20px;
+    color: $secondary-color;
+  }
+}

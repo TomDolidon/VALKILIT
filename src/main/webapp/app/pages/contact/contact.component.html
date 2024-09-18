@@ -1,0 +1,44 @@
+<section class="contact p-4">
+  <div class="container">
+    <h1 class="text-center title">Contactez-nous</h1>
+    <p class="text-center subtitle">Nous sommes là pour répondre à toutes vos questions !</p>
+
+    <div class="contact-details">
+      <h2>Coordonnées</h2>
+      <p><strong>Email :</strong> <a href="mailto:contact&#64;valkylit.com">contact&#64;valkylit.com</a></p>
+      <p><strong>Téléphone :</strong> +33 4 09 13 48 29</p>
+      <p><strong>Adresse :</strong> 12 Chemin de la Capuche, 38000 Grenoble, France</p>
+    </div>
+
+    <h2>Formulaire de Contact</h2>
+    <form [formGroup]="contactForm" (ngSubmit)="onSubmit()">
+      <div class="form-group">
+        <label for="name">Nom</label>
+        <input id="name" formControlName="name" type="text" class="form-control" placeholder="Votre nom" />
+        <div *ngIf="contactForm.get('name')?.invalid && contactForm.get('name')?.touched" class="error-message">Nom requis</div>
+      </div>
+
+      <div class="form-group">
+        <label for="email">Email</label>
+        <input id="email" formControlName="email" type="email" class="form-control" placeholder="Votre email" />
+        <div *ngIf="contactForm.get('email')?.invalid && contactForm.get('email')?.touched" class="error-message">
+          Email requis et doit être valide
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="subject">Objet</label>
+        <input id="subject" formControlName="subject" type="text" class="form-control" placeholder="Objet de votre message" />
+        <div *ngIf="contactForm.get('subject')?.invalid && contactForm.get('subject')?.touched" class="error-message">Objet requis</div>
+      </div>
+
+      <div class="form-group">
+        <label for="message">Message</label>
+        <textarea id="message" formControlName="message" class="form-control" placeholder="Votre message"></textarea>
+        <div *ngIf="contactForm.get('message')?.invalid && contactForm.get('message')?.touched" class="error-message">Message requis</div>
+      </div>
+
+      <button type="submit" class="btn btn-primary" [disabled]="contactForm.invalid">Envoyer</button>
+    </form>
+  </div>
+</section>
