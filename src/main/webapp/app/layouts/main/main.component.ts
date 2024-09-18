@@ -12,6 +12,7 @@ import { Message, MessageService } from 'primeng/api';
 import { NgIf } from '@angular/common';
 import { GenericPageComponent } from '../generic-page/generic-page.component';
 import { CartSynchMessageService } from 'app/core/cart/cart-synch-message.service';
+import { CartService } from 'app/core/cart/cart.service';
 
 @Component({
   standalone: true,
@@ -31,6 +32,7 @@ export default class MainComponent implements OnInit {
   private accountService = inject(AccountService);
   private translateService = inject(TranslateService);
   private rootRenderer = inject(RendererFactory2);
+  private cartService = inject(CartService);
   private cartSynchMessageService = inject(CartSynchMessageService);
   private messageService = inject(MessageService);
 
@@ -47,7 +49,12 @@ export default class MainComponent implements OnInit {
 
   ngOnInit(): void {
     // try to log in automatically
-    this.accountService.identity().subscribe();
+    this.accountService.identity().subscribe({
+      next: account => {
+        // On app init, retrieve cart
+        this.cartService.loadCart();
+      },
+    });
 
     this.translateService.onLangChange.subscribe((langChangeEvent: LangChangeEvent) => {
       this.appPageTitleStrategy.updateTitle(this.router.routerState.snapshot);
