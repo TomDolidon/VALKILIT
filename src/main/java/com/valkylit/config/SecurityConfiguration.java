@@ -1,7 +1,5 @@
 package com.valkylit.config;
 
-import static org.springframework.security.config.Customizer.withDefaults;
-
 import com.valkylit.security.AuthoritiesConstants;
 import com.valkylit.web.filter.SpaWebFilter;
 import org.springframework.context.annotation.Bean;
@@ -21,6 +19,8 @@ import org.springframework.security.web.header.writers.ReferrerPolicyHeaderWrite
 import org.springframework.security.web.servlet.util.matcher.MvcRequestMatcher;
 import org.springframework.web.servlet.handler.HandlerMappingIntrospector;
 import tech.jhipster.config.JHipsterProperties;
+
+import static org.springframework.security.config.Customizer.withDefaults;
 
 @Configuration
 @EnableMethodSecurity(securedEnabled = true)
@@ -72,6 +72,8 @@ public class SecurityConfiguration {
                     .requestMatchers(mvc.pattern(HttpMethod.GET, "/api/book**")).permitAll()
                     .requestMatchers(mvc.pattern(HttpMethod.GET, "/api/authors")).permitAll()
                     .requestMatchers(mvc.pattern(HttpMethod.GET, "/api/books/{id}")).permitAll()
+                    .requestMatchers(mvc.pattern(HttpMethod.GET, "/api/reviews/book/{id}")).permitAll()
+                    .requestMatchers(mvc.pattern(HttpMethod.GET, "/api/reviews/book/{id}/self")).permitAll()
                     .requestMatchers(mvc.pattern("/api/admin/**")).hasAuthority(AuthoritiesConstants.ADMIN)
                     .requestMatchers(mvc.pattern("/api/**")).authenticated()
                     .requestMatchers(mvc.pattern("/v3/api-docs/**")).hasAuthority(AuthoritiesConstants.ADMIN)
