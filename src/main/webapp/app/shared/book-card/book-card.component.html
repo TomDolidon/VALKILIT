@@ -27,8 +27,14 @@
 
     <div class="d-flex justify-content-end mt-3">
       <div>
-        <div *ngIf="!book.stock" class="text-danger text-sm bold m-1">Rupture de stock</div>
-        <p-button (onClick)="onBuyBookBtnClick()" [disabled]="!book.stock" icon="pi pi-cart-plus" label="Ajouter au panier" size="small" />
+        <p-button
+          (onClick)="onBuyBookBtnClick()"
+          *ngIf="book.stock"
+          icon="pi pi-cart-plus"
+          label="{{ 'cart.addToCart' | translate }}"
+          size="small"
+        />
+        <p-button *ngIf="!book.stock" [disabled]="true" icon="pi pi-cart-plus" label="{{ 'cart.outOfStock' | translate }}" size="small" />
       </div>
     </div>
   </div>
