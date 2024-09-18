@@ -1,7 +1,8 @@
+@import 'variables';
 @import 'bootstrap-variables';
 @import 'bootstrap/scss/functions';
 @import 'bootswatch/dist/zephyr/variables';
-@import 'bootstrap/scss/variables';
+// @import 'bootstrap/scss/variables';
 
 /* ==============================================================
 Bootstrap tweaks
@@ -239,11 +240,9 @@ body {
   font-family: 'Merriweather_Sans', sans-serif;
 }
 
-$light-color: #e8e9e1;
-
 body {
   margin: 0;
-  background-color: $light-color;
+  background-color: $light;
 }
 
 .app-container {

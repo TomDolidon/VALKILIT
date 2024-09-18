@@ -1,11 +1,7 @@
-$primary-color: #9e573f;
-$secondary-color: #85868a;
-$light-color: #e8e9e1;
-$accent-color: #bd607d;
-$dark-color: #30333b;
+@import '../../../content/scss/variables';
 
 .footer {
-  background-color: $dark-color;
+  background-color: $dark;
   line-height: 1.5 !important;
   font-size: 14px;
   color: #ffffff;
@@ -16,7 +12,7 @@ $dark-color: #30333b;
 
     &:hover {
       text-decoration: underline;
-      color: #e8e9e1;
+      color: $light;
     }
   }
 

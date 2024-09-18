@@ -14,11 +14,12 @@ import { DialogModule } from 'primeng/dialog';
 import { IBook } from 'app/entities/book/book.model';
 import { CartService } from 'app/core/cart/cart.service';
 import { IPurchaseCommandLine, NewPurchaseCommandLine } from 'app/entities/purchase-command-line/purchase-command-line.model';
+import { ImageUrlPipe } from 'app/shared/external-image/image-url.pipe';
 
 @Component({
   selector: 'jhi-cart',
   standalone: true,
-  imports: [SharedModule, RouterModule, TableModule, ButtonModule, FormsModule, CartValidationButtonComponent, DialogModule],
+  imports: [SharedModule, RouterModule, TableModule, ButtonModule, FormsModule, CartValidationButtonComponent, DialogModule, ImageUrlPipe],
   templateUrl: './cart.component.html',
   styleUrl: './cart.component.scss',
 })

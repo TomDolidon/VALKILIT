@@ -1,3 +1,10 @@
 .quantity-display {
   font-size: 20px;
 }
+
+.book-title-cov {
+  display: flex;
+  justify-content: space-between; /* Space between the title and image */
+  align-items: center; /* Vertical centering */
+  gap: 10px; /* Optional: add space between text and image */
+}

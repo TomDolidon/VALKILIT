@@ -10,6 +10,7 @@ import java.util.UUID;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
@@ -61,4 +62,8 @@ public interface PurchaseCommandLineRepository extends JpaRepository<PurchaseCom
         "select new com.valkylit.domain.PurchaseCommandLineTransaction(purchaseCommandLine.book.id, purchaseCommandLine.quantity) from PurchaseCommandLine purchaseCommandLine where purchaseCommandLine.purchaseCommand.id =:purchaseCommandId order by purchaseCommandLine.book.id ASC"
     )
     List<PurchaseCommandLineTransaction> getPurchaseCommandLinesBookIdAndQuantity(@Param("purchaseCommandId") UUID purchaseCommandId);
+
+    @Modifying
+    @Query("delete from PurchaseCommandLine pcl where pcl.purchaseCommand = :purchaseCommand")
+    void deleteAllByPurchaseCommand(@Param("purchaseCommand") PurchaseCommand purchaseCommand);
 }
