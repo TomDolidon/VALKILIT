@@ -1,8 +1,6 @@
 import { Component } from '@angular/core';
-import { ClientService } from '../../entities/client/service/client.service';
 import { IPurchaseCommandWithLines } from '../../entities/purchase-command/purchase-command.model';
 import { PurchaseCommandService } from '../../entities/purchase-command/service/purchase-command.service';
-import { UserService } from '../../entities/user/service/user.service';
 import { CurrencyPipe, DatePipe, NgForOf, NgIf } from '@angular/common';
 import { TranslateModule } from '@ngx-translate/core';
 import { AccordionModule } from 'primeng/accordion';
@@ -19,11 +17,7 @@ import { TagModule } from 'primeng/tag';
 export class PurchaseCommandsComponent {
   purchaseCommands!: IPurchaseCommandWithLines[];
 
-  constructor(
-    private clientService: ClientService,
-    private purchaseCommandsService: PurchaseCommandService,
-    private userService: UserService,
-  ) {
+  constructor(private purchaseCommandsService: PurchaseCommandService) {
     this.purchaseCommandsService.getSelfPurchaseCommands(true).subscribe({
       next: response => {
         this.purchaseCommands = response.body as IPurchaseCommandWithLines[];
