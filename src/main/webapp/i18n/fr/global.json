@@ -45,7 +45,8 @@
         "jhipster-needle-menu-add-admin-element": "JHipster will add additional menu entries here (do not translate!)"
       },
       "cart": "Panier",
-      "language": "Langue"
+      "language": "Langue",
+      "search-bar": "Recherchez un livre..."
     },
     "form": {
       "username.label": "Nom d'utilisateur",
@@ -59,7 +60,11 @@
       "confirmpassword.label": "Confirmation du nouveau mot de passe",
       "confirmpassword.placeholder": "Confirmation du nouveau mot de passe",
       "email.label": "Email",
-      "email.placeholder": "Votre email"
+      "email.placeholder": "Votre email",
+      "adress": "Adresse",
+      "postal-code": "Code postal",
+      "city": "Ville",
+      "country": "Pays"
     },
     "messages": {
       "info": {
@@ -173,6 +178,10 @@
       "could.not.extract": "Impossible d'extraire le fichier",
       "not.image": "Le fichier doit être une image et non du type \"{{ fileType }}\""
     }
+  },
+  "book-card": {
+    "no-stock": "Rupture de stock",
+    "add-button-cart": "Ajouter au panier"
   },
   "footer": {
     "tos": "Conditions Générales d'Utilisation",
