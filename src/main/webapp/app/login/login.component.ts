@@ -6,6 +6,7 @@ import SharedModule from 'app/shared/shared.module';
 import { LoginService } from 'app/login/login.service';
 import { AccountService } from 'app/core/auth/account.service';
 import { Button } from 'primeng/button';
+import { Location } from '@angular/common';
 
 @Component({
   standalone: true,
@@ -27,6 +28,7 @@ export default class LoginComponent implements OnInit, AfterViewInit {
   private accountService = inject(AccountService);
   private loginService = inject(LoginService);
   private router = inject(Router);
+  private location = inject(Location);
 
   ngOnInit(): void {
     // if already authenticated then navigate to home page
@@ -41,14 +43,12 @@ export default class LoginComponent implements OnInit, AfterViewInit {
     this.username().nativeElement.focus();
   }
 
-  // TODO MODIFIER ICI POUR REVENIR AU PANIER APRES LOGIN
   login(): void {
     this.loginService.login(this.loginForm.getRawValue()).subscribe({
       next: () => {
         this.authenticationError.set(false);
         if (!this.router.getCurrentNavigation()) {
-          // There were no routing during login (eg from navigationToStoredUrl)
-          this.router.navigate(['']);
+          this.location.back();
         }
       },
       error: () => this.authenticationError.set(true),

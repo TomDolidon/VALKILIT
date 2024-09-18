@@ -334,4 +334,17 @@ public class PurchaseCommandResource {
         PurchaseCommand purchaseCommand = purchaseCommandService.clearCart(client);
         return ResponseEntity.ok(purchaseCommand);
     }
+
+    @PutMapping("/self-current-draft/update-command-line")
+    public ResponseEntity<PurchaseCommand> updateCart(@Valid @RequestBody List<PurchaseCommandLine> purchaseCommandLines) {
+        String userLogin = SecurityUtils.getCurrentUserLogin()
+            .orElseThrow(() -> new BadRequestAlertException("User login not found", "user", "loginNotFound"));
+
+        Client client = clientRepository
+            .findOneWithToOneRelationshipsByUserLogin(userLogin)
+            .orElseThrow(() -> new BadRequestAlertException("Client not found", "client", "notFound"));
+
+        PurchaseCommand purchaseCommand = purchaseCommandService.updateCommandLineInCart(purchaseCommandLines, client);
+        return ResponseEntity.ok(purchaseCommand);
+    }
 }

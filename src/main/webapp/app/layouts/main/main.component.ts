@@ -8,9 +8,11 @@ import { AppPageTitleStrategy } from 'app/app-page-title-strategy';
 import FooterComponent from '../footer/footer.component';
 import PageRibbonComponent from '../profiles/page-ribbon.component';
 import { ToastModule } from 'primeng/toast';
-import { MessageService } from 'primeng/api';
+import { Message, MessageService } from 'primeng/api';
 import { NgIf } from '@angular/common';
 import { GenericPageComponent } from '../generic-page/generic-page.component';
+import { CartSynchMessageService } from 'app/core/cart/cart-synch-message.service';
+import { CartService } from 'app/core/cart/cart.service';
 
 @Component({
   standalone: true,
@@ -30,6 +32,9 @@ export default class MainComponent implements OnInit {
   private accountService = inject(AccountService);
   private translateService = inject(TranslateService);
   private rootRenderer = inject(RendererFactory2);
+  private cartService = inject(CartService);
+  private cartSynchMessageService = inject(CartSynchMessageService);
+  private messageService = inject(MessageService);
 
   constructor() {
     this.renderer = this.rootRenderer.createRenderer(document.querySelector('html'), null);
@@ -44,12 +49,21 @@ export default class MainComponent implements OnInit {
 
   ngOnInit(): void {
     // try to log in automatically
-    this.accountService.identity().subscribe();
+    this.accountService.identity().subscribe({
+      next: account => {
+        // On app init, retrieve cart
+        this.cartService.loadCart();
+      },
+    });
 
     this.translateService.onLangChange.subscribe((langChangeEvent: LangChangeEvent) => {
       this.appPageTitleStrategy.updateTitle(this.router.routerState.snapshot);
       dayjs.locale(langChangeEvent.lang);
       this.renderer.setAttribute(document.querySelector('html'), 'lang', langChangeEvent.lang);
+    });
+
+    this.cartSynchMessageService.message$.subscribe((message: Message) => {
+      this.messageService.add(message);
     });
   }
 }
