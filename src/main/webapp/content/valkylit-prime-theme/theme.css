@@ -1,4 +1,8 @@
 :root {
+  --primary-color: #721b1b;
+  --primary-light-color: #933636;
+  --dark-color: #16161d;
+  --danger-color: #f44336;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
     'Segoe UI Symbol';
   --font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
@@ -11,12 +15,7 @@
   --surface-f: #ffffff;
   --text-color: #495057;
   --text-color-secondary: #6c757d;
-  --primary-color: #9e573f;
-  --primary-color-on-hover: #c17d65;
-  --primary-color-active: #a16954;
   --primary-color-text: #ffffff;
-  --primary-color: #9e573f;
-  --danger-color: #f44336;
   --surface-0: #ffffff;
   --surface-50: #fafafa;
   --surface-100: #f5f5f5;
@@ -48,9 +47,9 @@
   --surface-border: #dee2e6;
   --surface-hover: #e9ecef;
   --maskbg: rgba(0, 0, 0, 0.4);
-  --highlight-bg: #c17d65;
-  --highlight-text-color: #495057;
-  --focus-ring: 0 0 0 0.2rem #b7e0b8;
+  --highlight-bg: #721b1b;
+  --highlight-text-color: #0080ff;
+  --focus-ring: 0 0 0 0.2rem #00ff04;
   color-scheme: light;
 }
 
@@ -1339,7 +1338,7 @@
     background: #ffffff;
   }
   .p-inputswitch.p-inputswitch-checked:not(.p-disabled):hover .p-inputswitch-slider {
-    background: var(--primary-color-on-hover);
+    background: var(--primary-light-color);
   }
 
   p-inputswitch.ng-dirty.ng-invalid > .p-inputswitch > .p-inputswitch-slider {
@@ -1940,8 +1939,8 @@
     color: #ffffff;
   }
   .p-selectbutton .p-button.p-highlight:hover {
-    background: var(--primary-color-on-hover);
-    border-color: var(--primary-color-on-hover);
+    background: var(--primary-light-color);
+    border-color: var(--primary-light-color);
     color: #ffffff;
   }
   .p-selectbutton .p-button.p-highlight:hover .p-button-icon-left,
@@ -2055,8 +2054,8 @@
     color: #ffffff;
   }
   .p-togglebutton.p-button.p-highlight:hover {
-    background: var(--primary-color-on-hover);
-    border-color: var(--primary-color-on-hover);
+    background: var(--primary-light-color);
+    border-color: var(--primary-light-color);
     color: #ffffff;
   }
   .p-togglebutton.p-button.p-highlight:hover .p-button-icon-left,
@@ -2229,12 +2228,12 @@
     outline-color: transparent;
   }
   .p-button:not(:disabled):hover {
-    background: var(--primary-color-on-hover);
+    background: var(--primary-light-color);
     color: #ffffff;
-    border-color: var(--primary-color-on-hover);
+    border-color: var(--primary-light-color);
   }
   .p-button:not(:disabled):active {
-    background: var(--primary-color-active);
+    background: var(--primary-light-color);
     color: #ffffff;
     border-color: var(--primary-color-actove);
   }
@@ -2584,7 +2583,7 @@
   .p-button.p-button-warning,
   .p-button-group.p-button-warning > .p-button,
   .p-splitbutton.p-button-warning > .p-button {
-    color: #212529;
+    color: var(--dark-color);
     background: #fbc02d;
     border: 1px solid #fbc02d;
   }
@@ -2592,7 +2591,7 @@
   .p-button-group.p-button-warning > .p-button:not(:disabled):hover,
   .p-splitbutton.p-button-warning > .p-button:not(:disabled):hover {
     background: #fab710;
-    color: #212529;
+    color: var(--dark-color);
     border-color: #fab710;
   }
   .p-button.p-button-warning:not(:disabled):focus,
@@ -2604,7 +2603,7 @@
   .p-button-group.p-button-warning > .p-button:not(:disabled):active,
   .p-splitbutton.p-button-warning > .p-button:not(:disabled):active {
     background: #e8a704;
-    color: #212529;
+    color: var(--dark-color);
     border-color: #e8a704;
   }
   .p-button.p-button-warning.p-button-outlined,
@@ -3612,7 +3611,7 @@
   .p-paginator .p-paginator-pages .p-paginator-page.p-highlight {
     background: var(--highlight-bg);
     border-color: var(--highlight-bg);
-    color: #495057;
+    color: #faf6f9;
   }
   .p-paginator .p-paginator-pages .p-paginator-page:not(.p-highlight):hover {
     background: #e9ecef;
@@ -4847,7 +4846,7 @@
     right: -1rem;
   }
   .p-overlaypanel .p-overlaypanel-close:enabled:hover {
-    background: var(--primary-color-on-hover);
+    background: var(--primary-light-color);
     color: #ffffff;
   }
   .p-overlaypanel:after {
@@ -4978,9 +4977,9 @@
   }
 
   .p-fileupload-choose:not(.p-disabled):hover {
-    background: var(--primary-color-on-hover);
+    background: var(--primary-light-color);
     color: #ffffff;
-    border-color: var(--primary-color-on-hover);
+    border-color: var(--primary-light-color);
   }
   .p-fileupload-choose:not(.p-disabled):active {
     background: #3d8c40;
@@ -6671,7 +6670,7 @@
   }
   .p-badge.p-badge-warning {
     background-color: #fbc02d;
-    color: #212529;
+    color: var(--dark-color);
   }
   .p-badge.p-badge-danger {
     background-color: var(--danger-color);
@@ -6915,7 +6914,7 @@
   }
   .p-tag.p-tag-warning {
     background-color: #fbc02d;
-    color: #212529;
+    color: var(--dark-color);
   }
   .p-tag.p-tag-danger {
     background-color: var(--danger-color);

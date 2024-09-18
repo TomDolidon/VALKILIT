@@ -1,9 +1,11 @@
+@import '../../../content/scss/variables';
+
 .faq-section {
   // background-color: #e8e9e1;
   // padding: 2rem;
 
   h1 {
-    color: #9e573f;
+    color: $primary;
   }
 
   p {
@@ -12,7 +14,7 @@
   }
 
   p-accordionTab {
-    background-color: #e8e9e1;
+    background-color: $light;
     color: #30333b;
 
     a {
