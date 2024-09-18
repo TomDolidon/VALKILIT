@@ -17,6 +17,8 @@ import { CarouselModule } from 'primeng/carousel';
 import { CartService } from 'app/core/cart/cart.service';
 import { ImageUrlPipe } from 'app/shared/external-image/image-url.pipe';
 import ReviewsComponent from './review/reviews.component';
+import { Location } from '@angular/common';
+import { ButtonModule } from 'primeng/button';
 
 @Component({
   selector: 'jhi-details',
@@ -36,6 +38,7 @@ import ReviewsComponent from './review/reviews.component';
     CarouselModule,
     ImageUrlPipe,
     ReviewsComponent,
+    ButtonModule,
   ],
   templateUrl: './details.component.html',
   styleUrl: './details.component.scss',
@@ -50,6 +53,7 @@ export default class DetailsComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private cartService: CartService,
+    private location: Location,
   ) {}
 
   ngOnInit(): void {
@@ -128,5 +132,9 @@ export default class DetailsComponent implements OnInit {
 
   getFirstAuthor(): IAuthor | null {
     return this.book.authors?.length ? this.book.authors[0] : null;
+  }
+
+  goBack(): void {
+    this.location.back();
   }
 }
