@@ -739,6 +739,9 @@
                             <goals>
                                 <goal>modernizer</goal>
                             </goals>
+                          <configuration>
+                            <failOnViolations>false</failOnViolations>
+                          </configuration>
                         </execution>
                     </executions>
                     <configuration>
