@@ -13,8 +13,28 @@
           [suggestions]="filteredAuthors"
           (completeMethod)="filterAuthors($event)"
           (onSelect)="applyFilter()"
+          (onUnselect)="applyFilter()"
         ></p-autoComplete>
         <label for="author" jhiTranslate="catalog.filters.authors">Auteurs</label>
+      </p-floatLabel>
+    </div>
+  </div>
+
+  <div class="my-2 mt-4">
+    <div class="mt-4">
+      <p-floatLabel>
+        <p-autoComplete
+          id="category"
+          [dropdown]="true"
+          [multiple]="true"
+          [(ngModel)]="filter.categories"
+          field="name"
+          [suggestions]="filteredCategories"
+          (completeMethod)="filterCategories($event)"
+          (onSelect)="applyFilter()"
+          (onUnselect)="applyFilter()"
+        ></p-autoComplete>
+        <label for="author" jhiTranslate="catalog.filters.categories">Categories</label>
       </p-floatLabel>
     </div>
   </div>
@@ -43,5 +63,9 @@
       ><span jhiTranslate="catalog.from">De</span> {{ filter.priceRange[0] }} € <span jhiTranslate="catalog.toMin">à</span>
       {{ filter.priceRange[1] }} €</span
     >
+  </div>
+
+  <div class="mt-4">
+    <p-button (click)="resetFilters()" label="Vider les filtres" severity="danger"></p-button>
   </div>
 </div>
