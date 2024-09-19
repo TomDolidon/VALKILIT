@@ -24,6 +24,15 @@
           </div>
         </li>
 
+        <li class="nav-item" routerLinkActive="active">
+          <a class="nav-link" routerLink="/catalog" (click)="collapseNavbar()">
+            <span class="cart-text">
+              <fa-icon icon="th-list"></fa-icon>
+              <span jhiTranslate="global.menu.catalog">Catalogue</span>
+            </span>
+          </a>
+        </li>
+
         <li class="nav-item" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
           <a class="nav-link" routerLink="/cart" (click)="collapseNavbar()">
             <span class="cart-text">
