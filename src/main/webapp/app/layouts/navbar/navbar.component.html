@@ -55,6 +55,7 @@
         @if (account() !== null) {
           <li
             ngbDropdown
+            *jhiHasAnyAuthority="'ROLE_ADMIN'"
             class="nav-item dropdown pointer"
             display="dynamic"
             routerLinkActive="active"
