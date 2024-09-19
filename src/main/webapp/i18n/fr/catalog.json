@@ -14,6 +14,7 @@
     "showingFrom": "Affichage de",
     "on": "sur",
     "results": "résultats",
-    "noBooksMatchYourSearch": "Aucun livre ne correspond à votre recherche"
+    "noBooksMatchYourSearch": "Aucun livre ne correspond à votre recherche",
+    "empty-filters": "Vider les filtres"
   }
 }
