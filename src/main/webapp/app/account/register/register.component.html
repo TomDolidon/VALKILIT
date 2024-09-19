@@ -82,13 +82,13 @@
             }
           </div>
           <div class="mb-3">
-            <label class="form-label" for="firstName">Prénom</label>
+            <label class="form-label" for="firstName" jhiTranslate="settings.form.firstname">Prénom</label>
             <input
               type="text"
               class="form-control"
               id="firstName"
               name="firstName"
-              placeholder="Prénom"
+              placeholder="{{ 'settings.form.firstname.placeholder' | translate }}"
               formControlName="firstName"
               data-cy="firstName"
             />
@@ -111,13 +111,13 @@
             }
           </div>
           <div class="mb-3">
-            <label class="form-label" for="lastName">Nom</label>
+            <label class="form-label" for="lastName" jhiTranslate="settings.form.lastname">Nom</label>
             <input
               type="text"
               class="form-control"
               id="lastName"
               name="lastName"
-              placeholder="Nom"
+              placeholder="{{ 'settings.form.lastname' | translate }}"
               formControlName="lastName"
               data-cy="lastName"
             />
@@ -267,6 +267,7 @@
               placeholder="{{ 'global.form.adress' | translate }}"
               formControlName="street"
               data-cy="street"
+              maxlength="254"
             />
 
             @let streetRef = registerForm.get('street')!;
@@ -297,6 +298,7 @@
               placeholder="{{ 'global.form.postal-code' | translate }}"
               formControlName="postalCode"
               data-cy="postalCode"
+              maxlength="5"
             />
 
             @let postalCodeRef = registerForm.get('postalCode')!;
@@ -323,6 +325,7 @@
               placeholder="{{ 'global.form.city' | translate }}"
               formControlName="city"
               data-cy="city"
+              maxlength="254"
             />
 
             @let cityRef = registerForm.get('city')!;
@@ -353,6 +356,7 @@
               placeholder="{{ 'global.form.country' | translate }}"
               formControlName="country"
               data-cy="country"
+              maxlength="100"
             />
 
             @let countryRef = registerForm.get('country')!;

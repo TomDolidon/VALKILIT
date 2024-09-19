@@ -12,6 +12,7 @@
             placeholder="Adresse"
             formControlName="street"
             data-cy="street"
+            maxlength="254"
           />
 
           @let streetRef = addressForm.get('street')!;
@@ -42,6 +43,7 @@
             placeholder="Code postal"
             formControlName="postalCode"
             data-cy="postalCode"
+            maxlength="5"
           />
 
           @let postalCodeRef = addressForm.get('postalCode')!;
@@ -60,7 +62,16 @@
 
         <div class="mb-3">
           <label class="form-label" for="city">Ville</label>
-          <input type="text" class="form-control" id="city" name="city" placeholder="Ville" formControlName="city" data-cy="city" />
+          <input
+            type="text"
+            class="form-control"
+            id="city"
+            name="city"
+            placeholder="Ville"
+            formControlName="city"
+            data-cy="city"
+            maxlength="254"
+          />
 
           @let cityRef = addressForm.get('city')!;
           @if (cityRef.invalid && (cityRef.dirty || cityRef.touched)) {
@@ -94,6 +105,7 @@
             placeholder="Pays"
             formControlName="country"
             data-cy="country"
+            maxlength="100"
           />
 
           @let countryRef = addressForm.get('country')!;
@@ -120,10 +132,14 @@
       </form>
 
       <div *ngIf="isShowingOptionalButtons">
-        <p-button *ngIf="this.currentUserAddress.id !== ''" (onClick)="hydrateFormWithUserCurrentAddress()"
-          >Compléter avec l'adresse liée à mon compte</p-button
-        >
-        <p-button (onClick)="emptyForm()">Vider le formulaire</p-button>
+        <p-button
+          icon="pi pi-check-square"
+          styleClass="mr-1 mb-1"
+          *ngIf="this.currentUserAddress.id !== ''"
+          (onClick)="hydrateFormWithUserCurrentAddress()"
+          label="Compléter avec l'adresse liée à mon compte"
+        />
+        <p-button icon="pi pi-trash" severity="danger" styleClass="mr-1 mb-1" (onClick)="emptyForm()" label="Vider le formulaire" />
       </div>
     </div>
   </div>
