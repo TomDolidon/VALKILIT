@@ -3,7 +3,7 @@
     <div class="d-flex flex-column justify-content-center content-text">
       <h1 class="h1-main" jhiTranslate="home.title">Trouvez le livre qu'il vous faut</h1>
       <h2 jhiTranslate="home.subtitle" [translateValues]="{ count: 28 }">
-        ValkyLit, c'est LA réference de vente de livre en ligne avec plus de 28 produits
+        ValkyLit, c'est LA référence de vente de livre en ligne avec plus de 28 produits
       </h2>
       <p-button [routerLink]="['/catalog']" class="catalog-btn" size="large">{{ 'home.exploreOurCatalog' | translate }}</p-button>
     </div>
@@ -43,19 +43,22 @@
         }}</p-button>
       </div>
     </div>
-  </div>
 
-  <div *ngIf="topBooks.length > 0">
-    <h3 class="m-4 text-center" jhiTranslate="home.topRatedBooksSentence">
-      Niveau idées cadeaux, vous faites page blanche ? Retrouvez ici nos livres les plus aimés de nos lecteurs
-    </h3>
+    <div *ngIf="topBooks && topBooks.length > 0" class="generic-page-container mb-4 mt-3">
+      <h3 class="mb-3">
+        <i class="pi pi-megaphone mr-2"></i>
+        <span jhiTranslate="home.topRatedBooksSentence"
+          >Niveau idées cadeaux, vous faites page blanche ? Retrouvez ici nos livres les plus aimés de nos lecteurs</span
+        >
+      </h3>
 
-    <div class="d-flex justify-content-around mb-4">
-      <div *ngFor="let book of topBooks" class="d-flex flex-column align-items-center">
-        <div class="m-2">
-          <p-rating [(ngModel)]="book[1]" [readonly]="true" [cancel]="false" severity="warn" />
+      <div class="d-flex flex-wrap justify-content-around mb-4 d-flex-vertical-mobile">
+        <div *ngFor="let book of topBooks" class="book-card-top-rated">
+          <div class="m-2">
+            <p-rating [(ngModel)]="book[1]" [cancel]="false" [readonly]="true" pStyleClass="no-pointer" severity="warn" />
+          </div>
+          <jhi-book-card [book]="book[0]"></jhi-book-card>
         </div>
-        <jhi-book-card [book]="book[0]"></jhi-book-card>
       </div>
     </div>
   </div>

@@ -7,11 +7,8 @@ import { BehaviorSubject, Observable, of } from 'rxjs';
 import { HttpClient, HttpResponse } from '@angular/common/http';
 
 import { catchError, map } from 'rxjs/operators'; // Ensure these are imported
-
 import { ApplicationConfigService } from '../config/application-config.service';
 import { PurchaseCommandService } from 'app/entities/purchase-command/service/purchase-command.service';
-import { IPurchaseCommand } from 'app/entities/purchase-command/purchase-command.model';
-import { MessageService } from 'primeng/api';
 import { IBook } from 'app/entities/book/book.model';
 import { CartSynchMessageService } from './cart-synch-message.service';
 
@@ -37,6 +34,14 @@ export class CartService {
 
   public getCart(): (IPurchaseCommandLine | NewPurchaseCommandLine)[] {
     return this.cart;
+  }
+
+  /**
+   * get quantity of an item in the cart
+   * @returns
+   */
+  public getCartItemQuantity(bookId: string): number {
+    return this.cart.find(line => line.book?.id === bookId)?.quantity ?? 0;
   }
 
   public loadCart(): void {
@@ -144,9 +149,18 @@ export class CartService {
       next: (res: HttpResponse<any>) => {
         this.cart = res.body.purchaseCommandLines as (IPurchaseCommandLine | NewPurchaseCommandLine)[];
         this.cartItemsCount.next(this.getCartTotalItems());
+        this.cartSynchMessageService.sendMessage({
+          severity: 'success',
+          icon: 'pi-cart-arrow-down',
+          detail: 'Livre ajouté au panier',
+        });
       },
-      error(err) {
+      error: err => {
         console.error('Error occurred:', err);
+        this.cartSynchMessageService.sendMessage({
+          severity: 'error',
+          detail: "Le livre n'a pas pu être ajouté au panier",
+        });
       },
     });
   }
@@ -168,6 +182,11 @@ export class CartService {
     }
     this.saveLocalCart(this.cart);
     this.cartItemsCount.next(this.getCartTotalItems());
+    this.cartSynchMessageService.sendMessage({
+      severity: 'success',
+      icon: 'pi-cart-arrow-down',
+      detail: 'Livre ajouté au panier',
+    });
 
     this.getLocalCart();
   }
@@ -297,7 +316,7 @@ export class CartService {
 
                   this.cartSynchMessageService.sendMessage({
                     severity: 'info',
-                    summary: 'Fusion des paniers',
+                    icon: 'pi-shopping-cart',
                     detail: 'Votre panier courant a été fusionné avec le panier de votre compte',
                   });
                 },
@@ -317,8 +336,8 @@ export class CartService {
                   this.cartItemsCount.next(this.getCartTotalItems());
                   this.cartSynchMessageService.sendMessage({
                     severity: 'info',
-                    summary: 'Association du panier',
-                    detail: 'Votre panier courrant a été associé à votre compte',
+                    icon: 'pi-shopping-cart',
+                    detail: 'Votre panier courant a été associé à votre compte',
                   });
                 },
                 error: err => {
@@ -336,7 +355,7 @@ export class CartService {
 
           this.cartSynchMessageService.sendMessage({
             severity: 'info',
-            summary: 'Récupération du panier',
+            icon: 'pi-shopping-cart',
             detail: 'Le panier associé à votre compte a été récupéré',
           });
         }

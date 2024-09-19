@@ -41,11 +41,17 @@
       <td>
         <div class="d-flex">
           <!-- Minus button -->
-          <p-button size="small" icon="pi pi-minus" class="button-sm" (onClick)="onDecreaseQuantity(line.book)"></p-button>
+          <p-button (onClick)="onDecreaseQuantity(line)" class="button-sm" icon="pi pi-minus" size="small"></p-button>
           <!-- Quantity display -->
           <span class="quantity-display mx-2 align-self-center">{{ line.quantity }}</span>
           <!-- Plus button -->
-          <p-button size="small" icon="pi pi-plus" class="button-sm" (onClick)="onIncreaseQuantity(line.book)"></p-button>
+          <p-button
+            (onClick)="onIncreaseQuantity(line.book)"
+            [disabled]="line.quantity >= line.book.stock"
+            class="button-sm"
+            icon="pi pi-plus"
+            size="small"
+          ></p-button>
         </div>
       </td>
       <td>{{ line.quantity * line.book.price | currency: 'EUR' }}</td>

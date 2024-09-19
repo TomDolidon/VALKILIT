@@ -331,6 +331,10 @@ body {
   color: #fff;
 }
 
+.no-pointer {
+  cursor: default !important;
+}
+
 .generic-page-container {
   margin-left: 10%;
   margin-right: 10%;
@@ -360,4 +364,14 @@ body {
     margin-right: 4%;
     padding: 0.2rem 1rem 0.8rem 1rem !important;
   }
+}
+
+.p-toast {
+  max-width: 100%;
+  width: unset;
+  opacity: 1;
+}
+
+.p-autocomplete-panel .p-autocomplete-items .p-autocomplete-item.p-highlight {
+  color: #fff;
 }

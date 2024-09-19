@@ -16,6 +16,7 @@ import { CarouselModule } from 'primeng/carousel';
 import { CartService } from 'app/core/cart/cart.service';
 import { ImageUrlPipe } from 'app/shared/external-image/image-url.pipe';
 import ReviewsComponent from './review/reviews.component';
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
   selector: 'jhi-details',
@@ -37,6 +38,7 @@ import ReviewsComponent from './review/reviews.component';
     ReviewsComponent,
     ButtonModule,
     RouterLink,
+    TranslateModule,
   ],
   templateUrl: './details.component.html',
   styleUrl: './details.component.scss',
@@ -75,6 +77,10 @@ export default class DetailsComponent implements OnInit {
         },
       });
     });
+  }
+
+  isBookStillInStockAccordingToMyCart(book: IBook): boolean {
+    return this.cartService.getCartItemQuantity(book.id) < book.stock!;
   }
 
   loadFirstAuthorBooks(): void {

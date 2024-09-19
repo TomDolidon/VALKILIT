@@ -11,6 +11,17 @@
   }
 }
 
+::ng-deep {
+  .book-card-top-rated {
+    width: 100%;
+
+    .book-card {
+      box-shadow: 0 0 4px 0px rgb(193 147 18 / 53%);
+      border: 2px solid #a68122 !important;
+    }
+  }
+}
+
 .book-card {
   transition:
     transform 0.3s ease,
@@ -27,10 +38,6 @@
     display: flex;
     align-items: center;
     justify-content: center;
-
-    @media screen and (min-width: 1001px) and (max-width: 1199px) {
-      flex: 0 0 50px;
-    }
 
     @media screen and (max-width: 426px) {
       flex: 0 0 50px;

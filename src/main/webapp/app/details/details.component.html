@@ -30,7 +30,7 @@
         </tr>
         <tr>
           <td class="pr-2">Format :</td>
-          <td>{{ book.format }}</td>
+          <td>{{ 'valkylitApp.BookFormat.' + book.format | translate }}</td>
         </tr>
         <tr>
           <td class="pr-2">Langue :</td>
@@ -57,7 +57,7 @@
           <h1 class="m-0">{{ book.price | currency: 'EUR' }}</h1>
           <p-button
             (onClick)="onBuyBookBtnClick()"
-            [disabled]="!book.stock"
+            [disabled]="!book.stock || !isBookStillInStockAccordingToMyCart(book)"
             icon="pi pi-cart-plus"
             label="Ajouter au panier"
             size="small"

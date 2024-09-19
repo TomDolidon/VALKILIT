@@ -40,6 +40,10 @@ export default class BookCardComponent {
     return this.book?.categories?.slice(0, this.maxVisibleCategories);
   }
 
+  isBookStillInStockAccordingToMyCart(book: IBook): boolean {
+    return this.cartService.getCartItemQuantity(book.id) < book.stock!;
+  }
+
   onBuyBookBtnClick(): void {
     if (this.book) {
       this.cartService.addToCart(this.book);

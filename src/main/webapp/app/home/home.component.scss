@@ -79,6 +79,28 @@ Main page styles
   .section-recent-books {
     display: none !important;
   }
+
+  .d-flex-vertical-mobile {
+    flex-direction: column;
+  }
+
+  .section-1 {
+    background: unset !important;
+    height: auto !important;
+    margin-left: 4%;
+    margin-right: 4%;
+    margin-top: 1rem;
+    border-radius: 8px;
+    background-color: #fff !important;
+    padding: 0.2rem 1rem 0.8rem 1rem !important;
+    box-shadow:
+      0 4px 8px rgba(0, 0, 0, 0.1),
+      0 2px 4px rgba(0, 0, 0, 0.06);
+  }
+
+  .section-3 {
+    margin: 0 !important;
+  }
 }
 
 ::ng-deep {

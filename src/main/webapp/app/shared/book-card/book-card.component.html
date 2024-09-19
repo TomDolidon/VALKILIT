@@ -33,6 +33,7 @@
           icon="pi pi-cart-plus"
           label="{{ 'cart.addToCart' | translate }}"
           size="small"
+          [disabled]="!isBookStillInStockAccordingToMyCart(book)"
         />
         <p-button *ngIf="!book.stock" [disabled]="true" icon="pi pi-cart-plus" label="{{ 'cart.outOfStock' | translate }}" size="small" />
       </div>

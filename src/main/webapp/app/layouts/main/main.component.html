@@ -1,7 +1,7 @@
 <div class="app-container">
   <div class="content">
     <router-outlet name="navbar"></router-outlet>
-    <p-toast></p-toast>
+    <p-toast preventOpenDuplicates="true"></p-toast>
 
     <!-- Fully designed pages as home or catalog -->
     <div *ngIf="isSpecialPage; else genericTemplate">

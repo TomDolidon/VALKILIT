@@ -7,12 +7,12 @@ import { AccountService } from 'app/core/auth/account.service';
 import { AppPageTitleStrategy } from 'app/app-page-title-strategy';
 import FooterComponent from '../footer/footer.component';
 import PageRibbonComponent from '../profiles/page-ribbon.component';
-import { ToastModule } from 'primeng/toast';
 import { Message, MessageService } from 'primeng/api';
 import { NgIf, ViewportScroller } from '@angular/common';
 import { GenericPageComponent } from '../generic-page/generic-page.component';
 import { CartSynchMessageService } from 'app/core/cart/cart-synch-message.service';
 import { CartService } from 'app/core/cart/cart.service';
+import { ToastModule } from 'primeng/toast';
 
 @Component({
   standalone: true,
