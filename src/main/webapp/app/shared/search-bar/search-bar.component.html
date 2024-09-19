@@ -7,7 +7,7 @@
         type="text"
         class="search-bar-input"
         pInputText
-        placeholder="Recherchez un livre"
+        placeholder="{{ 'global.menu.search-bar' | translate }}"
       />
       <p-inputIcon styleClass="pi pi-times" *ngIf="searchTerm" (click)="clearSearch()" />
     </p-iconField>
