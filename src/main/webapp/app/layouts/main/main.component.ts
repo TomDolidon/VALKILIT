@@ -9,7 +9,7 @@ import FooterComponent from '../footer/footer.component';
 import PageRibbonComponent from '../profiles/page-ribbon.component';
 import { ToastModule } from 'primeng/toast';
 import { Message, MessageService } from 'primeng/api';
-import { NgIf } from '@angular/common';
+import { NgIf, ViewportScroller } from '@angular/common';
 import { GenericPageComponent } from '../generic-page/generic-page.component';
 import { CartSynchMessageService } from 'app/core/cart/cart-synch-message.service';
 import { CartService } from 'app/core/cart/cart.service';
@@ -36,13 +36,14 @@ export default class MainComponent implements OnInit {
   private cartSynchMessageService = inject(CartSynchMessageService);
   private messageService = inject(MessageService);
 
-  constructor() {
+  constructor(private viewportScroller: ViewportScroller) {
     this.renderer = this.rootRenderer.createRenderer(document.querySelector('html'), null);
 
     this.router.events.subscribe(event => {
       if (event instanceof NavigationEnd) {
         this.isSpecialPage =
           this.specialDesignedPages.includes(event.url) || event.url.startsWith('/catalog') || event.url.startsWith('/details/');
+        this.viewportScroller.scrollToPosition([0, 0]);
       }
     });
   }
