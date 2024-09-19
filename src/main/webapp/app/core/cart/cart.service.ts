@@ -143,6 +143,7 @@ export class CartService {
         this.cartItemsCount.next(this.getCartTotalItems());
         this.cartSynchMessageService.sendMessage({
           severity: 'success',
+          icon: 'pi-cart-arrow-down',
           detail: 'Livre ajouté au panier',
         });
       },
@@ -175,6 +176,7 @@ export class CartService {
     this.cartItemsCount.next(this.getCartTotalItems());
     this.cartSynchMessageService.sendMessage({
       severity: 'success',
+      icon: 'pi-cart-arrow-down',
       detail: 'Livre ajouté au panier',
     });
 
@@ -306,6 +308,7 @@ export class CartService {
 
                   this.cartSynchMessageService.sendMessage({
                     severity: 'info',
+                    icon: 'pi-shopping-cart',
                     detail: 'Votre panier courant a été fusionné avec le panier de votre compte',
                   });
                 },
@@ -325,6 +328,7 @@ export class CartService {
                   this.cartItemsCount.next(this.getCartTotalItems());
                   this.cartSynchMessageService.sendMessage({
                     severity: 'info',
+                    icon: 'pi-shopping-cart',
                     detail: 'Votre panier courant a été associé à votre compte',
                   });
                 },
@@ -343,6 +347,7 @@ export class CartService {
 
           this.cartSynchMessageService.sendMessage({
             severity: 'info',
+            icon: 'pi-shopping-cart',
             detail: 'Le panier associé à votre compte a été récupéré',
           });
         }
