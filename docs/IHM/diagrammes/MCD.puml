@@ -4,19 +4,19 @@ entity "User" as User {
  id: int required
  login: String required
  password_hash: String required
- first_name: String 
- last_name: String required
+ firstName: String 
+ lastName: String required
  email: String
- image_url: String
+ imageUrl: String
  activated: boolean
- lang_key: String
+ langKey: String
  activation_key: String
- reset_key: String
- created_by: String required
- created_date: Date
- last_modified_by: String
- last_modified_date: Date
- reset_date: Date
+ resetKey: String
+ createdBy: String required
+ createdDate: Date
+ lastModifiedBy: String
+ lastModifiedDate: Date
+ resetDate: Date
 }
 
 entity "Authority" as Authority {
@@ -26,49 +26,33 @@ entity "Authority" as Authority {
 entity "Client" as Client {
  id: int required
  birthdate: Date
- created_by: String
- created_date: Date
- last_modified_by: String
- last_modified_date: Date
 }
 
 entity "PurchaseCommand" as PurchaseCommand {
  id: int
  expeditionDate: Date
  status: PurchaseCommandStatus
- created_by: String
- created_date: Date
- last_modified_by: String
- last_modified_date: Date
 }
 
 entity "PurchaseCommandLine" as PurchaseCommandLine {
  id: int required
  quantity: int required
  unitPrice : float required
- created_by: string
- created_date: Date required
- last_modified_by: string
- last_modified_date: Date
 }
 
 entity "Book" as Book {
   id: int required
   title: String required
   subtitle: String
-  image_uri: String
+  imageUri: String
   price: float required
   isbn: String
   format: BookFormat required
   stock: int required
-  description: text
+  description: String
   pageCount: int
   language: Language required
   publishDate: Date required
-  created_by: string
-  created_date: Date
-  last_modified_by: string
-  last_modified_date: Date
 }
 
 entity "Address" as Address {
@@ -82,47 +66,36 @@ entity "Address" as Address {
 entity "Author" as Author {
   id: int required
   name: String required
-  description: text
-  created_by: String
-  created_date: Date
-  last_modified_by: String
-  last_modified_date: Date
+  description: String
 }
 
 
 entity "Publisher" as Publisher {
   id: int required
   name: String required
-  description: text
-  created_by: String
-  created_date: Date
-  last_modified_by: String
-  last_modified_date: Date
+  description: String
 }
 
 entity "Award" as Award {
  id: int required
  name: String required
- description: text
+ description: String
 }
 
 entity "Award_Book" as Award_Book {
- book_id: int required
- award_id: String required
  year: Date required
 }
 
 entity "BookCategory" as BookCategory{
   id: int required
   name: String required
-  description: text
+  description: String
 }
 
 entity "Review" as Review{
   id: int required
   rating: int required
-  comment: text
-  created_date: Date required
+  comment: String
 }
 
 package Enum {
