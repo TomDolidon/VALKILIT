@@ -41,7 +41,7 @@
       <td>
         <div class="d-flex">
           <!-- Minus button -->
-          <p-button size="small" icon="pi pi-minus" class="button-sm" (onClick)="onDecreaseQuantity(line.book)"></p-button>
+          <p-button (onClick)="onDecreaseQuantity(line)" class="button-sm" icon="pi pi-minus" size="small"></p-button>
           <!-- Quantity display -->
           <span class="quantity-display mx-2 align-self-center">{{ line.quantity }}</span>
           <!-- Plus button -->

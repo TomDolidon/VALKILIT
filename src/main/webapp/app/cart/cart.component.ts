@@ -67,8 +67,13 @@ export default class CartComponent implements OnInit, OnDestroy {
     this.cartService.addToCart(book);
   }
 
-  public onDecreaseQuantity(book: IBook): void {
-    this.cartService.decreaseQuantity(book.id);
+  public onDecreaseQuantity(line: IBookCart): void {
+    if (line.quantity < 2) {
+      this.itemToDelete = line;
+      this.isRemoveItemDialogVisible = true;
+    } else {
+      this.cartService.decreaseQuantity(line.book.id);
+    }
   }
 
   public onEmptyCart(): void {
@@ -76,7 +81,6 @@ export default class CartComponent implements OnInit, OnDestroy {
     this.isEmptyCartDialogVisible = false;
   }
 
-  // TODO
   public onBookTrashBTnClick(item: IBookCart): void {
     this.itemToDelete = item;
     this.isRemoveItemDialogVisible = true;
