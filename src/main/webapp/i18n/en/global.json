@@ -46,7 +46,8 @@
       },
       "catalog": "Catalog",
       "cart": "Cart",
-      "language": "Language"
+      "language": "Language",
+      "search-bar": "Search for a book..."
     },
     "form": {
       "username.label": "Username",
@@ -60,7 +61,11 @@
       "confirmpassword.label": "New password confirmation",
       "confirmpassword.placeholder": "Confirm the new password",
       "email.label": "Email",
-      "email.placeholder": "Your email"
+      "email.placeholder": "Your email",
+      "adress": "Adress",
+      "postal-code": "Postal code",
+      "city": "City",
+      "country": "Country"
     },
     "messages": {
       "info": {
@@ -175,10 +180,14 @@
       "not.image": "File was expected to be an image but was found to be \"{{ fileType }}\""
     }
   },
+  "book-card": {
+    "no-stock": "Out of stock",
+    "add-button-cart": "Add to cart"
+  },
   "footer": {
     "tos": "Terms of Service",
     "privacypolicy": "Privacy Policy",
     "mentions": "Legal Notice",
-    "contact": "Contact"
+    "contact": "Contact Form"
   }
 }

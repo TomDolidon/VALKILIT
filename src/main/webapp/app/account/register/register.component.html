@@ -258,13 +258,13 @@
           </div>
 
           <div class="mb-3">
-            <label class="form-label" for="street">Adresse</label>
+            <label class="form-label" for="street" jhiTranslate="global.form.adress">Adresse</label>
             <input
               type="text"
               class="form-control"
               id="street"
               name="street"
-              placeholder="Adresse"
+              placeholder="{{ 'global.form.adress' | translate }}"
               formControlName="street"
               data-cy="street"
             />
@@ -288,13 +288,13 @@
           </div>
 
           <div class="mb-3">
-            <label class="form-label" for="postalCode">Code postal</label>
+            <label class="form-label" for="postalCode" jhiTranslate="global.form.postal-code">Code postal</label>
             <input
               type="number"
               class="form-control"
               id="postalCode"
               name="postalCode"
-              placeholder="Code postal"
+              placeholder="{{ 'global.form.postal-code' | translate }}"
               formControlName="postalCode"
               data-cy="postalCode"
             />
@@ -314,8 +314,16 @@
           </div>
 
           <div class="mb-3">
-            <label class="form-label" for="city">Ville</label>
-            <input type="text" class="form-control" id="city" name="city" placeholder="Ville" formControlName="city" data-cy="city" />
+            <label class="form-label" for="city" jhiTranslate="global.form.city">Ville</label>
+            <input
+              type="text"
+              class="form-control"
+              id="city"
+              name="city"
+              placeholder="{{ 'global.form.city' | translate }}"
+              formControlName="city"
+              data-cy="city"
+            />
 
             @let cityRef = registerForm.get('city')!;
             @if (cityRef.invalid && (cityRef.dirty || cityRef.touched)) {
@@ -336,13 +344,13 @@
           </div>
 
           <div class="mb-3">
-            <label class="form-label" for="country">Pays</label>
+            <label class="form-label" for="country" jhiTranslate="global.form.country">Pays</label>
             <input
               type="text"
               class="form-control"
               id="country"
               name="country"
-              placeholder="Pays"
+              placeholder="{{ 'global.form.country' | translate }}"
               formControlName="country"
               data-cy="country"
             />

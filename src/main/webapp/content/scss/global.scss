@@ -331,6 +331,10 @@ body {
   color: #fff;
 }
 
+.no-pointer {
+  cursor: default !important;
+}
+
 .generic-page-container {
   margin-left: 10%;
   margin-right: 10%;
