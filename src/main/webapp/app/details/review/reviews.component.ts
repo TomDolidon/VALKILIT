@@ -7,6 +7,7 @@ import { IReview } from 'app/entities/review/review.model';
 import { ReviewService } from 'app/entities/review/service/review.service';
 import { RatingModule } from 'primeng/rating';
 import { ButtonModule } from 'primeng/button';
+import { AccountService } from 'app/core/auth/account.service';
 
 @Component({
   selector: 'jhi-reviews',
@@ -29,11 +30,16 @@ export default class ReviewsComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private reviewService: ReviewService,
+    private accountService: AccountService,
   ) {
     this.reviewForm = this.fb.group({
       rating: [4, Validators.required], // PrimeNG Rating Control
       comment: ['', [Validators.required, Validators.minLength(10)]],
     });
+  }
+
+  get isAuthenticated(): boolean {
+    return this.accountService.isAuthenticated();
   }
 
   // Soumettre la review
