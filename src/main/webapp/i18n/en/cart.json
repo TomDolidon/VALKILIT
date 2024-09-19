@@ -8,7 +8,7 @@
     "total": "Total ({{count}} books in your cart) : {{count2}}",
     "emptyTheCart": "Empty the cart",
     "validateTheCart": "Validate the cart",
-    "addToCart": "Validate the cart",
+    "addToCart": "Add to cart",
     "outOfStock": "Out of stock",
     "emptyTheCartConfirmationMessage": "Are you sure you want to empty the cart?",
     "removeItemFromCartConfirmationMessage": "Are you sure you want to remove the book \"{{title}}\" from your cart?"
