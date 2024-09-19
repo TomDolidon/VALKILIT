@@ -42,7 +42,6 @@ export class AddressComponent {
               this.currentUserAddress = response.body as IAddress;
               this.messageService.add({
                 severity: 'success',
-                summary: 'Succès',
                 detail: 'Adresse mise à jour.',
               });
             });
@@ -50,14 +49,12 @@ export class AddressComponent {
         error: () =>
           this.messageService.add({
             severity: 'error',
-            summary: 'Erreur',
             detail: "Erreur lors de la création de l'adresse.",
           }),
       });
     } else {
       this.messageService.add({
         severity: 'info',
-        summary: 'Information',
         detail: 'Cette adresse est déjà liée à votre compte.',
       });
     }

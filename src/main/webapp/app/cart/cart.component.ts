@@ -1,6 +1,4 @@
-/* eslint-disable */
-
-import { Component, OnDestroy, OnInit, inject, signal } from '@angular/core';
+import { Component, inject, OnDestroy, OnInit, signal } from '@angular/core';
 import { Router, RouterModule } from '@angular/router';
 import { Subject } from 'rxjs';
 import { FormsModule } from '@angular/forms';

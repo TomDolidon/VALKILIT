@@ -118,7 +118,6 @@ export class CheckoutComponent {
             if (!draftResponse?.body) {
               this.messageService.add({
                 severity: 'error',
-                summary: 'Erreur',
                 detail: 'Votre commande est introuvable.',
               });
               this.isProceedingCheckout = false;
@@ -239,11 +238,12 @@ export class CheckoutComponent {
     if (!this.isAddressAlreadyCreated()) {
       const addressData = this.getAddressGroupForm().value;
       this.addressService.create({ ...addressData, id: null }).subscribe({
-        next: () => this.validatePurchaseCommand(),
+        next: () => {
+          this.validatePurchaseCommand();
+        },
         error: () => {
           this.messageService.add({
             severity: 'error',
-            summary: 'Erreur',
             detail: "Erreur lors de la création de l'adresse.",
           });
           this.isProceedingCheckout = false;
@@ -260,7 +260,6 @@ export class CheckoutComponent {
         this.cartService.clearCart();
         this.messageService.add({
           severity: 'success',
-          summary: 'Confirmation',
           detail: 'Votre commande a été validée. Son expédition se fera dans un délai de 24 heures.',
           life: 6000,
         });
@@ -269,7 +268,6 @@ export class CheckoutComponent {
       error: () => {
         this.messageService.add({
           severity: 'error',
-          summary: 'Erreur',
           detail: 'Erreur lors de la validation de la commande.',
         });
         this.isProceedingCheckout = false;
