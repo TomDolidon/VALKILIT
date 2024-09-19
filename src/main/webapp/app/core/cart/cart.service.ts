@@ -36,6 +36,14 @@ export class CartService {
     return this.cart;
   }
 
+  /**
+   * get quantity of an item in the cart
+   * @returns
+   */
+  public getCartItemQuantity(bookId: string): number {
+    return this.cart.find(line => line.book?.id === bookId)?.quantity ?? 0;
+  }
+
   public loadCart(): void {
     if (this.accountService.isAuthenticated()) {
       this.getDBCart().subscribe({

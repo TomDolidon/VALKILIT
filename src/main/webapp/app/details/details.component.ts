@@ -79,6 +79,10 @@ export default class DetailsComponent implements OnInit {
     });
   }
 
+  isBookStillInStockAccordingToMyCart(book: IBook): boolean {
+    return this.cartService.getCartItemQuantity(book.id) < book.stock!;
+  }
+
   loadFirstAuthorBooks(): void {
     this.bookService
       .query({
