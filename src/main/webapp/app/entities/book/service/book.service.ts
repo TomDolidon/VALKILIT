@@ -147,6 +147,12 @@ export class BookService {
     return bookCollection;
   }
 
+  getTopBooksByAverageRating(nbBook: number): Observable<[IBook, number][]> {
+    return this.http.get<[IBook, number][]>(`${this.resourceUrl}/top-rated`, {
+      params: { limit: nbBook.toString() },
+    });
+  }
+
   protected convertDateFromClient<T extends IBook | NewBook | PartialUpdateBook>(book: T): RestOf<T> {
     return {
       ...book,

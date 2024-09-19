@@ -19,7 +19,7 @@ import SharedModule from '../shared.module';
   styleUrl: './book-card.component.scss',
   imports: [CommonModule, ButtonModule, AnimateModule, ChipModule, RouterLink, ImageUrlPipe, TranslateDirective, SharedModule],
 })
-export default class BookCard2Component {
+export default class BookCardComponent {
   @Input() book: IBook = {
     authors: [],
     categories: [],

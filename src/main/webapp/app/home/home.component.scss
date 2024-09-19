@@ -91,3 +91,8 @@ Main page styles
     }
   }
 }
+
+:host ::ng-deep .p-rating .p-rating-icon {
+  font-size: 2em; /* Ajustez la taille selon vos besoins */
+  color: #c19312;
+}
