@@ -1,14 +1,15 @@
-import { Component, OnDestroy, OnInit, inject, signal } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { Component, inject, OnDestroy, OnInit, signal } from '@angular/core';
+import { ActivatedRoute, RouterLink } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { TranslateService } from '@ngx-translate/core';
 import SharedModule from 'app/shared/shared.module';
+import { Button } from 'primeng/button';
 
 @Component({
   standalone: true,
   selector: 'jhi-error',
   templateUrl: './error.component.html',
-  imports: [SharedModule],
+  imports: [SharedModule, Button, RouterLink],
 })
 export default class ErrorComponent implements OnInit, OnDestroy {
   errorMessage = signal<string | undefined>(undefined);
