@@ -16,6 +16,7 @@ import { ClientService } from '../../entities/client/service/client.service';
 import { Account } from '../../core/auth/account.model';
 import { catchError, switchMap, tap } from 'rxjs/operators';
 import { of } from 'rxjs';
+import { CartService } from '../../core/cart/cart.service';
 
 @Component({
   standalone: true,
@@ -96,6 +97,7 @@ export default class RegisterComponent implements AfterViewInit {
   private accountService = inject(AccountService);
   private loginService = inject(LoginService);
   private clientService = inject(ClientService);
+  private cartService = inject(CartService);
   private router = inject(Router);
 
   ngAfterViewInit(): void {
@@ -156,8 +158,10 @@ export default class RegisterComponent implements AfterViewInit {
                     address: addressId,
                   })
                   .pipe(
-                    // eslint-disable-next-line @typescript-eslint/no-misused-promises
-                    tap(() => this.router.navigate(['/'])),
+                    tap(() => {
+                      this.router.navigate(['/']);
+                      this.cartService.handleLogin();
+                    }),
                   );
               }),
 
