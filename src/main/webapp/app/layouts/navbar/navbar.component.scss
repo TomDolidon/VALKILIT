@@ -77,6 +77,13 @@ $primary-hover: #c17d65;
   }
 
   .navbar-toggler {
+    color: #fff;
+    border-color: #fff;
+
+    fa-icon {
+      margin-right: 0;
+    }
+
     &:hover {
       color: $navbar-dark-hover-color;
     }

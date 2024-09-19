@@ -1,6 +1,6 @@
 {
   "error": {
-    "title": "Page d'erreur !",
+    "title": "Page d'erreur",
     "http": {
       "400": "Mauvaise requête.",
       "403": "Vous n'avez pas les droits pour accéder à cette page.",
